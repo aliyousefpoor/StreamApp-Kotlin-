@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Stream App(Kotlin)</string>
+    <string name="stream_app">Stream App</string>
 </resources>
