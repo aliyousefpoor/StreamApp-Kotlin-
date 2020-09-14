@@ -31,5 +31,4 @@ class HomeFragment : Fragment() {
         recyclerView=view.findViewById(R.id.rec_view)
         swipeRefreshLayout=view.findViewById(R.id.homeSwipeRefreshing)
     }
-
 }
