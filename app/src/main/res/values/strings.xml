@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Stream App(Kotlin)</string>
     <string name="stream_app">Stream App</string>
+    <string name="more">بیشتر</string>
+    <string name="home">خانه</string>
+    <string name="category">دسته بندی</string>
 </resources>
