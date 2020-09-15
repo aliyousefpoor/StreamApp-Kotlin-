@@ -6,15 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.streamappkotlin.R
+import java.lang.IllegalArgumentException
 
-class MultipleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
+class MultipleAdapter(private val context: Context) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var viewPagerType: Int = 1
     private var horizontalListType: Int = 2
-    private var context: Context
 
-    constructor(context: Context) {
-        this.context = context
-    }
+
 
     override fun getItemViewType(position: Int): Int {
         return if (position == 0) {
@@ -25,21 +24,19 @@ class MultipleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        var holder: RecyclerView.ViewHolder? = null
         var inflater: LayoutInflater = LayoutInflater.from(context)
-        when (viewType) {
+       return when (viewType) {
             viewPagerType -> {
                 var viewPager: View = inflater.inflate(R.layout.header_item_layout, parent, false)
-                holder = ViewPagerViewHolder(viewPager)
-                true
+               ViewPagerViewHolder(viewPager)
+
             }
             horizontalListType -> {
                 var listView: View = inflater.inflate(R.layout.home_item_layout, parent, false)
-                holder = ListViewHolder(listView)
-                true
+                ListViewHolder(listView)
             }
+           else -> throw IllegalArgumentException("Invalid View Type")
         }
-        return holder
     }
 
     override fun getItemCount(): Int {
