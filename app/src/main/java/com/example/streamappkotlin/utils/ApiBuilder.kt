@@ -1,4 +1,4 @@
-package com.example.streamappkotlin
+package com.example.streamappkotlin.utils
 
 import retrofit2.Retrofit
 
