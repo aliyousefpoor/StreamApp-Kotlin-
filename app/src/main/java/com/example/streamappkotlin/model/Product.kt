@@ -69,4 +69,36 @@ class Product {
     @SerializedName("sku")
     @Expose
     private lateinit var sku: String
+
+    fun getId(): Int {
+        return id
+    }
+
+    fun setId(id: Int) {
+        this.id = id
+    }
+
+    fun getName(): String {
+        return name
+    }
+
+    fun setName(name: String) {
+        this.name = name
+    }
+
+    fun getAvatar(): Avatar {
+        return avatar
+    }
+
+    fun setId(avatar: Avatar) {
+        this.avatar = avatar
+    }
+
+    fun getFile(): List<File> {
+        return file
+    }
+
+    fun setId(file: List<File>) {
+        this.file = file
+    }
 }

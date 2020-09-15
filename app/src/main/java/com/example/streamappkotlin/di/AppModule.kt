@@ -11,7 +11,7 @@ class AppModule {
 
     fun provideRetrofit(): Retrofit {
 
-        var loggingInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor()
+        var loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         var httpClient: OkHttpClient.Builder = OkHttpClient.Builder()
         httpClient.addInterceptor(loggingInterceptor)

@@ -19,7 +19,7 @@ class Category {
 
     @SerializedName("avatar")
     @Expose
-    private lateinit var avatar: Objects
+    private lateinit var avatar: String
 
     @SerializedName("position")
     @Expose
@@ -35,6 +35,6 @@ class Category {
 
     @SerializedName("parent")
     @Expose
-    private lateinit var parent: Objects
+    private  var parent: Int = 0
 
 }

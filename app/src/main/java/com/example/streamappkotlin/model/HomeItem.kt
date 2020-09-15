@@ -35,4 +35,12 @@ class HomeItem {
     @SerializedName("row_mode")
     @Expose
     private var rowMode: Int = 0
+
+    fun getProducts(): List<Product> {
+        return products
+    }
+
+    fun setProducts(products: List<Product>) {
+        this.products = products
+    }
 }

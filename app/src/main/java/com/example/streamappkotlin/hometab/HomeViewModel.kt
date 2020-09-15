@@ -8,19 +8,21 @@ import com.example.streamappkotlin.model.Store
 
 class HomeViewModel : ViewModel {
     private var homeRemoteDataSource: HomeRemoteDataSource
+    fun HomeViewModel() {}
 
     constructor(homeRemoteDataSource: HomeRemoteDataSource) {
         this.homeRemoteDataSource = homeRemoteDataSource
+        getStore()
     }
 
 
     private var _storeListLiveData: MutableLiveData<Store> = MutableLiveData()
     var storeListLiveData = _storeListLiveData
 
-    private  var _loadingLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    private var _loadingLiveData: MutableLiveData<Boolean> = MutableLiveData()
     var loadingLiveData = _loadingLiveData
 
-    private  var _errorLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    private var _errorLiveData: MutableLiveData<Boolean> = MutableLiveData()
     var errorLiveData = _errorLiveData
 
     fun getStore() {
