@@ -6,7 +6,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class AppModule {
-
     private var retrofit: Retrofit? = null
 
     fun provideRetrofit(): Retrofit {
@@ -23,5 +22,4 @@ class AppModule {
         }
         return retrofit!!
     }
-
 }
