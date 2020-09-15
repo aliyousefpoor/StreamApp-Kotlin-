@@ -9,13 +9,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.streamappkotlin.R
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 class HomeFragment : Fragment() {
     lateinit var arrow: ImageView
     lateinit var recyclerView: RecyclerView
-    lateinit var swipeRefreshLayout: SwipeRefreshLayout
     lateinit var pullDown: TextView
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +29,5 @@ class HomeFragment : Fragment() {
         arrow = view.findViewById(R.id.arrow)
         pullDown=view.findViewById(R.id.pullDown)
         recyclerView=view.findViewById(R.id.rec_view)
-        swipeRefreshLayout=view.findViewById(R.id.homeSwipeRefreshing)
     }
 }
