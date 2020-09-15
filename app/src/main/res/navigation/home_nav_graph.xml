@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.streamappkotlin.HomeFragment"
+        android:name="com.example.streamappkotlin.hometab.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/home_fragment"
         />

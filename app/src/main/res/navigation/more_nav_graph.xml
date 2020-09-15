@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/moreFragment2"
-        android:name="com.example.streamappkotlin.MoreFragment"
+        android:name="com.example.streamappkotlin.moretab.MoreFragment"
         android:label="MoreFragment"
         tools:layout="@layout/more_fragment"
         />
