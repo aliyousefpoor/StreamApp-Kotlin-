@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.streamappkotlin.R
@@ -60,7 +62,7 @@ class MultipleAdapter(
             }
             horizontalListType -> {
                 val listHolder: ListViewHolder = holder as ListViewHolder
-                listHolder.onBind(homeList, context)
+                listHolder.onBind(homeList.get(position - 1), context)
                 true
             }
         }
@@ -70,7 +72,7 @@ class MultipleAdapter(
         var viewPager: ViewPager = itemView.findViewById(R.id.vp_img)
 
         init {
-            viewPager.rotationY= 180F
+            viewPager.rotationY = 180F
         }
 
         fun onBind(headerList: List<Product>, context: Context) {
@@ -79,8 +81,16 @@ class MultipleAdapter(
     }
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun onBind(homeList: List<HomeItem>, context: Context) {
+        var productRecyclerView: RecyclerView = itemView.findViewById(R.id.product_rv)
+        var title: TextView = itemView.findViewById(R.id.title)
 
+        fun onBind(homeList: HomeItem, context: Context) {
+            title.text = homeList.getTitle()
+            val adapter = ProductAdapter(homeList.getProducts(), context)
+            productRecyclerView.adapter = adapter
+            val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            productRecyclerView.layoutManager = linearLayoutManager
+            productRecyclerView.setHasFixedSize(true)
         }
     }
 }

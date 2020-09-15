@@ -35,6 +35,21 @@ class HomeItem {
     @SerializedName("row_mode")
     @Expose
     private var rowMode: Int = 0
+    fun getId(): Int {
+        return id
+    }
+
+    fun setId(id: Int) {
+        this.id = id
+    }
+
+    fun getTitle(): String {
+        return title
+    }
+
+    fun setTitle(title: String) {
+        this.title = title
+    }
 
     fun getProducts(): List<Product> {
         return products
