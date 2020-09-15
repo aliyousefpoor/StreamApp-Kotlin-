@@ -96,8 +96,11 @@ class HomeFragment : Fragment() {
             MultipleAdapter(
                 requireContext(),
                 homeList,
-                headerList
-            )
+                headerList, object : ProductListener {
+                    override fun onClick(id: Int) {
+
+                    }
+                })
         recyclerView.adapter = adapter
         val linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = linearLayoutManager

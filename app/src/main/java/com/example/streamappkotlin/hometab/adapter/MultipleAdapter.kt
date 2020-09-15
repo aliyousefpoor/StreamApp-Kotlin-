@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.streamappkotlin.R
+import com.example.streamappkotlin.hometab.ProductListener
 import com.example.streamappkotlin.model.HomeItem
 import com.example.streamappkotlin.model.Product
 import java.lang.IllegalArgumentException
 
 class MultipleAdapter(
-    private val context: Context, private var homeList: List<HomeItem>
-    , private var headerList: List<Product>
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val context: Context, private var homeList: List<HomeItem>, private var headerList: List<Product>,var productListener: ProductListener)
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var viewPagerType: Int = 1
     private var horizontalListType: Int = 2
 
@@ -62,7 +62,7 @@ class MultipleAdapter(
             }
             horizontalListType -> {
                 val listHolder: ListViewHolder = holder as ListViewHolder
-                listHolder.onBind(homeList.get(position - 1), context)
+                listHolder.onBind(homeList.get(position - 1), context,productListener)
                 true
             }
         }
@@ -84,9 +84,13 @@ class MultipleAdapter(
         var productRecyclerView: RecyclerView = itemView.findViewById(R.id.product_rv)
         var title: TextView = itemView.findViewById(R.id.title)
 
-        fun onBind(homeList: HomeItem, context: Context) {
+        fun onBind(
+            homeList: HomeItem,
+            context: Context,
+            productListener: ProductListener
+        ) {
             title.text = homeList.getTitle()
-            val adapter = ProductAdapter(homeList.getProducts(), context)
+            val adapter = ProductAdapter(homeList.getProducts(), context ,productListener)
             productRecyclerView.adapter = adapter
             val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             productRecyclerView.layoutManager = linearLayoutManager

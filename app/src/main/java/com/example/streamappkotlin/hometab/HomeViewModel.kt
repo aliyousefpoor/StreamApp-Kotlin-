@@ -8,7 +8,6 @@ import com.example.streamappkotlin.model.Store
 
 class HomeViewModel : ViewModel {
     private var homeRemoteDataSource: HomeRemoteDataSource
-    fun HomeViewModel() {}
 
     constructor(homeRemoteDataSource: HomeRemoteDataSource) {
         this.homeRemoteDataSource = homeRemoteDataSource
