@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.streamappkotlin.R
 import com.example.streamappkotlin.login.LoginStepOneDialogFragment
+import com.example.streamappkotlin.login.LoginStepTwoListener
 import com.example.streamappkotlin.model.MoreAdapter
 import com.example.streamappkotlin.model.MoreModel
 import com.example.streamappkotlin.model.Type
+import com.example.streamappkotlin.model.User
 import java.util.ArrayList
 
 class MoreFragment : Fragment() {
@@ -39,8 +41,19 @@ class MoreFragment : Fragment() {
             override fun onClick(item: MoreModel) {
                 when (item.type) {
                     Type.Profile -> {
-                        val loginStepOneDialogFragment = LoginStepOneDialogFragment()
-                        loginStepOneDialogFragment.show(parentFragmentManager, "LoginStepOneDialogFragment")
+                        val loginStepOneDialogFragment =
+                            LoginStepOneDialogFragment(object : LoginStepTwoListener {
+                                override fun userExist(exist: Boolean) {
+                                    if (exist) {
+                                        navController.navigate(R.id.action_moreFragment2_to_profileFragment)
+                                    }
+                                }
+
+                            })
+                        loginStepOneDialogFragment.show(
+                            parentFragmentManager,
+                            "LoginStepOneDialogFragment"
+                        )
                     }
                     Type.About -> {
                         navController.navigate(R.id.action_moreFragment2_to_aboutFragment)
@@ -61,7 +74,7 @@ class MoreFragment : Fragment() {
     }
 
     private fun fillWithData(): ArrayList<MoreModel> {
-        var moreLists: ArrayList<MoreModel> = ArrayList()
+        val moreLists: ArrayList<MoreModel> = ArrayList()
         moreLists.add(MoreModel("پروفایل", Type.Profile))
         moreLists.add(MoreModel("درباره ما", Type.About))
         moreLists.add(MoreModel("تماس با ما", Type.Contact))

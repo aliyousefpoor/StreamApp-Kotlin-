@@ -19,7 +19,7 @@ import com.example.streamappkotlin.login.di.LoginModule
 import com.example.streamappkotlin.model.LoginStepOneRequest
 import com.example.streamappkotlin.utils.AppConstants
 
-class LoginStepOneDialogFragment : DialogFragment() {
+class LoginStepOneDialogFragment(private var loginStepTwoListener: LoginStepTwoListener) : DialogFragment() {
     private lateinit var number: EditText
     private lateinit var submit: Button
     private var shareViewModel: LoginShareViewModel? = null
@@ -69,7 +69,7 @@ class LoginStepOneDialogFragment : DialogFragment() {
     private fun loginStepOneResponse() {
         shareViewModel!!.loginStepOneLiveData.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                val loginStepTwoDialogFragment = LoginStepTwoDialogFragment()
+                val loginStepTwoDialogFragment = LoginStepTwoDialogFragment(loginStepTwoListener)
                 loginStepTwoDialogFragment.show(parentFragmentManager, "LoginStepTwoDialogFragment")
                 dismiss()
                 dialog.dismiss()

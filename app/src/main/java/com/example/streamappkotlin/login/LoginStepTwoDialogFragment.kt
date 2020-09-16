@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.streamappkotlin.CustomApp
 import com.example.streamappkotlin.R
@@ -17,7 +19,7 @@ import com.example.streamappkotlin.login.di.LoginModule
 import com.example.streamappkotlin.model.LoginStepOneRequest
 import com.example.streamappkotlin.model.LoginStepTwoRequest
 
-class LoginStepTwoDialogFragment : DialogFragment() {
+class LoginStepTwoDialogFragment(private var loginStepTwoListener: LoginStepTwoListener) : DialogFragment() {
     private lateinit var submit: Button
     private lateinit var changeNumber: Button
     private lateinit var resendCode: TextView
@@ -34,6 +36,10 @@ class LoginStepTwoDialogFragment : DialogFragment() {
     private var shareViewModelFactory =
         LoginModule.provideLoginShareViewModelFactory(loginRepository)
     private lateinit var dialog: ProgressDialog
+init {
+    this.loginStepTwoListener=loginStepTwoListener
+}
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,7 +57,7 @@ class LoginStepTwoDialogFragment : DialogFragment() {
         changeNumber = view.findViewById(R.id.changeNumber)
         resendCode = view.findViewById(R.id.resendCode)
         code = view.findViewById(R.id.verificationCode)
-
+        loginStepTwoResponse()
         submit.setOnClickListener {
             number = shareViewModel!!.loginStepOneRequestBody.mobile
             androidId = shareViewModel!!.loginStepOneRequestBody.device_id
@@ -67,7 +73,7 @@ class LoginStepTwoDialogFragment : DialogFragment() {
         }
         changeNumber.setOnClickListener {
             dialog.dismiss()
-            val loginStepOneDialogFragment = LoginStepOneDialogFragment()
+            val loginStepOneDialogFragment = LoginStepOneDialogFragment(loginStepTwoListener)
             loginStepOneDialogFragment.show(parentFragmentManager, "LoginStepOneDialogFragment")
         }
         resendCode.setOnClickListener {
@@ -77,5 +83,20 @@ class LoginStepTwoDialogFragment : DialogFragment() {
             val loginStepOneRequest = LoginStepOneRequest(number, androidId, deviceModel, deviceOs)
             shareViewModel!!.loginStepOne(loginStepOneRequest)
         }
+    }
+
+   private fun loginStepTwoResponse() {
+        shareViewModel!!.loginStepTwoLiveData.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+
+                    loginStepTwoListener.userExist(true)
+
+                dismiss()
+                dialog.dismiss()
+            } else {
+                Toast.makeText(context, "enter valid code", Toast.LENGTH_SHORT).show()
+
+            }
+        })
     }
 }
