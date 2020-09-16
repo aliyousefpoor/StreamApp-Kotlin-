@@ -33,7 +33,7 @@ class CategoryAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val categoryViewHolder: CategoryViewHolder = holder as CategoryViewHolder
-        categoryViewHolder.onBind(categories.get(position), context, productListener)
+        categoryViewHolder.onBind(categories[position], context, productListener)
     }
 
 

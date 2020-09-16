@@ -1,5 +1,6 @@
 package com.example.streamappkotlin.di
 
+import com.example.streamappkotlin.utils.AppConstants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -16,7 +17,7 @@ class AppModule {
         httpClient.addInterceptor(loggingInterceptor)
 
         if (retrofit == null) {
-            retrofit = Retrofit.Builder().baseUrl("https://api.vasapi.click/")
+            retrofit = Retrofit.Builder().baseUrl(AppConstants.baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build()).build()
         }

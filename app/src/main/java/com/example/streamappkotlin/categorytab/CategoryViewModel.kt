@@ -6,13 +6,8 @@ import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.datasource.remote.CategoryRemoteDataSource
 import com.example.streamappkotlin.model.Category
 
-class CategoryViewModel : ViewModel {
-    private var categoryRemoteDataSource: CategoryRemoteDataSource
-
-    constructor(categoryRemoteDataSource: CategoryRemoteDataSource) {
-        this.categoryRemoteDataSource = categoryRemoteDataSource
-        getCategory()
-    }
+class CategoryViewModel(private var categoryRemoteDataSource: CategoryRemoteDataSource) :
+    ViewModel() {
 
     private var _categoryList: MutableLiveData<List<Category>> = MutableLiveData()
     var categoryList = _categoryList
@@ -37,6 +32,10 @@ class CategoryViewModel : ViewModel {
             }
 
         })
+    }
+
+    init {
+        getCategory()
     }
 
 }
