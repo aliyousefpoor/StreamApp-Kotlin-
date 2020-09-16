@@ -10,9 +10,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.streamappkotlin.CustomApp
+import com.example.streamappkotlin.ProductListener
 import com.example.streamappkotlin.R
 import com.example.streamappkotlin.categorytab.di.CategoryTabModule
 import com.example.streamappkotlin.di.ApiBuilderModule
@@ -86,6 +88,15 @@ class CategoryFragment : Fragment() {
     }
 
     private fun showCategoryList(response: List<Category>) {
-        var categoryList: List<Category> = response
+        val categoryList: List<Category> = response
+        val adapter = CategoryAdapter(categoryList, requireContext(),object :ProductListener{
+            override fun onClick(id: Int) {
+                TODO("Not yet implemented")
+            }
+
+        })
+        recyclerView.adapter = adapter
+        val linearLayoutManager = LinearLayoutManager(requireContext())
+        recyclerView.layoutManager = linearLayoutManager
     }
 }
