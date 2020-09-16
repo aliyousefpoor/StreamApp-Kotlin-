@@ -11,7 +11,7 @@ import com.example.streamappkotlin.model.LoginStepTwoResponse
 import com.example.streamappkotlin.repository.LoginRepository
 
 class LoginShareViewModel(private var loginRepository: LoginRepository) : ViewModel() {
-    private lateinit var loginStepOneRequestBody: LoginStepOneRequest
+     lateinit var loginStepOneRequestBody: LoginStepOneRequest
 
     private var _loginStepOneLiveData: MutableLiveData<LoginStepOneResponse> = MutableLiveData()
     var loginStepOneLiveData: LiveData<LoginStepOneResponse> = _loginStepOneLiveData
