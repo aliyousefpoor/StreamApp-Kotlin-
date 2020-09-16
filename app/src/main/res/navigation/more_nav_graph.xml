@@ -11,5 +11,33 @@
         android:name="com.example.streamappkotlin.moretab.MoreFragment"
         android:label="MoreFragment"
         tools:layout="@layout/more_fragment"
+        >
+        <action
+            android:id="@+id/action_moreFragment2_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_moreFragment2_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_moreFragment2_to_contactFragment"
+            app:destination="@id/contactFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.streamappkotlin.moretab.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/profile_fragment"
+        />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.streamappkotlin.moretab.AboutFragment"
+        android:label="AboutFragment"
+        tools:layout="@layout/about_fragment"
+        />
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.example.streamappkotlin.moretab.ContactFragment"
+        android:label="ContactFragment"
+        tools:layout="@layout/contact_fragment"
         />
 </navigation>

@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ import java.util.ArrayList
 
 class MoreFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
+    lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,22 +31,20 @@ class MoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.recycler_view)
+        navController = Navigation.findNavController(view)
 
         val moreList = fillWithData()
         val moreAdapter = MoreAdapter(requireContext(), moreList, object : MoreItemListener {
             override fun onClick(item: MoreModel) {
                 when (item.type) {
                     Type.Profile -> {
-                        true
+                        navController.navigate(R.id.action_moreFragment2_to_profileFragment)
                     }
                     Type.About -> {
-                        true
+                        navController.navigate(R.id.action_moreFragment2_to_aboutFragment)
                     }
                     Type.Contact -> {
-                        true
-                    }
-                    else -> {
-                        false
+                        navController.navigate(R.id.action_moreFragment2_to_contactFragment)
                     }
                 }
             }
@@ -53,7 +53,8 @@ class MoreFragment : Fragment() {
         recyclerView.adapter = moreAdapter
         val linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = linearLayoutManager
-        val dividerItemDecoration = DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
+        val dividerItemDecoration =
+            DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
         recyclerView.addItemDecoration(dividerItemDecoration)
     }
 
@@ -65,9 +66,5 @@ class MoreFragment : Fragment() {
 
         return moreLists
     }
-}
-
-private fun <E> ArrayList<E>.add(element: MoreModel) {
-
 }
 
