@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.streamappkotlin.ProductListener
 import com.example.streamappkotlin.R
 import com.example.streamappkotlin.model.Category
+import com.example.streamappkotlin.utils.AppConstants
 
 class CategoryAdapter(
     private var categories: List<Category>,
@@ -42,10 +43,10 @@ class CategoryAdapter(
         var title: TextView = itemView.findViewById(R.id.title)
 
         fun onBind(categories: Category, context: Context, productListener: ProductListener) {
-            title.text = categories.getTitle()
-            Glide.with(context).load(categories.getAvatar()).into(imageView)
+            title.text = categories.title
+            Glide.with(context).load(AppConstants.baseUrl + categories.avatar).into(imageView)
             cardView.setOnClickListener {
-                productListener.onClick(categories.getId())
+                productListener.onClick(categories.id)
             }
         }
     }
