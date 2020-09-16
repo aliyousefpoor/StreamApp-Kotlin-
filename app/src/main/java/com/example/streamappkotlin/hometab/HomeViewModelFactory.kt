@@ -5,12 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.streamappkotlin.datasource.remote.HomeRemoteDataSource
 import java.lang.IllegalArgumentException
 
-class HomeViewModelFactory : ViewModelProvider.Factory {
-    private var homeRemoteDataSource: HomeRemoteDataSource
-
-    constructor(homeRemoteDataSource: HomeRemoteDataSource) {
-        this.homeRemoteDataSource = homeRemoteDataSource
-    }
+class HomeViewModelFactory(private var homeRemoteDataSource: HomeRemoteDataSource) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {

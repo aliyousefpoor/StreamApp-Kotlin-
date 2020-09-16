@@ -6,7 +6,7 @@ import com.example.streamappkotlin.hometab.HomeViewModelFactory
 
 class HomeTabModule {
     companion object {
-        fun provideHomeRemoteDataSource(apiService: ApiService): HomeRemoteDataSource {
+        private fun provideHomeRemoteDataSource(apiService: ApiService): HomeRemoteDataSource {
             return HomeRemoteDataSource(apiService)
         }
 

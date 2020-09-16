@@ -22,11 +22,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/discription"
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="15sp"
             app:layout_constraintTop_toBottomOf="@id/cv_image"
             tools:layout_editor_absoluteX="-115dp" />
 

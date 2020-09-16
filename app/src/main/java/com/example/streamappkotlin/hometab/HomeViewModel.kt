@@ -6,13 +6,7 @@ import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.datasource.remote.HomeRemoteDataSource
 import com.example.streamappkotlin.model.Store
 
-class HomeViewModel : ViewModel {
-    private var homeRemoteDataSource: HomeRemoteDataSource
-
-    constructor(homeRemoteDataSource: HomeRemoteDataSource) {
-        this.homeRemoteDataSource = homeRemoteDataSource
-        getStore()
-    }
+class HomeViewModel(private var homeRemoteDataSource: HomeRemoteDataSource) : ViewModel() {
 
 
     private var _storeListLiveData: MutableLiveData<Store> = MutableLiveData()
@@ -38,5 +32,9 @@ class HomeViewModel : ViewModel {
             }
 
         })
+    }
+
+    init {
+        getStore()
     }
 }

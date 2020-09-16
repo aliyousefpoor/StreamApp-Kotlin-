@@ -5,100 +5,31 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-class Product {
-    @SerializedName("id")
-    @Expose
-    private var id: Int = 0
-
-    @SerializedName("name")
-    @Expose
-    private lateinit var name: String
-
-    @SerializedName("name_english")
-    @Expose
-    private lateinit var nameEnglish: String
-
-    @SerializedName("product_type")
-    @Expose
-    private var productType: Int = 0
-
-    @SerializedName("producer_name")
-    @Expose
-    private lateinit var producerName: String
-
-    @SerializedName("payment_type")
-    @Expose
-    private var paymentType: List<Object>? = null;
-
-    @SerializedName("price")
-    @Expose
-    private var price: Int = 0
-
-    @SerializedName("price_show")
-    @Expose
-    private lateinit var priceShow: Objects
-
-    @SerializedName("avatar")
-    @Expose
-    private lateinit var avatar: Avatar
-
-    @SerializedName("rank")
-    @Expose
-    private var rank: Double = 0.0
-
-    @SerializedName("short_description")
-    @Expose
-    private lateinit var shortDescription: String
-
-    @SerializedName("is_purchased")
-    @Expose
-    private var isPurchased: Boolean = false
-
-    @SerializedName("comments")
-    @Expose
-    private var comments: Int = 0
-
-    @SerializedName("files")
-    @Expose
-    private lateinit var file: List<File>
-
-    @SerializedName("is_bookmarked")
-    @Expose
-    private var isBookmarked: Boolean = false
-
-    @SerializedName("sku")
-    @Expose
-    private lateinit var sku: String
-
-    fun getId(): Int {
-        return id
-    }
-
-    fun setId(id: Int) {
-        this.id = id
-    }
-
-    fun getName(): String {
-        return name
-    }
-
-    fun setName(name: String) {
-        this.name = name
-    }
-
-    fun getAvatar(): Avatar {
-        return avatar
-    }
-
-    fun setId(avatar: Avatar) {
-        this.avatar = avatar
-    }
-
-    fun getFile(): List<File> {
-        return file
-    }
-
-    fun setId(file: List<File>) {
-        this.file = file
-    }
-}
+data class Product(
+    var id: Int,
+    var name: String,
+    var name_english: String,
+    var product_type: Int,
+    var producer_name: String,
+    var payment_type: List<Object>,
+    var price: Int,
+    var price_show: Objects,
+    var avatar: Avatar,
+    var rank: Double,
+    var short_description: String,
+    var is_purchased: Boolean,
+    var comments: Int,
+    var files: List<File>,
+    var is_bookmarked: Boolean,
+    var price_unit: String,
+    var total_view: Int,
+    var date_added: String,
+    var invest_goal: String,
+    var product_staff: List<Objects>,
+    var support: Support,
+    var is_special: Boolean,
+    var additional_attributes: List<Objects>,
+    var date_published: String,
+    var customjson: String,
+    var approved_age: String
+)

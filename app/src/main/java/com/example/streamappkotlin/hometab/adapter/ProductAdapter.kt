@@ -12,8 +12,13 @@ import com.bumptech.glide.Glide
 import com.example.streamappkotlin.R
 import com.example.streamappkotlin.hometab.ProductListener
 import com.example.streamappkotlin.model.Product
+import com.example.streamappkotlin.utils.AppConstants
 
-class ProductAdapter(var products: List<Product>, var context: Context, var productListener: ProductListener) :
+class ProductAdapter(
+    var products: List<Product>,
+    var context: Context,
+    var productListener: ProductListener
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -28,21 +33,21 @@ class ProductAdapter(var products: List<Product>, var context: Context, var prod
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val productViewHolder: ProductViewHolder = holder as ProductViewHolder
-        productViewHolder.onBind(products.get(position), context, productListener)
+        productViewHolder.onBind(products[position], context, productListener)
     }
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var cardView: CardView = itemView.findViewById(R.id.product_cv)
         var imageView: ImageView = itemView.findViewById(R.id.cv_image)
-        var textView: TextView = itemView.findViewById(R.id.discription)
+        var textView: TextView = itemView.findViewById(R.id.description)
 
         fun onBind(
             product: Product, context: Context, productListener: ProductListener
         ) {
-            textView.text = product.getName()
-            Glide.with(context).load(product.getAvatar().getXhdpi()).into(imageView)
+            textView.text = product.name
+            Glide.with(context).load(AppConstants.baseUrl + product.avatar.xhdpi).into(imageView)
             cardView.setOnClickListener {
-                productListener.onClick(product.getId())
+                productListener.onClick(product.id)
             }
 
         }

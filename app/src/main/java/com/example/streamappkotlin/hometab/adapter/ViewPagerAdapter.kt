@@ -11,8 +11,9 @@ import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.example.streamappkotlin.R
 import com.example.streamappkotlin.model.Product
+import com.example.streamappkotlin.utils.AppConstants
 
-class ViewPagerAdapter(var headerList: List<Product>, context: Context) : PagerAdapter() {
+class ViewPagerAdapter(var headerList: List<Product>,var context: Context) : PagerAdapter() {
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
         return view == `object`
@@ -23,15 +24,16 @@ class ViewPagerAdapter(var headerList: List<Product>, context: Context) : PagerA
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view: View = LayoutInflater.from(container.context)
+        val view: View = LayoutInflater.from(context)
             .inflate(R.layout.view_pager_layout, container, false)
         val imageView: ImageView = view.findViewById(R.id.view_pager)
-        Glide.with(container.context).load(headerList.get(position).getAvatar().getXhdpi())
+        Glide.with(context)
+            .load(AppConstants.baseUrl + headerList[position].avatar.xhdpi)
             .into(imageView)
         imageView.setOnClickListener {
             Toast.makeText(
                 container.context,
-                headerList.get(position).getName(),
+                headerList[position].name,
                 Toast.LENGTH_SHORT
             ).show();
 

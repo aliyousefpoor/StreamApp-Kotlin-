@@ -58,12 +58,10 @@ class MultipleAdapter(
             viewPagerType -> {
                 val pagerHolder: ViewPagerViewHolder = holder as ViewPagerViewHolder
                 pagerHolder.onBind(headerList, context)
-                true
             }
             horizontalListType -> {
                 val listHolder: ListViewHolder = holder as ListViewHolder
-                listHolder.onBind(homeList.get(position - 1), context,productListener)
-                true
+                listHolder.onBind(homeList[position - 1], context,productListener)
             }
         }
     }
@@ -89,8 +87,8 @@ class MultipleAdapter(
             context: Context,
             productListener: ProductListener
         ) {
-            title.text = homeList.getTitle()
-            val adapter = ProductAdapter(homeList.getProducts(), context ,productListener)
+            title.text = homeList.title
+            val adapter = ProductAdapter(homeList.products, context ,productListener)
             productRecyclerView.adapter = adapter
             val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             productRecyclerView.layoutManager = linearLayoutManager

@@ -7,12 +7,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeRemoteDataSource {
-    private var apiService: ApiService
-
-    constructor(apiService: ApiService) {
-        this.apiService = apiService
-    }
+class HomeRemoteDataSource(private var apiService: ApiService) {
 
     fun getStore(dataSourceListener: DataSourceListener<Store>) {
         apiService.getStore().enqueue(object : Callback<Store> {
