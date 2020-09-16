@@ -1,5 +1,7 @@
 package com.example.streamappkotlin.utils
 
 class AppConstants {
-    val baseUrl:String="https://api.vasapi.click/"
+    companion object {
+        const val baseUrl: String = "https://api.vasapi.click/"
+    }
 }
