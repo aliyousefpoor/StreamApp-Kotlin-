@@ -16,7 +16,6 @@ import com.example.streamappkotlin.login.LoginStepTwoListener
 import com.example.streamappkotlin.model.MoreAdapter
 import com.example.streamappkotlin.model.MoreModel
 import com.example.streamappkotlin.model.Type
-import com.example.streamappkotlin.model.User
 import java.util.ArrayList
 
 class MoreFragment : Fragment() {
