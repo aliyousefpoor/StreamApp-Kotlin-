@@ -8,4 +8,5 @@
     <color name="button_focused">#FFFFFF</color>
     <color name="button_default">#FFFFFF</color>
     <color name="black">#111</color>
+    <color name="blue">#0676ED</color>
 </resources>

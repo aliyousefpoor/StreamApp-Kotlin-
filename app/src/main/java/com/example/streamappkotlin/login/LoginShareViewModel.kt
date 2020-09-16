@@ -9,11 +9,13 @@ import com.example.streamappkotlin.model.LoginStepOneResponse
 import com.example.streamappkotlin.repository.LoginRepository
 
 class LoginShareViewModel(private var loginRepository: LoginRepository) : ViewModel() {
+    private lateinit var loginStepOneRequestBody: LoginStepOneRequest
 
     private var _loginStepOneLiveData: MutableLiveData<LoginStepOneResponse> = MutableLiveData()
     var loginStepOneLiveData: LiveData<LoginStepOneResponse> = _loginStepOneLiveData
 
     fun loginStepOne(loginStepOneRequest: LoginStepOneRequest) {
+        loginStepOneRequestBody = loginStepOneRequest
         loginRepository.loginStepOne(loginStepOneRequest,
             object : DataSourceListener<LoginStepOneResponse> {
                 override fun onResponse(response: LoginStepOneResponse) {
