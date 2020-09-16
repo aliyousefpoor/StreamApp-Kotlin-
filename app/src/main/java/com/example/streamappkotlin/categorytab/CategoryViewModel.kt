@@ -11,6 +11,7 @@ class CategoryViewModel : ViewModel {
 
     constructor(categoryRemoteDataSource: CategoryRemoteDataSource) {
         this.categoryRemoteDataSource = categoryRemoteDataSource
+        getCategory()
     }
 
     private var _categoryList: MutableLiveData<List<Category>> = MutableLiveData()

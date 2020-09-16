@@ -3,7 +3,7 @@ package com.example.streamappkotlin.utils
 import retrofit2.Retrofit
 
 class ApiBuilder {
-    lateinit var retrofit: Retrofit
+     var retrofit: Retrofit
 
     constructor(retrofit: Retrofit) {
         this.retrofit = retrofit
