@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.streamappkotlin.R
+import com.example.streamappkotlin.login.LoginStepOneDialogFragment
 import com.example.streamappkotlin.model.MoreAdapter
 import com.example.streamappkotlin.model.MoreModel
 import com.example.streamappkotlin.model.Type
@@ -38,7 +39,8 @@ class MoreFragment : Fragment() {
             override fun onClick(item: MoreModel) {
                 when (item.type) {
                     Type.Profile -> {
-                        navController.navigate(R.id.action_moreFragment2_to_profileFragment)
+                        val loginStepOneDialogFragment = LoginStepOneDialogFragment()
+                        loginStepOneDialogFragment.show(parentFragmentManager, "LoginStepOneDialogFragment")
                     }
                     Type.About -> {
                         navController.navigate(R.id.action_moreFragment2_to_aboutFragment)
