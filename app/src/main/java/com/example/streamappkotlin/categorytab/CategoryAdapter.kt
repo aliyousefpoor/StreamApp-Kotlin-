@@ -43,7 +43,7 @@ class CategoryAdapter(
 
         fun onBind(categories: Category, context: Context, productListener: ProductListener) {
             title.text = categories.getTitle()
-            Glide.with(context).load(categories.getAvatar().getXhdpi()).into(imageView)
+            Glide.with(context).load(categories.getAvatar()).into(imageView)
             cardView.setOnClickListener {
                 productListener.onClick(categories.getId())
             }

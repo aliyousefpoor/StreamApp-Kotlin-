@@ -3,6 +3,8 @@ package com.example.streamappkotlin.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+//todo add dataClass
+
 class Avatar {
     @SerializedName("xxxdpi")
     @Expose

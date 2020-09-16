@@ -1,7 +1,9 @@
 package com.example.streamappkotlin.model
 
+import com.example.streamappkotlin.utils.AppConstants
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 class Category {
     @SerializedName("id")
@@ -18,7 +20,7 @@ class Category {
 
     @SerializedName("avatar")
     @Expose
-    private lateinit var avatar: Avatar
+    private  var avatar: String? =null
 
     @SerializedName("position")
     @Expose
@@ -34,26 +36,30 @@ class Category {
 
     @SerializedName("parent")
     @Expose
-    private  var parent: Int = 0
+    private var parent: Int = 0
 
-    fun getId():Int{
-        return  id
-    }
-    fun setId(id:Int){
-        this.id=id
+    fun getId(): Int {
+        return id
     }
 
-    fun getTitle():String{
-        return  title
+    fun setId(id: Int) {
+        this.id = id
     }
-    fun setTitle(title:String){
-        this.title=title
+
+    fun getTitle(): String {
+        return title
     }
-    fun getAvatar():Avatar{
-        return  avatar
+
+    fun setTitle(title: String) {
+        this.title = title
     }
-    fun setTitle(avatar:Avatar){
-        this.avatar=avatar
+
+    fun getAvatar(): String {
+        return AppConstants.baseUrl + avatar
+    }
+
+    fun setAvatar(avatar: String) {
+        this.avatar = avatar
     }
 
 }

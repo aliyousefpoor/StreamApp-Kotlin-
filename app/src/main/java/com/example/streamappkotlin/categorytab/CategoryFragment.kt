@@ -67,31 +67,29 @@ class CategoryFragment : Fragment() {
                 arrow.visibility = View.GONE
                 recyclerView.visibility = View.GONE
                 swipeRefreshLayout.isRefreshing = true
-            } else {
-                pullDown.visibility = View.GONE
-                arrow.visibility = View.GONE
-                recyclerView.visibility = View.VISIBLE
-                swipeRefreshLayout.isRefreshing = false
             }
         })
         categoryViewModel?.errorLiveData?.observe(viewLifecycleOwner, Observer {
-            pullDown.visibility = View.VISIBLE
-            arrow.visibility = View.VISIBLE
-            recyclerView.visibility = View.GONE
-            swipeRefreshLayout.isRefreshing = false
-            Toast.makeText(context, "Check Your Conecction !", Toast.LENGTH_SHORT).show();
+            if (it) {
+                pullDown.visibility = View.VISIBLE
+                arrow.visibility = View.VISIBLE
+                recyclerView.visibility = View.GONE
+                swipeRefreshLayout.isRefreshing = false
+                Toast.makeText(context, "Check Your Connection !", Toast.LENGTH_SHORT).show()
+            }
         })
         categoryViewModel?.categoryList?.observe(viewLifecycleOwner, Observer {
-
+            swipeRefreshLayout.isRefreshing = false
             showCategoryList(it)
         })
     }
 
     private fun showCategoryList(response: List<Category>) {
         val categoryList: List<Category> = response
-        val adapter = CategoryAdapter(categoryList, requireContext(),object :ProductListener{
+        val adapter = CategoryAdapter(categoryList, requireContext(), object : ProductListener {
             override fun onClick(id: Int) {
-                TODO("Not yet implemented")
+                Toast.makeText(context, "List id is :$id", Toast.LENGTH_SHORT).show()
+
             }
 
         })
