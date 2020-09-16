@@ -7,16 +7,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CategoryRemoteDataSource {
-    private var apiService: ApiService
-
-    constructor(apiService: ApiService) {
-        this.apiService = apiService
-    }
+class CategoryRemoteDataSource(private var apiService: ApiService) {
 
     fun getCategory(dataSourceListener: DataSourceListener<List<Category>>) {
         apiService.getCategory().enqueue(object : Callback<List<Category>> {
-            override fun onResponse(call: Call<List<Category>>,response: Response<List<Category>>) {
+            override fun onResponse(
+                call: Call<List<Category>>,
+                response: Response<List<Category>>
+            ) {
                 if (response.isSuccessful) {
                     if (response.body() != null) {
                         dataSourceListener.onResponse(response.body()!!)
@@ -27,10 +25,6 @@ class CategoryRemoteDataSource {
             override fun onFailure(call: Call<List<Category>>, t: Throwable) {
                 dataSourceListener.onFailure(t)
             }
-
-
         })
-
-
     }
 }
