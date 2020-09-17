@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.streamappkotlin.R
+import com.example.streamappkotlin.utils.CalendarUtils
 
 class ProfileFragment : Fragment() {
 
@@ -55,7 +56,13 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun showCalendar(){
+    private fun showCalendar() {
+        val calendarUtils = CalendarUtils(requireContext(), object : DateListener {
+            override fun onDateChange(persianCalendar: String) {
+                date.setText(persianCalendar)
+            }
+        })
 
+        calendarUtils.showCalendar()
     }
 }
