@@ -19,14 +19,16 @@ import com.example.streamappkotlin.login.di.LoginModule
 import com.example.streamappkotlin.model.LoginStepOneRequest
 import com.example.streamappkotlin.utils.AppConstants
 
-class LoginStepOneDialogFragment(private var loginStepTwoListener: LoginStepTwoListener) : DialogFragment() {
+class LoginStepOneDialogFragment(private var loginStepTwoListener: LoginStepTwoListener) :
+    DialogFragment() {
     private lateinit var number: EditText
     private lateinit var submit: Button
     private var shareViewModel: LoginShareViewModel? = null
     private var retrofit = CustomApp.instance.appModule.provideRetrofit()
     private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
     private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
-    private var loginRepository = LoginModule.provideLoginRepository(apiService)
+    private var database = LoginModule.provideUserDatabase()
+    private var loginRepository = LoginModule.provideLoginRepository(apiService, database.userDao())
     private var shareViewModelFactory =
         LoginModule.provideLoginShareViewModelFactory(loginRepository)
     private lateinit var dialog: ProgressDialog

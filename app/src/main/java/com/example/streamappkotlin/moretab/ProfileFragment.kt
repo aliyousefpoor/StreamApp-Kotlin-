@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.streamappkotlin.R
 
 class ProfileFragment:Fragment() {
+    private lateinit var progressBar:View
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -18,5 +19,7 @@ class ProfileFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        progressBar=view.findViewById(R.id.progressBarLayout)
+        progressBar.visibility=View.GONE
     }
 }
