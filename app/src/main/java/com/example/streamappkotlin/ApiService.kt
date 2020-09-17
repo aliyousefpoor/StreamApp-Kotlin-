@@ -14,4 +14,7 @@ interface ApiService {
 
     @POST("mobile_login_step2/16")
     fun loginStepTwo(@Body loginStepTwoRequest: LoginStepTwoRequest): Call<LoginStepTwoResponse>
+
+    @POST("profile")
+    fun update(@Body updateProfile: UpdateProfile): Call<UpdateResponse>
 }

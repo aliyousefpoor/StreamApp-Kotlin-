@@ -18,6 +18,7 @@ import com.example.streamappkotlin.di.ApiBuilderModule
 import com.example.streamappkotlin.login.di.LoginModule
 import com.example.streamappkotlin.model.LoginStepOneRequest
 import com.example.streamappkotlin.model.LoginStepTwoRequest
+import com.example.streamappkotlin.model.User
 
 class LoginStepTwoDialogFragment(private var loginStepTwoListener: LoginStepTwoListener) :
     DialogFragment() {
@@ -91,8 +92,8 @@ class LoginStepTwoDialogFragment(private var loginStepTwoListener: LoginStepTwoL
     private fun loginStepTwoResponse() {
         shareViewModel!!.loginStepTwoLiveData.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-
-                loginStepTwoListener.userExist(true)
+                var user=User(it.user_id,it.token)
+                loginStepTwoListener.userExist(user)
 
                 dismiss()
                 dialog.dismiss()

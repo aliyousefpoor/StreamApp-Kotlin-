@@ -7,32 +7,50 @@ import com.example.streamappkotlin.datasource.locale.database.UserDao
 import com.example.streamappkotlin.datasource.locale.database.UserDatabase
 import com.example.streamappkotlin.datasource.remote.LoginStepOneRemoteDataSource
 import com.example.streamappkotlin.datasource.remote.LoginStepTwoRemoteDataSource
+import com.example.streamappkotlin.datasource.remote.UserRemoteDataSourceImpl
 import com.example.streamappkotlin.login.LoginShareViewModelFactory
 import com.example.streamappkotlin.repository.LoginRepository
+import com.example.streamappkotlin.repository.ProfileRepository
 
 class LoginModule {
     companion object {
         private fun provideLoginStepOneRemoteDataSource(apiService: ApiService): LoginStepOneRemoteDataSource {
             return LoginStepOneRemoteDataSource(apiService)
         }
-        private fun provideLoginStepTwoRemoteDataSource(apiService: ApiService):LoginStepTwoRemoteDataSource{
+
+        private fun provideLoginStepTwoRemoteDataSource(apiService: ApiService): LoginStepTwoRemoteDataSource {
             return LoginStepTwoRemoteDataSource(apiService)
         }
 
-        fun provideLoginRepository(apiService: ApiService,userDao: UserDao): LoginRepository {
-            return LoginRepository(provideLoginStepOneRemoteDataSource(apiService),
-                provideLoginStepTwoRemoteDataSource(apiService), provideUserLocaleDataSourceImp(userDao))
+        fun provideLoginRepository(apiService: ApiService, userDao: UserDao): LoginRepository {
+            return LoginRepository(
+                provideLoginStepOneRemoteDataSource(apiService),
+                provideLoginStepTwoRemoteDataSource(apiService),
+                provideUserLocaleDataSourceImp(userDao)
+            )
         }
-        fun provideLoginShareViewModelFactory(loginRepository: LoginRepository):LoginShareViewModelFactory{
+
+        fun provideLoginShareViewModelFactory(loginRepository: LoginRepository): LoginShareViewModelFactory {
             return LoginShareViewModelFactory(loginRepository)
         }
 
-        private fun provideUserLocaleDataSourceImp(userDao: UserDao):UserLocaleDataSourceImp{
+        private fun provideUserLocaleDataSourceImp(userDao: UserDao): UserLocaleDataSourceImp {
             return UserLocaleDataSourceImp(userDao)
         }
 
-        fun provideUserDatabase():UserDatabase{
-            val context=CustomApp.getContext()
+        private fun provideUserRemoteDataSource(apiService: ApiService): UserRemoteDataSourceImpl {
+            return UserRemoteDataSourceImpl(apiService)
+        }
+
+        private fun provideProfileRepository(
+            userRemoteDataSourceImpl: UserRemoteDataSourceImpl,
+            userLocaleDataSourceImp: UserLocaleDataSourceImp
+        ): ProfileRepository {
+            return ProfileRepository(userRemoteDataSourceImpl, userLocaleDataSourceImp)
+        }
+
+        fun provideUserDatabase(): UserDatabase {
+            val context = CustomApp.getContext()
             return UserDatabase.getInstance(context)
         }
     }
