@@ -64,6 +64,7 @@ android {
         kapt "android.arch.lifecycle:compiler:1.1.1"
         implementation 'android.arch.persistence.room:runtime:1.1.1'
         kapt 'android.arch.persistence.room:compiler:1.1.1'
+        implementation "com.github.aliab:Persian-Date-Picker-Dialog:1.5.2"
 
 
         def lifecycle_version = "2.2.0"
