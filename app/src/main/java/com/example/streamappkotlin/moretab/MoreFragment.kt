@@ -105,7 +105,7 @@ class MoreFragment : Fragment() {
     private fun setUpLogin() {
         loginStepTwoListener = object : LoginStepTwoListener {
             override fun userExist(exist: Boolean) {
-
+                navController.navigate(R.id.action_moreFragment2_to_profileFragment)
             }
 
         }
