@@ -1,11 +1,9 @@
 package com.example.streamappkotlin
 
 import com.example.streamappkotlin.model.*
+import okhttp3.MultipartBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiService {
     @GET("category/16/463")
@@ -25,4 +23,10 @@ interface ApiService {
 
     @GET("profile")
     fun getUser(@Header("Authorization") token: String): Call<ProfileResponse>
+
+    @POST("profile")
+    fun updateImage(
+        @Header("Authorization") token: String,
+        @Part avatar: MultipartBody.Part): Call<UpdateResponse>
+
 }

@@ -5,6 +5,7 @@ import com.example.streamappkotlin.datasource.locale.UserLocaleDataSourceImp
 import com.example.streamappkotlin.datasource.remote.UserRemoteDataSourceImpl
 import com.example.streamappkotlin.model.UpdateResponse
 import com.example.streamappkotlin.model.User
+import java.io.File
 
 class ProfileRepository(
     private var userRemoteDataSourceImpl: UserRemoteDataSourceImpl,
@@ -63,5 +64,9 @@ class ProfileRepository(
             }
 
         })
+    }
+
+    fun updateImage(token: String,file: File,dataSourceListener: DataSourceListener<UpdateResponse>){
+        userRemoteDataSourceImpl.updateImage(token, file, dataSourceListener)
     }
 }
