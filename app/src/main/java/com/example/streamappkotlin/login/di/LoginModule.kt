@@ -9,6 +9,7 @@ import com.example.streamappkotlin.datasource.remote.LoginStepOneRemoteDataSourc
 import com.example.streamappkotlin.datasource.remote.LoginStepTwoRemoteDataSource
 import com.example.streamappkotlin.datasource.remote.UserRemoteDataSourceImpl
 import com.example.streamappkotlin.login.LoginShareViewModelFactory
+import com.example.streamappkotlin.profile.ProfileViewModelFactory
 import com.example.streamappkotlin.repository.LoginRepository
 import com.example.streamappkotlin.repository.ProfileRepository
 
@@ -47,6 +48,15 @@ class LoginModule {
             userLocaleDataSourceImp: UserLocaleDataSourceImp
         ): ProfileRepository {
             return ProfileRepository(userRemoteDataSourceImpl, userLocaleDataSourceImp)
+        }
+
+         fun provideProfileViewModelFactory(apiService: ApiService,userDao: UserDao): ProfileViewModelFactory {
+            return ProfileViewModelFactory(
+                provideProfileRepository(
+                    provideUserRemoteDataSource(apiService),
+                    provideUserLocaleDataSourceImp(userDao)
+                )
+            )
         }
 
         fun provideUserDatabase(): UserDatabase {

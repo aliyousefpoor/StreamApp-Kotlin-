@@ -23,7 +23,6 @@ import com.example.streamappkotlin.login.di.LoginModule
 import com.example.streamappkotlin.model.MoreAdapter
 import com.example.streamappkotlin.model.MoreModel
 import com.example.streamappkotlin.model.Type
-import com.example.streamappkotlin.model.User
 import java.util.ArrayList
 import java.util.EnumSet.of
 
@@ -105,17 +104,11 @@ class MoreFragment : Fragment() {
 
     private fun setUpLogin() {
         loginStepTwoListener = object : LoginStepTwoListener {
-            override fun userExist(user: User) {
-                val bundle=Bundle()
-                bundle.putParcelable("user",user)
-                navController.navigate(R.id.action_moreFragment2_to_profileFragment,user)
+            override fun userExist(exist: Boolean) {
+                navController.navigate(R.id.action_moreFragment2_to_profileFragment)
             }
 
         }
     }
-}
-
-private fun NavController.navigate(actionMorefragment2ToProfilefragment: Int, user: User) {
-
 }
 
