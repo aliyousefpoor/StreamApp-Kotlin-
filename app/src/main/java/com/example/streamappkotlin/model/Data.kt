@@ -6,7 +6,7 @@ data class Data(
     val mobile: String,
     val avatar: String,
     val gender: String,
-    val birthdayDate: String,
+    val date_of_birth: String,
     val isOfficial: String,
     val limitAge: Int
 )

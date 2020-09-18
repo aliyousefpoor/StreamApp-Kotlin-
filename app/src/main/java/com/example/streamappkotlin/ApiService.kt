@@ -18,7 +18,10 @@ interface ApiService {
     fun loginStepTwo(@Body loginStepTwoRequest: LoginStepTwoRequest): Call<LoginStepTwoResponse>
 
     @POST("profile")
-    fun update(@Body updateProfile: UpdateProfile): Call<UpdateResponse>
+    fun update(
+        @Header("Authorization") token: String,
+        @Body updateProfile: UpdateProfile
+    ): Call<UpdateResponse>
 
     @GET("profile")
     fun getUser(@Header("Authorization") token: String): Call<ProfileResponse>

@@ -30,7 +30,7 @@ class ProfileRepository(
             override fun onResponse(response: UpdateResponse) {
 
                 user.name = response.data.nickname
-                user.date = response.data.birthdayDate
+                user.date = response.data.date_of_birth
                 user.gender = response.data.gender
                 user.avatar = response.data.avatar
                 userLocaleDataSourceImp.saveUser(user)

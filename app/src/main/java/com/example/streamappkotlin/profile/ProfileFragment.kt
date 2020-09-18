@@ -71,15 +71,10 @@ class ProfileFragment : Fragment() {
             date.setText(it.date)
             user.token = it.token
             val checkGender: String = it.gender
-            if (checkGender != null) {
-                if (checkGender == "Male") {
-                    male.isChecked = true
-                } else {
-                    female.isChecked = true
-                }
+            if (checkGender == "Male") {
+                male.isChecked = true
             } else {
-                male.isChecked = false
-                female.isChecked = false
+                female.isChecked = true
             }
 
         })

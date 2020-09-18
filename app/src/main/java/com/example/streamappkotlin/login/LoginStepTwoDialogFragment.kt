@@ -37,7 +37,7 @@ class LoginStepTwoDialogFragment(private var loginStepTwoListener: LoginStepTwoL
     private var loginRepository = LoginModule.provideLoginRepository(apiService, database.userDao())
     private var shareViewModelFactory =
         LoginModule.provideLoginShareViewModelFactory(loginRepository)
-    private lateinit var dialog: ProgressDialog
+    private  var dialog: ProgressDialog?=null
 
     init {
         this.loginStepTwoListener = loginStepTwoListener
@@ -69,13 +69,13 @@ class LoginStepTwoDialogFragment(private var loginStepTwoListener: LoginStepTwoL
             shareViewModel!!.loginStepTwo(loginStepTwoRequest)
 
             dialog = ProgressDialog(context);
-            dialog.setTitle(R.string.progressDialogTitle);
-            dialog.setMessage(getString(R.string.loadingProgress));
-            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.show();
+            dialog?.setTitle(R.string.progressDialogTitle);
+            dialog?.setMessage(getString(R.string.loadingProgress));
+            dialog?.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dialog?.show();
         }
         changeNumber.setOnClickListener {
-            dialog.dismiss()
+            dialog?.dismiss()
             val loginStepOneDialogFragment = LoginStepOneDialogFragment(loginStepTwoListener)
             loginStepOneDialogFragment.show(parentFragmentManager, "LoginStepOneDialogFragment")
         }
@@ -95,7 +95,7 @@ class LoginStepTwoDialogFragment(private var loginStepTwoListener: LoginStepTwoL
                 loginStepTwoListener.userExist(true)
 
                 dismiss()
-                dialog.dismiss()
+                dialog?.dismiss()
             } else {
                 Toast.makeText(context, "enter valid code", Toast.LENGTH_SHORT).show()
 

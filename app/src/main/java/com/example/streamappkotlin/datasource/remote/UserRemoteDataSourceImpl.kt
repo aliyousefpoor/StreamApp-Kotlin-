@@ -15,7 +15,7 @@ class UserRemoteDataSourceImpl(private var apiService: ApiService) {
     fun updateProfile(user: User, dataSourceListener: DataSourceListener<UpdateResponse>) {
         val updateProfile = UpdateProfile(user.name, user.date, user.gender)
 
-        apiService.update(updateProfile).enqueue(object : Callback<UpdateResponse> {
+        apiService.update("Token "+user.token,updateProfile).enqueue(object : Callback<UpdateResponse> {
             override fun onResponse(
                 call: Call<UpdateResponse>,
                 response: Response<UpdateResponse>
@@ -40,7 +40,7 @@ class UserRemoteDataSourceImpl(private var apiService: ApiService) {
                 val user =
                     User(
                         response.body()!!.id,
-                        response.body()!!.token,
+                        token,
                         response.body()!!.nickname,
                         response.body()!!.date_of_birth,
                         response.body()!!.gender,
