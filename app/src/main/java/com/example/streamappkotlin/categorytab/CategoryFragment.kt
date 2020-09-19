@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -25,6 +27,7 @@ class CategoryFragment : Fragment() {
     private lateinit var pullDown: TextView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
+    private lateinit var navController: NavController
     private var categoryViewModel: CategoryViewModel? = null
     private var retrofit = CustomApp.instance.appModule.provideRetrofit()
     private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
@@ -48,6 +51,7 @@ class CategoryFragment : Fragment() {
         pullDown = view.findViewById(R.id.pullDown)
         swipeRefreshLayout = view.findViewById(R.id.refreshing)
         recyclerView = view.findViewById(R.id.recycler_view)
+        navController = Navigation.findNavController(view)
 
         swipeRefreshLayout.setOnRefreshListener {
             categoryViewModel!!.getCategory()
@@ -87,9 +91,11 @@ class CategoryFragment : Fragment() {
     private fun showCategoryList(response: List<Category>) {
         val categoryList: List<Category> = response
         val adapter = CategoryAdapter(categoryList, requireContext(), object : ProductListener {
-            override fun onClick(id: Int) {
-                Toast.makeText(context, "List id is :$id", Toast.LENGTH_SHORT).show()
-
+            override fun onClick(id: Int?, title: String?) {
+                val bundle = Bundle()
+                bundle.putInt("productListId", id!!)
+                bundle.putString("productListTitle", title)
+                navController.navigate(R.id.action_categoryFragment_to_productListFragment, bundle)
             }
 
         })
