@@ -12,6 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.streamappkotlin.CustomApp
@@ -26,14 +28,14 @@ class ProductListFragment : Fragment() {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
-    private lateinit var progressBar: View
-    private var productListViewModel: ProductListViewModel? = null
+    private  lateinit var progressBar: View
+    private lateinit var productListViewModel: ProductListViewModel
     private var retrofit = CustomApp.instance.appModule.provideRetrofit()
     private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
     private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
     private var productListViewModelFactory =
         ProductModule.provideProductListViewModelFactory(apiService)
-    private var adapter: ProductListAdapter? = null
+    private lateinit var adapter: ProductListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,35 +63,33 @@ class ProductListFragment : Fragment() {
         toolbar.title = productListTitle
 
         observeProductListViewModel()
+        showProductAdapter()
 
-        productListViewModel!!.setId(productListId)
-        productListViewModel!!.getFirstData()
-
-        pullDown.setOnClickListener {
-            productListViewModel!!.loadData()
-        }
         swipeRefreshLayout.setOnRefreshListener {
-            productListViewModel!!.loadData()
+            productListViewModel.loadData()
         }
+
+        productListViewModel.setId(productListId)
+        productListViewModel.getFirstData()
     }
 
     private fun observeProductListViewModel() {
         pullDown.visibility = View.GONE
         arrow.visibility = View.GONE
-        recyclerView.visibility = View.GONE
         progressBar.visibility = View.GONE
         swipeRefreshLayout.isRefreshing = true
 
-        productListViewModel!!.loadingLiveData.observe(viewLifecycleOwner, Observer {
+        productListViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
             if (it) {
                 pullDown.visibility = View.GONE
                 arrow.visibility = View.GONE
-                recyclerView.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+                progressBar.visibility = View.VISIBLE
                 swipeRefreshLayout.isRefreshing = true
             }
         })
 
-        productListViewModel!!.errorLiveData.observe(viewLifecycleOwner, Observer {
+        productListViewModel.errorLiveData.observe(viewLifecycleOwner, Observer {
             if (it) {
                 pullDown.visibility = View.VISIBLE
                 arrow.visibility = View.VISIBLE
@@ -99,15 +99,45 @@ class ProductListFragment : Fragment() {
             }
         })
 
-        productListViewModel!!.productListLiveData.observe(viewLifecycleOwner, Observer {
-            if (it.isNotEmpty()) {
+        productListViewModel.productListLiveData.observe(viewLifecycleOwner, Observer {
+            if (it!=null) {
+                swipeRefreshLayout.isRefreshing=false
                 progressBar.visibility = View.GONE
+                pullDown.visibility=View.GONE
+                recyclerView.visibility=View.VISIBLE
+                adapter.addList(it)
+                adapter.notifyDataSetChanged()
 
             } else {
                 progressBar.visibility = View.GONE
-
             }
         })
 
     }
+
+    private fun showProductAdapter() {
+        adapter = ProductListAdapter(requireContext())
+        recyclerView.adapter = adapter
+        val layoutManager = GridLayoutManager(requireContext(), 2)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.addOnScrollListener(recyclerViewOnScrollListener)
+    }
+
+    private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+
+            val lastVisibleItemPosition: Int =
+                (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+            if (lastVisibleItemPosition == recyclerView.adapter!!.itemCount - 1) {
+                productListViewModel.loadData()
+            }
+        }
+
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+        }
+    }
+
 }

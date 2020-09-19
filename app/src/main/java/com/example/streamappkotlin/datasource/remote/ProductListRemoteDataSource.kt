@@ -4,6 +4,7 @@ import com.example.streamappkotlin.ApiService
 import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.model.Product
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
 class ProductListRemoteDataSource(private var apiService: ApiService) {
@@ -11,10 +12,9 @@ class ProductListRemoteDataSource(private var apiService: ApiService) {
     fun getProductList(
         id: Int,
         offset: Int,
-        dataSourceListener: DataSourceListener<List<Product>>
-    ) {
+        dataSourceListener: DataSourceListener<List<Product>>) {
         apiService.getProductList(id, 20, offset)
-            .enqueue(object : retrofit2.Callback<List<Product>> {
+            .enqueue(object : Callback<List<Product>> {
 
                 override fun onResponse(
                     call: Call<List<Product>>,

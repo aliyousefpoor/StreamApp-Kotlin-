@@ -24,17 +24,8 @@ class ProductListViewModel(private var productListRemoteDataSource: ProductListR
     private var _errorLiveData: MutableLiveData<Boolean> = MutableLiveData()
     var errorLiveData = _errorLiveData
 
-    fun setId(categoryId: Int) {
-        this.categoryId = categoryId
-    }
-
-    fun getFirstData() {
-        if (productLists.size == 0) {
-            loadData()
-        }
-    }
-
     fun loadData() {
+        _loadingLiveData.value = true
         productListRemoteDataSource.getProductList(
             categoryId,
             offset,
@@ -50,8 +41,18 @@ class ProductListViewModel(private var productListRemoteDataSource: ProductListR
                 override fun onFailure(throwable: Throwable) {
                     _loadingLiveData.value = false
                     _errorLiveData.value = true
-                    _productListLiveData.value=null
+                    _productListLiveData?.value = null
                 }
             })
+    }
+
+    fun getFirstData() {
+        if (productLists.size == 0) {
+            loadData()
+        }
+    }
+
+    fun setId(categoryId: Int) {
+        this.categoryId = categoryId
     }
 }
