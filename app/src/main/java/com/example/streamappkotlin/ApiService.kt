@@ -24,6 +24,7 @@ interface ApiService {
     @GET("profile")
     fun getUser(@Header("Authorization") token: String): Call<ProfileResponse>
 
+    @Multipart
     @POST("profile")
     fun updateImage(
         @Header("Authorization") token: String,
