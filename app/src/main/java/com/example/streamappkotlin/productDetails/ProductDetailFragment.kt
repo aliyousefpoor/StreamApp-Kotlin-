@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.streamappkotlin.CustomApp
@@ -89,12 +90,16 @@ class ProductDetailFragment : Fragment() {
         })
 
         productDetailViewModel.productCommentLiveData.observe(viewLifecycleOwner, Observer {
+            progressBar.visibility = View.GONE
             showComment(it)
         })
     }
 
-    private fun showComment(commentList:List<Comment>){
-
+    private fun showComment(commentList: List<Comment>) {
+        val adapter = ProductCommentAdapter(requireContext(), commentList)
+        recyclerView.adapter = adapter
+        val linearLayoutManager = LinearLayoutManager(requireContext())
+        recyclerView.layoutManager = linearLayoutManager
     }
 
 }
