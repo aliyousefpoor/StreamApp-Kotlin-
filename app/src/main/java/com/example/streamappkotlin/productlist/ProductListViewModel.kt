@@ -26,24 +26,25 @@ class ProductListViewModel(private var productListRemoteDataSource: ProductListR
 
     fun loadData() {
         _loadingLiveData.value = true
-        productListRemoteDataSource.getProductList(
-            categoryId,
-            offset,
-            object : DataSourceListener<List<Product>> {
-                override fun onResponse(response: List<Product>) {
-                    _loadingLiveData.value = false
-                    _errorLiveData.value = false
-                    productLists.addAll(response)
-                    _productListLiveData.value = productLists
-                    offset += response.size
-                }
+            productListRemoteDataSource.getProductList(
+                categoryId,
+                offset,
+                object : DataSourceListener<List<Product>> {
+                    override fun onResponse(response: List<Product>) {
+                        _loadingLiveData.value = false
+                        _errorLiveData.value = false
+                        productLists.addAll(response)
+                        _productListLiveData.value = productLists
+                        offset = offset + response.size
+                    }
 
-                override fun onFailure(throwable: Throwable) {
-                    _loadingLiveData.value = false
-                    _errorLiveData.value = true
-                    _productListLiveData?.value = null
-                }
-            })
+                    override fun onFailure(throwable: Throwable) {
+                        _loadingLiveData.value = false
+                        _errorLiveData.value = true
+                        _productListLiveData.value = null
+                    }
+                })
+
     }
 
     fun getFirstData() {

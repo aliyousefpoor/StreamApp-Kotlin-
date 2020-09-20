@@ -123,13 +123,13 @@ class ProductListFragment : Fragment() {
         recyclerView.addOnScrollListener(recyclerViewOnScrollListener)
     }
 
-    private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
+     private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
 
             val lastVisibleItemPosition: Int =
-                (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
             if (lastVisibleItemPosition == recyclerView.adapter!!.itemCount - 1) {
                 productListViewModel.loadData()
             }
