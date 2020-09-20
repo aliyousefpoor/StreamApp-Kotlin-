@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.example.streamappkotlin.CustomApp
 import com.example.streamappkotlin.R
 import com.example.streamappkotlin.di.ApiBuilderModule
+import com.example.streamappkotlin.model.Comment
 import com.example.streamappkotlin.productlist.di.ProductModule
 import com.example.streamappkotlin.utils.AppConstants
 
@@ -86,6 +87,14 @@ class ProductDetailFragment : Fragment() {
             Glide.with(requireContext()).load(AppConstants.baseUrl + it.avatar.mdpi).into(avatar)
             fileUri = it.files[0].file
         })
+
+        productDetailViewModel.productCommentLiveData.observe(viewLifecycleOwner, Observer {
+            showComment(it)
+        })
+    }
+
+    private fun showComment(commentList:List<Comment>){
+
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.streamappkotlin
 
 import com.example.streamappkotlin.model.Category
+import com.example.streamappkotlin.model.Comment
 import com.example.streamappkotlin.model.Product
 import retrofit2.Call
 import retrofit2.http.GET
@@ -20,4 +21,7 @@ interface ApiService {
 
     @GET("product/{productId}?device_os=ios")
     fun getProductDetail(@Path("productId") productId: Int): Call<Product>
+
+    @GET("comment/{productId}")
+    fun getComment(@Path("productId") productId: Int): Call<List<Comment>>
 }
