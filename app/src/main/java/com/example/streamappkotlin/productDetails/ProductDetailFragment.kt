@@ -1,5 +1,6 @@
 package com.example.streamappkotlin.productDetails
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.streamappkotlin.CustomApp
+import com.example.streamappkotlin.PlayerActivity
 import com.example.streamappkotlin.R
 import com.example.streamappkotlin.di.ApiBuilderModule
 import com.example.streamappkotlin.model.Comment
@@ -28,7 +30,7 @@ class ProductDetailFragment : Fragment() {
     private lateinit var avatar: ImageView
     private lateinit var productName: TextView
     private lateinit var recyclerView: RecyclerView
-    private lateinit var play: ImageView
+    private lateinit var playIcon: ImageView
     private lateinit var progressBar: View
     private lateinit var productDetailViewModel: ProductDetailViewModel
     private var retrofit = CustomApp.instance.appModule.provideRetrofit()
@@ -55,7 +57,7 @@ class ProductDetailFragment : Fragment() {
 
         avatar = view.findViewById(R.id.productAvatar)
         productName = view.findViewById(R.id.productName)
-        play = view.findViewById(R.id.playIcon)
+        playIcon = view.findViewById(R.id.playIcon)
         navController = Navigation.findNavController(view)
         recyclerView = view.findViewById(R.id.commentRecyclerView)
         progressBar = view.findViewById(R.id.progressBar)
@@ -63,6 +65,13 @@ class ProductDetailFragment : Fragment() {
         observeDetailViewModel()
         productDetailViewModel.setId(productId)
         productDetailViewModel.getProduct()
+
+        playIcon.setOnClickListener {
+            val intent=Intent(activity,PlayerActivity::class.java)
+            intent.putExtra("fileUri",fileUri)
+            startActivity(intent)
+        }
+
 
     }
 
