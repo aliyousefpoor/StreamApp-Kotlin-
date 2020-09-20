@@ -9,14 +9,16 @@ import retrofit2.Response
 
 class ProductDetailRemoteDataSource(private var apiService: ApiService) {
 
-    fun getProductDetails(id:Int,dataSourceListener: DataSourceListener<Product>){
-        apiService.getProductDetail(id).enqueue(object :Callback<Product>{
+    fun getProductDetails(id: Int, dataSourceListener: DataSourceListener<Product>) {
+        apiService.getProductDetail(id).enqueue(object : Callback<Product> {
 
             override fun onResponse(call: Call<Product>, response: Response<Product>) {
-dataSourceListener.onResponse(response.body()!!)
+                dataSourceListener.onResponse(response.body()!!)
             }
+
             override fun onFailure(call: Call<Product>, t: Throwable) {
-dataSourceListener.onFailure(t)            }
+                dataSourceListener.onFailure(t)
+            }
 
         })
     }
