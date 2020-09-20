@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="400dp">
+
+    <RatingBar
+        android:id="@+id/ratingPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginHorizontal="40dp"
+        android:numStars="5"
+        android:stepSize="5"
+        />
+
+    <EditText
+        android:id="@+id/commentEditText"
+        android:layout_width="170dp"
+        android:layout_height="80dp"
+        android:hint="نظر"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@id/ratingPost"
+        app:layout_constraintStart_toStartOf="@id/ratingPost"
+        app:layout_constraintTop_toBottomOf="@id/ratingPost" />
+
+    <Button
+        android:id="@+id/submitComment"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="40dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/submit"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/commentEditText"
+        app:layout_constraintStart_toStartOf="@id/commentEditText"
+        app:layout_constraintTop_toBottomOf="@id/commentEditText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
