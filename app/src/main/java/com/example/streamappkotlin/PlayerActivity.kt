@@ -6,10 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
-import com.google.android.exoplayer2.trackselection.TrackSelection
-import com.google.android.exoplayer2.trackselection.TrackSelector
+import com.google.android.exoplayer2.trackselection.*
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.BandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
@@ -31,7 +28,7 @@ class PlayerActivity : AppCompatActivity() {
         uri = bundle!!.getString("fileUri").toString()
         playerView = findViewById(R.id.videoPlayer)
         progressBar = findViewById(R.id.videoProgressBar)
-
+        initializePlayer()
     }
 
     private fun initializePlayer() {
@@ -52,6 +49,7 @@ class PlayerActivity : AppCompatActivity() {
 
         val hlsMediaSource = HlsMediaSource.Factory(dataSourceFactory).createMediaSource(videoUri)
         playerView.player = simpleExoPlayer
+        playerView.requestFocus()
         simpleExoPlayer.prepare(hlsMediaSource)
         simpleExoPlayer.playWhenReady = true
         playerView.keepScreenOn = true
@@ -61,7 +59,7 @@ class PlayerActivity : AppCompatActivity() {
                 if (isLoading) {
                     progressBar.visibility = View.VISIBLE
                 } else {
-                    progressBar.visibility = View.VISIBLE
+                    progressBar.visibility = View.GONE
 
                 }
             }
@@ -71,7 +69,7 @@ class PlayerActivity : AppCompatActivity() {
 
                     progressBar.visibility = View.VISIBLE
                 } else {
-                    progressBar.visibility = View.VISIBLE
+                    progressBar.visibility = View.GONE
 
                 }
             }

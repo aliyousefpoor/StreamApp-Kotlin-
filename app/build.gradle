@@ -11,6 +11,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        multiDexEnabled=true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -62,7 +63,7 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-dash:2.11.7'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.11.7'
     implementation 'com.google.android.exoplayer:exoplayer-hls:2.11.7'
-
+    implementation 'com.android.support:multidex:1.0.3'
 
 
     def lifecycle_version = "2.2.0"
