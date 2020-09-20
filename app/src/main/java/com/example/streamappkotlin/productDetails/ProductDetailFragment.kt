@@ -12,13 +12,13 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.streamappkotlin.R
 
-class ProductDetailFragment:Fragment() {
+class ProductDetailFragment : Fragment() {
 
     private lateinit var navController: NavController
     private lateinit var avatar: ImageView
     private lateinit var productName: TextView
     private lateinit var recyclerView: RecyclerView
-    private lateinit var play:ImageView
+    private lateinit var play: ImageView
 
 
     override fun onCreateView(
@@ -32,11 +32,13 @@ class ProductDetailFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        avatar =view.findViewById(R.id.productAvatar)
-        productName=view.findViewById(R.id.productName)
-        play=view.findViewById(R.id.playIcon)
-        navController=Navigation.findNavController(view)
-        recyclerView=view.findViewById(R.id.commentRecyclerView)
+        var ProductId: Int = requireArguments().getInt("productId")
+
+        avatar = view.findViewById(R.id.productAvatar)
+        productName = view.findViewById(R.id.productName)
+        play = view.findViewById(R.id.playIcon)
+        navController = Navigation.findNavController(view)
+        recyclerView = view.findViewById(R.id.commentRecyclerView)
 
     }
 
