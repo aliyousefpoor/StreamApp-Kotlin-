@@ -32,7 +32,7 @@ class ProductDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var ProductId: Int = requireArguments().getInt("productId")
+        var productId: Int = requireArguments().getInt("productId")
 
         avatar = view.findViewById(R.id.productAvatar)
         productName = view.findViewById(R.id.productName)

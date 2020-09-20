@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.streamappkotlin.CustomApp
-import com.example.streamappkotlin.ProductListener
+import com.example.streamappkotlin.CategoryListener
 import com.example.streamappkotlin.R
 import com.example.streamappkotlin.categorytab.di.CategoryTabModule
 import com.example.streamappkotlin.di.ApiBuilderModule
@@ -90,7 +90,7 @@ class CategoryFragment : Fragment() {
 
     private fun showCategoryList(response: List<Category>) {
         val categoryList: List<Category> = response
-        val adapter = CategoryAdapter(categoryList, requireContext(), object : ProductListener {
+        val adapter = CategoryAdapter(categoryList, requireContext(), object : CategoryListener {
             override fun onClick(id: Int?, title: String?) {
                 val bundle = Bundle()
                 bundle.putInt("productListId", id!!)

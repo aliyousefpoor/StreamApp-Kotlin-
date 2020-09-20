@@ -17,4 +17,7 @@ interface ApiService {
         @Query("limit") limit: Int,
         @Query("offset") offset: Int
     ): Call<List<Product>>
+
+    @GET("product/{productId}?device_os=ios")
+    fun getProductDetail(@Path("productId") productId: Int): Call<Product>
 }
