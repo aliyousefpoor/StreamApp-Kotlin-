@@ -5,6 +5,7 @@ import com.example.streamappkotlin.datasource.remote.ProductDetailRemoteDataSour
 import com.example.streamappkotlin.datasource.remote.ProductListRemoteDataSource
 import com.example.streamappkotlin.datasource.remote.SendCommentRemoteDataSource
 import com.example.streamappkotlin.productDetails.ProductDetailViewModelFactory
+import com.example.streamappkotlin.productDetails.SendCommentViewModelFactory
 import com.example.streamappkotlin.productlist.ProductListViewModelFactory
 
 class ProductModule {
@@ -24,9 +25,11 @@ class ProductModule {
         fun provideProductDetailViewModelFactory(apiService: ApiService): ProductDetailViewModelFactory {
             return ProductDetailViewModelFactory(provideProductDetailRemoteDataSource(apiService))
         }
-        fun provideSendCommentRemoteDataSource(apiService: ApiService):SendCommentRemoteDataSource{
+        private fun provideSendCommentRemoteDataSource(apiService: ApiService):SendCommentRemoteDataSource{
             return SendCommentRemoteDataSource(apiService)
         }
-
+        fun provideSendCommentViewModelFactory(apiService: ApiService):SendCommentViewModelFactory{
+            return SendCommentViewModelFactory(provideSendCommentRemoteDataSource(apiService))
+        }
     }
 }
