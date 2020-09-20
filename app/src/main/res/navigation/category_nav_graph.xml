@@ -19,5 +19,15 @@
         android:name="com.example.streamappkotlin.productlist.ProductListFragment"
         android:label="ProductListFragment"
         tools:layout="@layout/product_list_fragment"
+        >
+        <action
+            android:id="@+id/action_productListFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.example.streamappkotlin.productDetails.ProductDetailFragment"
+        android:label="ProductDetailFragment"
+        tools:layout="@layout/product_detail_layout"
         />
 </navigation>

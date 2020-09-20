@@ -4,4 +4,7 @@
     <string name="more">بیشتر</string>
     <string name="home">خانه</string>
     <string name="category">دسته بندی</string>
+    <string name="productDescription">توضیحات</string>
+    <string name="userComment">نظرات کاربران</string>
+    <string name="writeComment">نظر دهید</string>
 </resources>
