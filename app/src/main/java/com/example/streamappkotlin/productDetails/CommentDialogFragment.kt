@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RatingBar
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.streamappkotlin.CustomApp
 import com.example.streamappkotlin.R
@@ -59,6 +61,12 @@ class CommentDialogFragment(private var productId: Int, private var title: Strin
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
             dialog.show()
         }
+
+        commentViewModel.commentResponse.observe(viewLifecycleOwner, Observer {
+            dismiss()
+            dialog.dismiss()
+            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+        })
     }
 
 }
