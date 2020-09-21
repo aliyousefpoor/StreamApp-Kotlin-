@@ -50,7 +50,7 @@ class ProfileFragment : Fragment() {
     private lateinit var avatar: ImageView
     private lateinit var progressBar: View
     private lateinit var user: User
-    private var profileViewModel: ProfileViewModel? = null
+    private lateinit var profileViewModel: ProfileViewModel
     private var database = LoginModule.provideUserDatabase()
     private var retrofit = CustomApp.instance.appModule.provideRetrofit()
     private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
@@ -86,8 +86,8 @@ class ProfileFragment : Fragment() {
 
         progressBar.visibility = View.VISIBLE
 
-        profileViewModel!!.getUser.observe(viewLifecycleOwner, Observer {
-            user = it!!
+        profileViewModel.getUser.observe(viewLifecycleOwner, Observer {
+            user = it
             progressBar.visibility = View.GONE
             name.setText(it.name)
             date.setText(it.date)
@@ -107,7 +107,7 @@ class ProfileFragment : Fragment() {
         date.setOnClickListener {
             showCalendar()
         }
-        profileViewModel!!.getProfile()
+        profileViewModel.getProfile()
 
 
         submitChange.setOnClickListener {
@@ -122,7 +122,7 @@ class ProfileFragment : Fragment() {
                 users.gender = "Female"
             }
 
-            profileViewModel!!.updateProfile(users)
+            profileViewModel.updateProfile(users)
         }
     }
 
@@ -248,7 +248,7 @@ class ProfileFragment : Fragment() {
 
     private fun updateProfileImage(uri: Uri) {
         val file: File = FileUtils.getFile(context, uri)
-        profileViewModel!!.updateImage(user.token, file)
+        profileViewModel.updateImage(user.token, file)
     }
 
 

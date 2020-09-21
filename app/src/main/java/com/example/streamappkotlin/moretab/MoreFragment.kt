@@ -27,8 +27,8 @@ import java.util.ArrayList
 import java.util.EnumSet.of
 
 class MoreFragment : Fragment() {
-    lateinit var recyclerView: RecyclerView
-    lateinit var navController: NavController
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var navController: NavController
     private var shareViewModel: LoginShareViewModel? = null
     private lateinit var loginStepTwoListener: LoginStepTwoListener
     private var database = LoginModule.provideUserDatabase()
@@ -44,8 +44,7 @@ class MoreFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        setUpLogin()
-//        itemType()
+
         return inflater.inflate(R.layout.more_fragment, container, false)
     }
 
@@ -83,7 +82,7 @@ class MoreFragment : Fragment() {
         recyclerView.addItemDecoration(dividerItemDecoration)
 
 
-        shareViewModel!!.isLogin.observe(viewLifecycleOwner, Observer {
+        shareViewModel!!.isLogin.observeSingleEvent(viewLifecycleOwner, Observer {
             if (it == true) {
                 navController.navigate(R.id.action_moreFragment2_to_profileFragment)
             } else {
