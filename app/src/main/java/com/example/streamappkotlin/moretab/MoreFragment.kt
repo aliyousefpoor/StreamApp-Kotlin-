@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -24,13 +23,11 @@ import com.example.streamappkotlin.model.MoreAdapter
 import com.example.streamappkotlin.model.MoreModel
 import com.example.streamappkotlin.model.Type
 import java.util.ArrayList
-import java.util.EnumSet.of
 
 class MoreFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
-    private var shareViewModel: LoginShareViewModel? = null
-    private lateinit var loginStepTwoListener: LoginStepTwoListener
+    private lateinit var shareViewModel: LoginShareViewModel
     private var database = LoginModule.provideUserDatabase()
     private var retrofit = CustomApp.instance.appModule.provideRetrofit()
     private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
@@ -38,7 +35,7 @@ class MoreFragment : Fragment() {
     private var loginRepository = LoginModule.provideLoginRepository(apiService, database.userDao())
     private var shareViewModelFactory =
         LoginModule.provideLoginShareViewModelFactory(loginRepository)
-    private lateinit var moreItemListener: MoreItemListener
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,13 +59,13 @@ class MoreFragment : Fragment() {
             override fun onClick(item: MoreModel) {
                 when (item.type) {
                     Type.Profile -> {
-                        shareViewModel!!.isLogin()
+                        shareViewModel.isLogin()
                     }
                     Type.About -> {
-                        navController.navigate(R.id.action_moreFragment2_to_aboutFragment)
+                        navController.navigate(R.id.action_moreFragment_to_aboutFragment)
                     }
                     Type.Contact -> {
-                        navController.navigate(R.id.action_moreFragment2_to_contactFragment)
+                        navController.navigate(R.id.action_moreFragment_to_contactFragment)
                     }
                 }
             }
@@ -82,14 +79,14 @@ class MoreFragment : Fragment() {
         recyclerView.addItemDecoration(dividerItemDecoration)
 
 
-        shareViewModel!!.isLogin.observeSingleEvent(viewLifecycleOwner, Observer {
+        shareViewModel.isLogin.observeSingleEvent(viewLifecycleOwner, Observer {
             if (it == true) {
-                navController.navigate(R.id.action_moreFragment2_to_profileFragment)
+                navController.navigate(R.id.action_moreFragment_to_profileFragment)
             } else {
                 val loginStepOneDialogFragment =
                     LoginStepOneDialogFragment(object : LoginStepTwoListener {
                         override fun userExist(exist: Boolean) {
-                            navController.navigate(R.id.action_moreFragment2_to_profileFragment)
+                                navController.navigate(R.id.action_moreFragment_to_profileFragment)
                         }
 
                     })
@@ -109,34 +106,6 @@ class MoreFragment : Fragment() {
         moreLists.add(MoreModel("تماس با ما", Type.Contact))
 
         return moreLists
-    }
-
-    private fun itemType() {
-        moreItemListener = object : MoreItemListener {
-            override fun onClick(item: MoreModel) {
-                when (item.type) {
-                    Type.Profile -> {
-                        shareViewModel!!.isLogin()
-                    }
-                    Type.About -> {
-                        navController.navigate(R.id.action_moreFragment2_to_aboutFragment)
-                    }
-                    Type.Contact -> {
-                        navController.navigate(R.id.action_moreFragment2_to_contactFragment)
-                    }
-                }
-            }
-
-        }
-    }
-
-    private fun setUpLogin() {
-        loginStepTwoListener = object : LoginStepTwoListener {
-            override fun userExist(exist: Boolean) {
-                navController.navigate(R.id.action_moreFragment2_to_profileFragment)
-            }
-
-        }
     }
 }
 

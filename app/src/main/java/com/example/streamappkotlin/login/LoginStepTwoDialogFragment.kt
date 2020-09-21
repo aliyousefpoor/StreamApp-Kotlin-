@@ -29,7 +29,7 @@ class LoginStepTwoDialogFragment(private var loginStepTwoListener: LoginStepTwoL
     private lateinit var androidId: String
     private lateinit var deviceModel: String
     private lateinit var deviceOs: String
-    private var shareViewModel: LoginShareViewModel? = null
+    private lateinit var shareViewModel: LoginShareViewModel
     private var retrofit = CustomApp.instance.appModule.provideRetrofit()
     private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
     private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
@@ -37,11 +37,8 @@ class LoginStepTwoDialogFragment(private var loginStepTwoListener: LoginStepTwoL
     private var loginRepository = LoginModule.provideLoginRepository(apiService, database.userDao())
     private var shareViewModelFactory =
         LoginModule.provideLoginShareViewModelFactory(loginRepository)
-    private  var dialog: ProgressDialog?=null
+    private lateinit var dialog: ProgressDialog
 
-    init {
-        this.loginStepTwoListener = loginStepTwoListener
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,42 +59,42 @@ class LoginStepTwoDialogFragment(private var loginStepTwoListener: LoginStepTwoL
         code = view.findViewById(R.id.verificationCode)
         loginStepTwoResponse()
         submit.setOnClickListener {
-            number = shareViewModel!!.loginStepOneRequestBody.mobile
-            androidId = shareViewModel!!.loginStepOneRequestBody.device_id
+            number = shareViewModel.loginStepOneRequestBody.mobile
+            androidId = shareViewModel.loginStepOneRequestBody.device_id
             val loginStepTwoRequest = LoginStepTwoRequest(number, androidId, code.text.toString())
 
-            shareViewModel!!.loginStepTwo(loginStepTwoRequest)
+            shareViewModel.loginStepTwo(loginStepTwoRequest)
 
             dialog = ProgressDialog(context);
-            dialog?.setTitle(R.string.progressDialogTitle);
-            dialog?.setMessage(getString(R.string.loadingProgress));
-            dialog?.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog?.show();
+            dialog.setTitle(R.string.progressDialogTitle);
+            dialog.setMessage(getString(R.string.loadingProgress));
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dialog.show();
         }
         changeNumber.setOnClickListener {
-            dialog?.dismiss()
+            dialog.dismiss()
             val loginStepOneDialogFragment = LoginStepOneDialogFragment(loginStepTwoListener)
             loginStepOneDialogFragment.show(parentFragmentManager, "LoginStepOneDialogFragment")
         }
         resendCode.setOnClickListener {
-            deviceModel = shareViewModel!!.loginStepOneRequestBody.device_model
-            deviceOs = shareViewModel!!.loginStepOneRequestBody.device_os
+            deviceModel = shareViewModel.loginStepOneRequestBody.device_model
+            deviceOs = shareViewModel.loginStepOneRequestBody.device_os
 
             val loginStepOneRequest = LoginStepOneRequest(number, androidId, deviceModel, deviceOs)
-            shareViewModel!!.loginStepOne(loginStepOneRequest)
+            shareViewModel.loginStepOne(loginStepOneRequest)
         }
     }
 
     private fun loginStepTwoResponse() {
-        shareViewModel!!.loginStepTwoLiveData.observe(viewLifecycleOwner, Observer {
+        shareViewModel.loginStepTwoLiveData.observe(viewLifecycleOwner, Observer {
             if (it != null) {
 
                 loginStepTwoListener.userExist(true)
 
                 dismiss()
-                dialog?.dismiss()
+                dialog.dismiss()
             } else {
-                Toast.makeText(context, "enter valid code", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Enter Valid Code", Toast.LENGTH_SHORT).show()
 
             }
         })

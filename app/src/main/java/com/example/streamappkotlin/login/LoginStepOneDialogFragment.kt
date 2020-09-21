@@ -31,7 +31,7 @@ class LoginStepOneDialogFragment(private var loginStepTwoListener: LoginStepTwoL
     private var loginRepository = LoginModule.provideLoginRepository(apiService, database.userDao())
     private var shareViewModelFactory =
         LoginModule.provideLoginShareViewModelFactory(loginRepository)
-    private  var dialog: ProgressDialog?=null
+    private lateinit var dialog: ProgressDialog
     private lateinit var androidId: String
     private var deviceModel = AppConstants.deviceModel
     private var deviceOs = AppConstants.getAndroidVersion()
@@ -61,10 +61,10 @@ class LoginStepOneDialogFragment(private var loginStepTwoListener: LoginStepTwoL
             shareViewModel!!.loginStepOne(loginStepOneRequest)
 
             dialog = ProgressDialog(context)
-            dialog?.setTitle(R.string.progressDialogTitle);
-            dialog?.setMessage(getString(R.string.loadingProgress));
-            dialog?.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog?.show();
+            dialog.setTitle(R.string.progressDialogTitle);
+            dialog.setMessage(getString(R.string.loadingProgress));
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dialog.show();
         }
     }
 
@@ -74,9 +74,9 @@ class LoginStepOneDialogFragment(private var loginStepTwoListener: LoginStepTwoL
                 val loginStepTwoDialogFragment = LoginStepTwoDialogFragment(loginStepTwoListener)
                 loginStepTwoDialogFragment.show(parentFragmentManager, "LoginStepTwoDialogFragment")
                 dismiss()
-                dialog?.dismiss()
+                dialog.dismiss()
             } else {
-                dialog?.dismiss()
+                dialog.dismiss()
                 Toast.makeText(requireContext(), "Error Occurred", Toast.LENGTH_LONG).show()
             }
         })
