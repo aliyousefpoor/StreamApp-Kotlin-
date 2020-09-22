@@ -23,7 +23,7 @@ class LoginStepOneDialogFragment(private var loginStepTwoListener: LoginStepTwoL
     DialogFragment() {
     private lateinit var number: EditText
     private lateinit var submit: Button
-    private var shareViewModel: LoginShareViewModel? = null
+    private lateinit var shareViewModel: LoginShareViewModel
     private var retrofit = CustomApp.instance.appModule.provideRetrofit()
     private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
     private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
@@ -58,7 +58,7 @@ class LoginStepOneDialogFragment(private var loginStepTwoListener: LoginStepTwoL
         submit.setOnClickListener {
             val loginStepOneRequest =
                 LoginStepOneRequest(number.text.toString(), androidId, deviceModel, deviceOs)
-            shareViewModel!!.loginStepOne(loginStepOneRequest)
+            shareViewModel.loginStepOne(loginStepOneRequest)
 
             dialog = ProgressDialog(context)
             dialog.setTitle(R.string.progressDialogTitle);
@@ -69,7 +69,7 @@ class LoginStepOneDialogFragment(private var loginStepTwoListener: LoginStepTwoL
     }
 
     private fun loginStepOneResponse() {
-        shareViewModel!!.loginStepOneLiveData.observe(viewLifecycleOwner, Observer {
+        shareViewModel.loginStepOneLiveData.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 val loginStepTwoDialogFragment = LoginStepTwoDialogFragment(loginStepTwoListener)
                 loginStepTwoDialogFragment.show(parentFragmentManager, "LoginStepTwoDialogFragment")
