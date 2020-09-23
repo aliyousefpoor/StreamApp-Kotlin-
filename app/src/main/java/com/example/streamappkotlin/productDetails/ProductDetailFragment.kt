@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -29,6 +30,7 @@ class ProductDetailFragment : Fragment() {
     private lateinit var productName: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var play: ImageView
+    private lateinit var commentButton:Button
     private lateinit var progressBar: View
     private lateinit var productDetailViewModel: ProductDetailViewModel
     private var retrofit = CustomApp.instance.appModule.provideRetrofit()
@@ -37,7 +39,7 @@ class ProductDetailFragment : Fragment() {
     private var productDetailViewModelFactory =
         ProductModule.provideProductDetailViewModelFactory(apiService)
     private lateinit var fileUri: String
-
+    private lateinit var title:String
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,10 +61,16 @@ class ProductDetailFragment : Fragment() {
         navController = Navigation.findNavController(view)
         recyclerView = view.findViewById(R.id.commentRecyclerView)
         progressBar = view.findViewById(R.id.progressBar)
+        commentButton=view.findViewById(R.id.commentButton)
 
         observeDetailViewModel()
         productDetailViewModel.setId(productId)
         productDetailViewModel.getProduct()
+
+        commentButton.setOnClickListener {
+            val commentDialogFragment=CommentDialogFragment(productId, title)
+            commentDialogFragment.show(parentFragmentManager,"CommentDialogFragment")
+        }
 
     }
 
@@ -85,6 +93,7 @@ class ProductDetailFragment : Fragment() {
         productDetailViewModel.productDetailLiveData.observe(viewLifecycleOwner, Observer {
             progressBar.visibility = View.GONE
             productName.text = it.name
+            title=it.name
             Glide.with(requireContext()).load(AppConstants.baseUrl + it.avatar.mdpi).into(avatar)
             fileUri = it.files[0].file
         })

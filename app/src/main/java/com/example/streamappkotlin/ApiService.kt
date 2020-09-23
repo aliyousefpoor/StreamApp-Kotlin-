@@ -3,6 +3,7 @@ package com.example.streamappkotlin
 import com.example.streamappkotlin.model.*
 import com.example.streamappkotlin.model.Category
 import com.example.streamappkotlin.model.Comment
+import com.example.streamappkotlin.model.CommentPostResponse
 import com.example.streamappkotlin.model.Product
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -51,4 +52,14 @@ interface ApiService {
 
     @GET("comment/{productId}")
     fun getComment(@Path("productId") productId: Int): Call<List<Comment>>
+
+    @POST("comment/{productId}")
+    @FormUrlEncoded
+    fun sendComment(
+        @Field("title") title: String,
+        @Field("score") score: Int,
+        @Field("comment_text") commentText: String,
+        @Path("productId") productId: Int,
+        @Header("Authorization") token: String
+    ): Call<CommentPostResponse>
 }
