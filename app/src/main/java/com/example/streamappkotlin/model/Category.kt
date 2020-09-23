@@ -1,6 +1,5 @@
 package com.example.streamappkotlin.model
 
-
 data class Category(
     var id: Int,
     var title: String,
