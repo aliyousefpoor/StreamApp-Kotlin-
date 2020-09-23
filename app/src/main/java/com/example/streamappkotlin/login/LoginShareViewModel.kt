@@ -3,6 +3,7 @@ package com.example.streamappkotlin.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.streamappkotlin.SingleLiveEvent
 import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.datasource.locale.database.IsLoginListener
 import com.example.streamappkotlin.model.LoginStepOneRequest
@@ -20,8 +21,8 @@ class LoginShareViewModel(private var loginRepository: LoginRepository) : ViewMo
     private var _loginStepTwoLiveData: MutableLiveData<LoginStepTwoResponse> = MutableLiveData()
     var loginStepTwoLiveData: LiveData<LoginStepTwoResponse> = _loginStepTwoLiveData
 
-    private var _isLogin: MutableLiveData<Boolean> = MutableLiveData()
-    var isLogin: LiveData<Boolean> = _isLogin
+    private var _isLogin: SingleLiveEvent<Boolean> = SingleLiveEvent()
+    var isLogin: SingleLiveEvent<Boolean> = _isLogin
 
     fun loginStepOne(loginStepOneRequest: LoginStepOneRequest) {
         loginStepOneRequestBody = loginStepOneRequest

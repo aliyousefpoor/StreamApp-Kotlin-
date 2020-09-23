@@ -1,14 +1,17 @@
 package com.example.streamappkotlin.datasource.locale
 
 import com.example.streamappkotlin.datasource.DataSourceListener
-import com.example.streamappkotlin.datasource.locale.database.GetUserAsyncTask
-import com.example.streamappkotlin.datasource.locale.database.IsLoginListener
-import com.example.streamappkotlin.datasource.locale.database.LoginAsyncTask
-import com.example.streamappkotlin.datasource.locale.database.UserDao
+import com.example.streamappkotlin.datasource.locale.database.*
 import com.example.streamappkotlin.model.LoginStepTwoResponse
 import com.example.streamappkotlin.model.User
 
 class UserLocaleDataSourceImp(private var userDao: UserDao) {
+
+    fun saveUser(user: User) {
+        val updateUserAsyncTask = UpdateUserAsyncTask(user, userDao)
+        updateUserAsyncTask.execute()
+    }
+
     fun loginUser(loginStepTwoResponse: LoginStepTwoResponse) {
         val loginAsyncTask = LoginAsyncTask(loginStepTwoResponse, userDao)
         loginAsyncTask.execute()

@@ -2,8 +2,6 @@ package com.example.streamappkotlin.datasource.locale.database
 
 import androidx.room.*
 import com.example.streamappkotlin.datasource.locale.model.UserEntity
-import com.example.streamappkotlin.datasource.locale.model.UserLogin
-
 @Dao
 interface UserDao {
     @Query("SELECT * FROM user ORDER BY userId")

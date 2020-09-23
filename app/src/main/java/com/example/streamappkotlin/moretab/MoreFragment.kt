@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -24,13 +23,11 @@ import com.example.streamappkotlin.model.MoreAdapter
 import com.example.streamappkotlin.model.MoreModel
 import com.example.streamappkotlin.model.Type
 import java.util.ArrayList
-import java.util.EnumSet.of
 
 class MoreFragment : Fragment() {
-    lateinit var recyclerView: RecyclerView
-    lateinit var navController: NavController
-    private var shareViewModel: LoginShareViewModel? = null
-    private lateinit var loginStepTwoListener: LoginStepTwoListener
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var navController: NavController
+    private lateinit var shareViewModel: LoginShareViewModel
     private var database = LoginModule.provideUserDatabase()
     private var retrofit = CustomApp.instance.appModule.provideRetrofit()
     private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
@@ -44,42 +41,31 @@ class MoreFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setUpLogin()
+
         return inflater.inflate(R.layout.more_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = view.findViewById(R.id.recycler_view)
-        navController = Navigation.findNavController(view)
+
         shareViewModel = ViewModelProviders.of(requireActivity(), shareViewModelFactory)
             .get(LoginShareViewModel::class.java)
 
-        shareViewModel!!.isLogin.observe(viewLifecycleOwner, Observer {
-            if (it == true) {
-                navController.navigate(R.id.action_moreFragment2_to_profileFragment)
-            } else {
-                val loginStepOneDialogFragment =
-                    LoginStepOneDialogFragment(loginStepTwoListener)
-                loginStepOneDialogFragment.show(
-                    parentFragmentManager,
-                    "LoginStepOneDialogFragment"
-                )
-            }
-        })
+        recyclerView = view.findViewById(R.id.recycler_view)
+        navController = Navigation.findNavController(view)
 
         val moreList = fillWithData()
         val moreAdapter = MoreAdapter(requireContext(), moreList, object : MoreItemListener {
             override fun onClick(item: MoreModel) {
                 when (item.type) {
                     Type.Profile -> {
-                        shareViewModel!!.isLogin()
+                        shareViewModel.isLogin()
                     }
                     Type.About -> {
-                        navController.navigate(R.id.action_moreFragment2_to_aboutFragment)
+                        navController.navigate(R.id.action_moreFragment_to_aboutFragment)
                     }
                     Type.Contact -> {
-                        navController.navigate(R.id.action_moreFragment2_to_contactFragment)
+                        navController.navigate(R.id.action_moreFragment_to_contactFragment)
                     }
                 }
             }
@@ -91,6 +77,26 @@ class MoreFragment : Fragment() {
         val dividerItemDecoration =
             DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
         recyclerView.addItemDecoration(dividerItemDecoration)
+
+
+        shareViewModel.isLogin.observeSingleEvent(viewLifecycleOwner, Observer {
+            if (it == true) {
+                navController.navigate(R.id.action_moreFragment_to_profileFragment)
+            } else {
+                val loginStepOneDialogFragment =
+                    LoginStepOneDialogFragment(object : LoginStepTwoListener {
+                        override fun userExist(exist: Boolean) {
+                                navController.navigate(R.id.action_moreFragment_to_profileFragment)
+                        }
+
+                    })
+                loginStepOneDialogFragment.show(
+                    parentFragmentManager,
+                    "LoginStepOneDialogFragment"
+                )
+            }
+        })
+
     }
 
     private fun fillWithData(): ArrayList<MoreModel> {
@@ -100,15 +106,6 @@ class MoreFragment : Fragment() {
         moreLists.add(MoreModel("تماس با ما", Type.Contact))
 
         return moreLists
-    }
-
-    private fun setUpLogin() {
-        loginStepTwoListener = object : LoginStepTwoListener {
-            override fun userExist(exist: Boolean) {
-                navController.navigate(R.id.action_moreFragment2_to_profileFragment)
-            }
-
-        }
     }
 }
 

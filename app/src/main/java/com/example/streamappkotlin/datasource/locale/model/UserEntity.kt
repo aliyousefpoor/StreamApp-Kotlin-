@@ -12,8 +12,3 @@ data class UserEntity(@PrimaryKey var userId: Int=0,
                       @ColumnInfo(name = "gender") var gender: String="",
                       @ColumnInfo(name = "avatar") var avatar: String=""
                 )
-data class UserEntities(@PrimaryKey var userId: Int=0,
-                        @ColumnInfo(name = "token") var token:String="")
-
-data class UserLogin(@PrimaryKey val userId: Int,
-            @ColumnInfo(name = "token") val token:String)
