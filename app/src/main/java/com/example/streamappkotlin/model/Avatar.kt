@@ -8,3 +8,4 @@ data class Avatar(
     var hdpi: String,
     var mdpi: String
 )
+
