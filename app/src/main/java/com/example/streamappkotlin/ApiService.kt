@@ -8,8 +8,11 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
-    @GET("store/16") fun getStore():Call<Store>
-    @GET("category/16/463") fun getCategory(): Call<List<Category>>
+    @GET("store/16")
+    fun getStore(): Call<Store>
+    @GET("category/16/463")
+    fun getCategory(): Call<List<Category>>
+
     @POST("mobile_login_step1/16")
     fun loginStepOne(@Body loginStepOneRequest: LoginStepOneRequest): Call<LoginStepOneResponse>
 
@@ -29,6 +32,7 @@ interface ApiService {
     @POST("profile")
     fun updateImage(
         @Header("Authorization") token: String,
-        @Part avatar: MultipartBody.Part): Call<UpdateResponse>
+        @Part avatar: MultipartBody.Part
+    ): Call<UpdateResponse>
 
 }
