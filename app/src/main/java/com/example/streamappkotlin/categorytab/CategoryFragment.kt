@@ -28,7 +28,7 @@ class CategoryFragment : Fragment() {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
-    private var categoryViewModel: CategoryViewModel? = null
+    private lateinit var categoryViewModel: CategoryViewModel
     private var retrofit = CustomApp.instance.appModule.provideRetrofit()
     private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
     private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
@@ -54,7 +54,7 @@ class CategoryFragment : Fragment() {
         navController = Navigation.findNavController(view)
 
         swipeRefreshLayout.setOnRefreshListener {
-            categoryViewModel!!.getCategory()
+            categoryViewModel.getCategory()
         }
 
         observeViewModel()
@@ -65,7 +65,7 @@ class CategoryFragment : Fragment() {
         arrow.visibility = View.GONE
         swipeRefreshLayout.isRefreshing = true
 
-        categoryViewModel?.loadingLiveData?.observe(viewLifecycleOwner, Observer {
+        categoryViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 pullDown.visibility = View.GONE
                 arrow.visibility = View.GONE
@@ -73,7 +73,7 @@ class CategoryFragment : Fragment() {
                 swipeRefreshLayout.isRefreshing = true
             }
         })
-        categoryViewModel?.errorLiveData?.observe(viewLifecycleOwner, Observer {
+        categoryViewModel.errorLiveData.observe(viewLifecycleOwner, Observer {
             if (it) {
                 pullDown.visibility = View.VISIBLE
                 arrow.visibility = View.VISIBLE
@@ -82,7 +82,7 @@ class CategoryFragment : Fragment() {
                 Toast.makeText(context, "Check Your Connection !", Toast.LENGTH_SHORT).show()
             }
         })
-        categoryViewModel?.categoryList?.observe(viewLifecycleOwner, Observer {
+        categoryViewModel.categoryList.observe(viewLifecycleOwner, Observer {
             swipeRefreshLayout.isRefreshing = false
             showCategoryList(it)
         })

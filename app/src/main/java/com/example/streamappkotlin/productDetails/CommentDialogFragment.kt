@@ -49,22 +49,18 @@ class CommentDialogFragment(private var productId: Int, private var title: Strin
         val ratingBar: RatingBar = view.findViewById(R.id.ratingPost)
 
         submit.setOnClickListener {
-            val score: Int = ratingBar.rating as Int
+            val score: Int = ratingBar.rating.toInt()
             val sendComment =
                 SendComment(title, score, comment.text.toString(), productId)
 
             commentViewModel.sendComment(sendComment)
 
-            dialog = ProgressDialog(requireContext())
-            dialog.setTitle(R.string.progressDialogTitle)
-            dialog.setMessage(getString(R.string.commentSend))
-            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-            dialog.show()
+            Toast.makeText(requireContext(),"Comment Sent", Toast.LENGTH_SHORT).show()
+
         }
 
         commentViewModel.commentResponse.observe(viewLifecycleOwner, Observer {
             dismiss()
-            dialog.dismiss()
             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
         })
     }

@@ -9,7 +9,7 @@
         layout="@layout/app_toolbar"/>
 
     <TextView
-        android:id="@+id/pull_down"
+        android:id="@+id/pullDown"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:gravity="center"
@@ -25,9 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:src="@drawable/refresh"
-        app:layout_constraintBottom_toBottomOf="@id/pull_down"
-        app:layout_constraintStart_toEndOf="@id/pull_down"
-        app:layout_constraintTop_toTopOf="@id/pull_down" />
+        app:layout_constraintBottom_toBottomOf="@id/pullDown"
+        app:layout_constraintStart_toEndOf="@id/pullDown"
+        app:layout_constraintTop_toTopOf="@id/pullDown" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshing"

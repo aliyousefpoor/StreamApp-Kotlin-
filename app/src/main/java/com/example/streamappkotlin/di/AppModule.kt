@@ -14,7 +14,7 @@ class AppModule {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         val httpClient: OkHttpClient.Builder = OkHttpClient.Builder()
-//        httpClient.addInterceptor(loggingInterceptor)
+        httpClient.addInterceptor(loggingInterceptor)
         httpClient.addInterceptor(TokenInterceptor())
 
         if (retrofit == null) {

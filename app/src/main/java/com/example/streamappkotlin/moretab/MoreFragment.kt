@@ -48,10 +48,10 @@ class MoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        shareViewModel = View.of(requireActivity(), shareViewModelFactory)
+        shareViewModel = ViewModelProviders.of(requireActivity(), shareViewModelFactory)
             .get(LoginShareViewModel::class.java)
 
-        recyclerView = view.findViewById(R.id.recycler_view)
+        recyclerView = view.findViewById(R.id.moreRecyclerView)
         navController = Navigation.findNavController(view)
 
         val moreList = fillWithData()
