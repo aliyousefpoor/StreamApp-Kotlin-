@@ -35,4 +35,13 @@ class UserLocaleDataSourceImp(private var userDao: UserDao) {
         })
 
     }
+
+    fun getTokenBlocking(): String? {
+        if (userDao.getUser() != null) {
+            return userDao.getUser().token
+        } else {
+            return null
+        }
+    }
+
 }

@@ -15,6 +15,7 @@ class AppModule {
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         val httpClient: OkHttpClient.Builder = OkHttpClient.Builder()
         httpClient.addInterceptor(loggingInterceptor)
+        httpClient.addInterceptor(TokenInterceptor())
 
         if (retrofit == null) {
             retrofit = Retrofit.Builder().baseUrl(AppConstants.baseUrl)

@@ -35,7 +35,7 @@ class LoginModule {
             return LoginShareViewModelFactory(loginRepository)
         }
 
-        private fun provideUserLocaleDataSourceImp(userDao: UserDao): UserLocaleDataSourceImp {
+         fun provideUserLocaleDataSourceImp(userDao: UserDao): UserLocaleDataSourceImp {
             return UserLocaleDataSourceImp(userDao)
         }
 
