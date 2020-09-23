@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -27,6 +29,7 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var pullDown: TextView
     private lateinit var swipeRefreshing: SwipeRefreshLayout
+    private lateinit var navController: NavController
     private lateinit var homeViewModel: HomeViewModel
     private var retrofit = CustomApp.instance.appModule.provideRetrofit()
     private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
@@ -50,7 +53,7 @@ class HomeFragment : Fragment() {
         pullDown = view.findViewById(R.id.pullDown)
         recyclerView = view.findViewById(R.id.rec_view)
         swipeRefreshing = view.findViewById(R.id.homeSwipeRefreshing)
-
+        navController = Navigation.findNavController(view)
         swipeRefreshing.setOnRefreshListener {
             homeViewModel.getStore()
         }
@@ -97,7 +100,9 @@ class HomeFragment : Fragment() {
                 homeList,
                 headerList, object : ProductListener {
                     override fun onClick(id: Int) {
-
+                        val bundle = Bundle()
+                        bundle.putInt("productId", id)
+                        navController.navigate(R.id.action_homeFragment_to_productDetailFragment,bundle)
                     }
                 })
         recyclerView.adapter = adapter

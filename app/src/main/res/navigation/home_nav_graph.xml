@@ -11,5 +11,15 @@
         android:name="com.example.streamappkotlin.hometab.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/home_fragment"
+        >
+        <action
+            android:id="@+id/action_homeFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.example.streamappkotlin.productDetails.ProductDetailFragment"
+        android:label="ProductDetailFragment"
+        tools:layout="@layout/product_detail_layout"
         />
 </navigation>
