@@ -28,7 +28,7 @@ class ProductListFragment : Fragment() {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
-    private  lateinit var progressBar: View
+    private lateinit var progressBar: View
     private lateinit var productListViewModel: ProductListViewModel
     private var retrofit = CustomApp.instance.appModule.provideRetrofit()
     private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
@@ -100,11 +100,11 @@ class ProductListFragment : Fragment() {
         })
 
         productListViewModel.productListLiveData.observe(viewLifecycleOwner, Observer {
-            if (it!=null) {
-                swipeRefreshLayout.isRefreshing=false
+            if (it != null) {
+                swipeRefreshLayout.isRefreshing = false
                 progressBar.visibility = View.GONE
-                pullDown.visibility=View.GONE
-                recyclerView.visibility=View.VISIBLE
+                pullDown.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
                 adapter.addList(it)
                 adapter.notifyDataSetChanged()
 
@@ -116,14 +116,21 @@ class ProductListFragment : Fragment() {
     }
 
     private fun showProductAdapter() {
-        adapter = ProductListAdapter(requireContext())
+        adapter = ProductListAdapter(requireContext(), object : ProductListener {
+            override fun onClick(id: Int) {
+                val bundle = Bundle()
+                bundle.putInt("productId",id)
+                navController.navigate(R.id.action_productListFragment_to_productDetailFragment,bundle)
+            }
+
+        })
         recyclerView.adapter = adapter
         val layoutManager = GridLayoutManager(requireContext(), 2)
         recyclerView.layoutManager = layoutManager
         recyclerView.addOnScrollListener(recyclerViewOnScrollListener)
     }
 
-     private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
+    private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)

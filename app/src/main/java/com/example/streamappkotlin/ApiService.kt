@@ -2,8 +2,8 @@ package com.example.streamappkotlin
 
 import com.example.streamappkotlin.model.*
 import com.example.streamappkotlin.model.Category
-import com.example.streamappkotlin.model.Store
-import okhttp3.MultipartBody
+import com.example.streamappkotlin.model.Comment
+import com.example.streamappkotlin.model.Product
 import retrofit2.Call
 import retrofit2.http.*
 import retrofit2.http.GET
@@ -44,4 +44,10 @@ interface ApiService {
         @Query("limit") limit: Int,
         @Query("offset") offset: Int
     ): Call<List<Product>>
+
+    @GET("product/{productId}?device_os=ios")
+    fun getProductDetail(@Path("productId") productId: Int): Call<Product>
+
+    @GET("comment/{productId}")
+    fun getComment(@Path("productId") productId: Int): Call<List<Comment>>
 }

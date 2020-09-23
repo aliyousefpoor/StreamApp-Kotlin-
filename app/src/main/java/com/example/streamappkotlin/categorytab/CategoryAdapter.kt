@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.streamappkotlin.ProductListener
+import com.example.streamappkotlin.CategoryListener
 import com.example.streamappkotlin.R
 import com.example.streamappkotlin.model.Category
 import com.example.streamappkotlin.utils.AppConstants
@@ -17,7 +17,7 @@ import com.example.streamappkotlin.utils.AppConstants
 class CategoryAdapter(
     private var categories: List<Category>,
     private var context: Context,
-    private var productListener: ProductListener
+    private var categoryListener: CategoryListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -33,7 +33,7 @@ class CategoryAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val categoryViewHolder: CategoryViewHolder = holder as CategoryViewHolder
-        categoryViewHolder.onBind(categories[position], context, productListener)
+        categoryViewHolder.onBind(categories[position], context, categoryListener)
     }
 
 
@@ -42,11 +42,11 @@ class CategoryAdapter(
         var imageView: ImageView = itemView.findViewById(R.id.image)
         var title: TextView = itemView.findViewById(R.id.title)
 
-        fun onBind(categories: Category, context: Context, productListener: ProductListener) {
+        fun onBind(categories: Category, context: Context, categoryListener: CategoryListener) {
             title.text = categories.title
             Glide.with(context).load(AppConstants.baseUrl + categories.avatar).into(imageView)
             cardView.setOnClickListener {
-                productListener.onClick(categories.id,categories.title)
+                categoryListener.onClick(categories.id,categories.title)
             }
         }
     }

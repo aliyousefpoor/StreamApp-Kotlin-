@@ -1,5 +1,5 @@
 package com.example.streamappkotlin
 
-interface ProductListener {
+interface CategoryListener {
     fun onClick(id: Int?,title:String?)
 }

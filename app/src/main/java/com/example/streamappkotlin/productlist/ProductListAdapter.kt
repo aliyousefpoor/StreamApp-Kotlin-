@@ -15,7 +15,7 @@ import com.example.streamappkotlin.model.Product
 import com.example.streamappkotlin.utils.AppConstants
 import java.util.ArrayList
 
-class ProductListAdapter(private var context: Context) :
+class ProductListAdapter(private var context: Context,private var productListener: ProductListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var products = ArrayList<Product>()
 
@@ -31,7 +31,7 @@ class ProductListAdapter(private var context: Context) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val productListViewHolder = holder as ProductListViewHolder
-        productListViewHolder.onBind(products[position], context)
+        productListViewHolder.onBind(products[position], context,productListener)
     }
 
     class ProductListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -39,9 +39,17 @@ class ProductListAdapter(private var context: Context) :
         var title: TextView = itemView.findViewById(R.id.productTitle)
         var cardView: CardView = itemView.findViewById(R.id.productListCardView)
 
-        fun onBind(product: Product, context: Context) {
+        fun onBind(
+            product: Product,
+            context: Context,
+            productListener: ProductListener
+        ) {
             title.text = product.name
             Glide.with(context).load(AppConstants.baseUrl+product.avatar.mdpi).into(avatar)
+
+            cardView.setOnClickListener {
+                productListener.onClick(product.id)
+            }
         }
     }
 
