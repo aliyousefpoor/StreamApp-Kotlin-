@@ -4,6 +4,7 @@ import com.example.streamappkotlin.model.*
 import com.example.streamappkotlin.model.Category
 import com.example.streamappkotlin.model.Comment
 import com.example.streamappkotlin.model.Product
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 import retrofit2.http.GET
