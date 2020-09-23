@@ -46,7 +46,7 @@ class CategoryAdapter(
             title.text = categories.title
             Glide.with(context).load(AppConstants.baseUrl + categories.avatar).into(imageView)
             cardView.setOnClickListener {
-                productListener.onClick(categories.id)
+                productListener.onClick(categories.id,categories.title)
             }
         }
     }

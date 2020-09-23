@@ -9,5 +9,15 @@
         android:name="com.example.streamappkotlin.categorytab.CategoryFragment"
         android:label="CategoryFragment"
         tools:layout="@layout/category_fragment"
+        >
+        <action
+            android:id="@+id/action_categoryFragment_to_productListFragment"
+            app:destination="@id/productListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productListFragment"
+        android:name="com.example.streamappkotlin.productlist.ProductListFragment"
+        android:label="ProductListFragment"
+        tools:layout="@layout/product_list_fragment"
         />
 </navigation>
