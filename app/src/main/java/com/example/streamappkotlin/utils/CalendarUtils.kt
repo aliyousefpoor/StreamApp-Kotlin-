@@ -14,7 +14,7 @@ class CalendarUtils(private var context: Context, private var dateListener: Date
 
     @SuppressLint("ResourceAsColor")
     fun showCalendar() {
-        var initDate = PersianCalendar()
+        val initDate = PersianCalendar()
         initDate.setPersianDate(1370, 3, 13)
         picker = PersianDatePickerDialog(context)
             .setPositiveButtonString("باشه")

@@ -46,8 +46,8 @@ class ProfileViewModel(private var profileRepository: ProfileRepository) : ViewM
         })
     }
 
-    fun updateImage(token: String, file: File) {
-        profileRepository.updateImage(token, file, object : DataSourceListener<UpdateResponse> {
+    fun updateImage( file: File) {
+        profileRepository.updateImage( file, object : DataSourceListener<UpdateResponse> {
             override fun onResponse(response: UpdateResponse) {
                 Log.d(TAG, "onResponse: $response")
             }

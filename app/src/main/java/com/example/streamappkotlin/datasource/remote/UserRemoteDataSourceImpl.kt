@@ -19,7 +19,7 @@ class UserRemoteDataSourceImpl(private var apiService: ApiService) {
     fun updateProfile(user: User, dataSourceListener: DataSourceListener<UpdateResponse>) {
         val updateProfile = UpdateProfile(user.name, user.date, user.gender)
 
-        apiService.update("Token " + user.token, updateProfile)
+        apiService.update( updateProfile)
             .enqueue(object : Callback<UpdateResponse> {
                 override fun onResponse(
                     call: Call<UpdateResponse>,
@@ -36,7 +36,7 @@ class UserRemoteDataSourceImpl(private var apiService: ApiService) {
     }
 
     fun getProfile(token: String, dataSourceListener: DataSourceListener<User>) {
-        apiService.getUser("Token $token").enqueue(object : Callback<ProfileResponse> {
+        apiService.getUser().enqueue(object : Callback<ProfileResponse> {
 
             override fun onResponse(
                 call: Call<ProfileResponse>,
@@ -65,13 +65,12 @@ class UserRemoteDataSourceImpl(private var apiService: ApiService) {
     }
 
     fun updateImage(
-        token: String,
         file: File,
         dataSourceListener: DataSourceListener<UpdateResponse>
     ) {
         val requestFile = RequestBody.create(MediaType.get("multipart/form-data"), file)
         val requestImage = MultipartBody.Part.createFormData("avatar", file.name, requestFile)
-        apiService.updateImage("Token $token", requestImage).enqueue(object : Callback<UpdateResponse> {
+        apiService.updateImage( requestImage).enqueue(object : Callback<UpdateResponse> {
             override fun onResponse(
                 call: Call<UpdateResponse>,
                 response: Response<UpdateResponse>

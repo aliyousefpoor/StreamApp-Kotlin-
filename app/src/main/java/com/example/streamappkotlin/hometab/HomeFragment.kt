@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var pullDown: TextView
     private lateinit var swipeRefreshing: SwipeRefreshLayout
-    private var homeViewModel: HomeViewModel? = null
+    private lateinit var homeViewModel: HomeViewModel
     private var retrofit = CustomApp.instance.appModule.provideRetrofit()
     private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
     private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
@@ -52,7 +52,7 @@ class HomeFragment : Fragment() {
         swipeRefreshing = view.findViewById(R.id.homeSwipeRefreshing)
 
         swipeRefreshing.setOnRefreshListener {
-            homeViewModel!!.getStore()
+            homeViewModel.getStore()
         }
         observeViewModel()
     }
@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
         arrow.visibility = View.GONE
         swipeRefreshing.isRefreshing = true
 
-        homeViewModel?.loadingLiveData?.observe(viewLifecycleOwner, Observer {
+        homeViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 pullDown.visibility = View.GONE
                 arrow.visibility = View.GONE
@@ -70,16 +70,16 @@ class HomeFragment : Fragment() {
                 swipeRefreshing.isRefreshing = true
             }
         })
-        homeViewModel?.errorLiveData?.observe(viewLifecycleOwner, Observer {
+        homeViewModel.errorLiveData.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 pullDown.visibility = View.VISIBLE
                 arrow.visibility = View.VISIBLE
                 recyclerView.visibility = View.GONE
                 swipeRefreshing.isRefreshing = false
-                Toast.makeText(context, "Check Your Conecction !", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Check Your Connection !", Toast.LENGTH_SHORT).show()
             }
         })
-        homeViewModel?.storeListLiveData?.observe(viewLifecycleOwner, Observer {
+        homeViewModel.storeListLiveData.observe(viewLifecycleOwner, Observer {
             swipeRefreshing.isRefreshing = false
             recyclerView.visibility = View.VISIBLE
             arrow.visibility = View.GONE

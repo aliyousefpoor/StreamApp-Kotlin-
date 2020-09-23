@@ -32,7 +32,5 @@
     <string name="productDescription">توضیحات</string>
     <string name="userComment">نظرات کاربران</string>
     <string name="writeComment">نظر دهید</string>
-    <string name="submit">ثبت</string>
-    <string name="progressDialogTitle">Loading</string>
     <string name="commentSend">Your Comment sent</string>
 </resources>

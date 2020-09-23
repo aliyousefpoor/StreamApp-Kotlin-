@@ -66,7 +66,7 @@ class ProfileRepository(
         })
     }
 
-    fun updateImage(token: String,file: File,dataSourceListener: DataSourceListener<UpdateResponse>){
-        userRemoteDataSourceImpl.updateImage(token, file, dataSourceListener)
+    fun updateImage(file: File,dataSourceListener: DataSourceListener<UpdateResponse>){
+        userRemoteDataSourceImpl.updateImage(file, dataSourceListener)
     }
 }

@@ -248,7 +248,7 @@ class ProfileFragment : Fragment() {
 
     private fun updateProfileImage(uri: Uri) {
         val file: File = FileUtils.getFile(context, uri)
-        profileViewModel.updateImage(user.token, file)
+        profileViewModel.updateImage(file)
     }
 
 

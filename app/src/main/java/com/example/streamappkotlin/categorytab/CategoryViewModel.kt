@@ -26,7 +26,7 @@ class CategoryViewModel(private var categoryRemoteDataSource: CategoryRemoteData
                 _loadingLiveData.value = false
             }
 
-            override fun onFailure(throwable: Throwable) {
+            override fun onFailure(throwable: Throwable?) {
                 _errorLiveData.value = true
                 _loadingLiveData.value = false
             }

@@ -38,7 +38,7 @@ class ProductListViewModel(private var productListRemoteDataSource: ProductListR
                         offset = offset + response.size
                     }
 
-                    override fun onFailure(throwable: Throwable) {
+                    override fun onFailure(throwable: Throwable?) {
                         _loadingLiveData.value = false
                         _errorLiveData.value = true
                         _productListLiveData.value = null

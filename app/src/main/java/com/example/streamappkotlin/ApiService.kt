@@ -26,17 +26,15 @@ interface ApiService {
 
     @POST("profile")
     fun update(
-        @Header("Authorization") token: String,
         @Body updateProfile: UpdateProfile
     ): Call<UpdateResponse>
 
     @GET("profile")
-    fun getUser(@Header("Authorization") token: String): Call<ProfileResponse>
+    fun getUser(): Call<ProfileResponse>
 
     @Multipart
     @POST("profile")
     fun updateImage(
-        @Header("Authorization") token: String,
         @Part avatar: MultipartBody.Part
     ): Call<UpdateResponse>
 
@@ -59,7 +57,6 @@ interface ApiService {
         @Field("title") title: String,
         @Field("score") score: Int,
         @Field("comment_text") commentText: String,
-        @Path("productId") productId: Int,
-        @Header("Authorization") token: String
+        @Path("productId") productId: Int
     ): Call<CommentPostResponse>
 }

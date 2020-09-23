@@ -51,7 +51,7 @@ class CommentDialogFragment(private var productId: Int, private var title: Strin
         submit.setOnClickListener {
             val score: Int = ratingBar.rating as Int
             val sendComment =
-                SendComment(title, score, comment.text.toString(), productId, "userTokenExample")
+                SendComment(title, score, comment.text.toString(), productId)
 
             commentViewModel.sendComment(sendComment)
 

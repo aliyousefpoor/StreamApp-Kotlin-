@@ -22,7 +22,7 @@ class SendCommentViewModel(private var sendCommentRemoteDataSource: SendCommentR
                     _commentResponse.value = response
                 }
 
-                override fun onFailure(throwable: Throwable) {
+                override fun onFailure(throwable: Throwable?) {
                     _commentResponse.value = null
                 }
 

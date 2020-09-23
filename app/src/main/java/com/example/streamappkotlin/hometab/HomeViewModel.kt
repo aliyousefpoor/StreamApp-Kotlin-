@@ -26,7 +26,7 @@ class HomeViewModel(private var homeRemoteDataSource: HomeRemoteDataSource) : Vi
                 _loadingLiveData.value = false
             }
 
-            override fun onFailure(throwable: Throwable) {
+            override fun onFailure(throwable: Throwable?) {
                 _errorLiveData.value = true
                 _loadingLiveData.value = false
             }

@@ -34,7 +34,7 @@ class ProductDetailViewModel(private var productDetailRemoteDataSource: ProductD
                     _errorLiveData.value = false
                 }
 
-                override fun onFailure(throwable: Throwable) {
+                override fun onFailure(throwable: Throwable?) {
                     _loadingLiveData.value = false
                     _errorLiveData.value = true
                 }
@@ -51,7 +51,7 @@ class ProductDetailViewModel(private var productDetailRemoteDataSource: ProductD
                     _errorLiveData.value = false
                 }
 
-                override fun onFailure(throwable: Throwable) {
+                override fun onFailure(throwable: Throwable?) {
                     _loadingLiveData.value = false
                     _errorLiveData.value = true
                 }

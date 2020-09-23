@@ -15,8 +15,7 @@ class SendCommentRemoteDataSource(private var apiService: ApiService) {
         apiService.sendComment(sendComment.title,
             sendComment.score,
             sendComment.commentText,
-            sendComment.productId,
-            sendComment.token).enqueue(object : Callback<CommentPostResponse> {
+            sendComment.productId).enqueue(object : Callback<CommentPostResponse> {
             override fun onResponse(
                 call: Call<CommentPostResponse>,
                 response: Response<CommentPostResponse>

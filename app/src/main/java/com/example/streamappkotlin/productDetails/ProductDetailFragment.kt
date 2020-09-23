@@ -21,6 +21,10 @@ import com.example.streamappkotlin.CustomApp
 import com.example.streamappkotlin.PlayerActivity
 import com.example.streamappkotlin.R
 import com.example.streamappkotlin.di.ApiBuilderModule
+import com.example.streamappkotlin.login.LoginShareViewModel
+import com.example.streamappkotlin.login.LoginStepOneDialogFragment
+import com.example.streamappkotlin.login.LoginStepTwoListener
+import com.example.streamappkotlin.login.di.LoginModule
 import com.example.streamappkotlin.model.Comment
 import com.example.streamappkotlin.productlist.di.ProductModule
 import com.example.streamappkotlin.utils.AppConstants
@@ -32,16 +36,21 @@ class ProductDetailFragment : Fragment() {
     private lateinit var productName: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var playIcon: ImageView
-    private lateinit var commentButton:Button
+    private lateinit var commentButton: Button
     private lateinit var progressBar: View
+    private lateinit var shareViewModel: LoginShareViewModel
     private lateinit var productDetailViewModel: ProductDetailViewModel
+    private var database = LoginModule.provideUserDatabase()
     private var retrofit = CustomApp.instance.appModule.provideRetrofit()
     private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
     private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
     private var productDetailViewModelFactory =
         ProductModule.provideProductDetailViewModelFactory(apiService)
+    private var loginRepository = LoginModule.provideLoginRepository(apiService, database.userDao())
+    private var shareViewModelFactory =
+        LoginModule.provideLoginShareViewModelFactory(loginRepository)
     private lateinit var fileUri: String
-    private lateinit var title:String
+    private lateinit var title: String
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,6 +63,8 @@ class ProductDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         productDetailViewModel = ViewModelProviders.of(this, productDetailViewModelFactory)
             .get(ProductDetailViewModel::class.java)
+        shareViewModel = ViewModelProviders.of(requireActivity(), shareViewModelFactory)
+            .get(LoginShareViewModel::class.java)
 
         val productId: Int = requireArguments().getInt("productId")
 
@@ -63,22 +74,38 @@ class ProductDetailFragment : Fragment() {
         navController = Navigation.findNavController(view)
         recyclerView = view.findViewById(R.id.commentRecyclerView)
         progressBar = view.findViewById(R.id.progressBar)
-        commentButton=view.findViewById(R.id.commentButton)
+        commentButton = view.findViewById(R.id.commentButton)
 
         observeDetailViewModel()
         productDetailViewModel.setId(productId)
         productDetailViewModel.getProduct()
 
         playIcon.setOnClickListener {
-            val intent=Intent(activity,PlayerActivity::class.java)
-            intent.putExtra("fileUri",fileUri)
+            val intent = Intent(activity, PlayerActivity::class.java)
+            intent.putExtra("fileUri", fileUri)
             startActivity(intent)
         }
 
-
+        shareViewModel.isLogin.observeSingleEvent(viewLifecycleOwner, Observer {
+            if (it == true) {
+                val commentDialogFragment = CommentDialogFragment(productId, title)
+                commentDialogFragment.show(parentFragmentManager, "CommentDialogFragment")
+            } else {
+                val loginStepOneDialogFragment =
+                    LoginStepOneDialogFragment(object : LoginStepTwoListener {
+                        override fun userExist(exist: Boolean) {
+                            val commentDialogFragment = CommentDialogFragment(productId, title)
+                            commentDialogFragment.show(
+                                parentFragmentManager,
+                                "CommentDialogFragment"
+                            )
+                        }
+                    })
+                loginStepOneDialogFragment.show(parentFragmentManager, "LoginStepOneDialogFragment")
+            }
+        })
         commentButton.setOnClickListener {
-            val commentDialogFragment=CommentDialogFragment(productId, title)
-            commentDialogFragment.show(parentFragmentManager,"CommentDialogFragment")
+            shareViewModel.isLogin()
         }
 
     }
@@ -102,7 +129,7 @@ class ProductDetailFragment : Fragment() {
         productDetailViewModel.productDetailLiveData.observe(viewLifecycleOwner, Observer {
             progressBar.visibility = View.GONE
             productName.text = it.name
-            title=it.name
+            title = it.name
             Glide.with(requireContext()).load(AppConstants.baseUrl + it.avatar.mdpi).into(avatar)
             fileUri = it.files[0].file
         })
