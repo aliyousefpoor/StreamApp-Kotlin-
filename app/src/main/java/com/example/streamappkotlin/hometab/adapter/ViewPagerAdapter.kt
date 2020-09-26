@@ -35,7 +35,7 @@ class ViewPagerAdapter(var headerList: List<Product>,var context: Context) : Pag
                 container.context,
                 headerList[position].name,
                 Toast.LENGTH_SHORT
-            ).show();
+            ).show()
 
         }
         val viewPager: ViewPager = container as ViewPager
