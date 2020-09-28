@@ -54,7 +54,7 @@ class CategoryFragment : Fragment() {
         navController = Navigation.findNavController(view)
 
         swipeRefreshLayout.setOnRefreshListener {
-            categoryViewModel.getCategory()
+            categoryViewModel.rxGetCategory()
         }
 
         observeViewModel()

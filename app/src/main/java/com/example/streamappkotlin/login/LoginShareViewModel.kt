@@ -1,5 +1,6 @@
 package com.example.streamappkotlin.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,8 +12,11 @@ import com.example.streamappkotlin.model.LoginStepOneResponse
 import com.example.streamappkotlin.model.LoginStepTwoRequest
 import com.example.streamappkotlin.model.LoginStepTwoResponse
 import com.example.streamappkotlin.repository.LoginRepository
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
 
 class LoginShareViewModel(private var loginRepository: LoginRepository) : ViewModel() {
+    private  val TAG = "LoginShareViewModel"
     lateinit var loginStepOneRequestBody: LoginStepOneRequest
 
     private var _loginStepOneLiveData: MutableLiveData<LoginStepOneResponse> = MutableLiveData()
@@ -24,19 +28,40 @@ class LoginShareViewModel(private var loginRepository: LoginRepository) : ViewMo
     private var _isLogin: SingleLiveEvent<Boolean> = SingleLiveEvent()
     var isLogin: SingleLiveEvent<Boolean> = _isLogin
 
-    fun loginStepOne(loginStepOneRequest: LoginStepOneRequest) {
+//    fun loginStepOne(loginStepOneRequest: LoginStepOneRequest) {
+//        loginStepOneRequestBody = loginStepOneRequest
+//        loginRepository.loginStepOne(loginStepOneRequest,
+//            object : DataSourceListener<LoginStepOneResponse> {
+//                override fun onResponse(response: LoginStepOneResponse) {
+//                    _loginStepOneLiveData.value = response
+//                }
+//
+//                override fun onFailure(throwable: Throwable?) {
+//                    _loginStepOneLiveData.value = null
+//                }
+//
+//            })
+//    }
+
+    fun rxLoginStepOne(loginStepOneRequest: LoginStepOneRequest){
         loginStepOneRequestBody = loginStepOneRequest
-        loginRepository.loginStepOne(loginStepOneRequest,
-            object : DataSourceListener<LoginStepOneResponse> {
-                override fun onResponse(response: LoginStepOneResponse) {
-                    _loginStepOneLiveData.value = response
-                }
+        loginRepository.rxLoginStepOne(loginStepOneRequest,object :Observer<LoginStepOneResponse>{
+            override fun onComplete() {
+                Log.d(TAG, "onComplete: ")
+            }
 
-                override fun onFailure(throwable: Throwable?) {
-                    _loginStepOneLiveData.value = null
-                }
+            override fun onSubscribe(d: Disposable) {
+                Log.d(TAG, "onSubscribe: ")
+            }
 
-            })
+            override fun onNext(t: LoginStepOneResponse) {
+_loginStepOneLiveData.value=t            }
+
+            override fun onError(e: Throwable) {
+                Log.d(TAG, "onError: $e")
+            }
+
+        })
     }
 
     fun loginStepTwo(loginStepTwoRequest: LoginStepTwoRequest) {

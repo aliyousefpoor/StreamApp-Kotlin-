@@ -55,7 +55,8 @@ class HomeFragment : Fragment() {
         swipeRefreshing = view.findViewById(R.id.homeSwipeRefreshing)
         navController = Navigation.findNavController(view)
         swipeRefreshing.setOnRefreshListener {
-            homeViewModel.getStore()
+ //           homeViewModel.getStore()
+            homeViewModel.rxGetStore()
         }
         observeViewModel()
     }

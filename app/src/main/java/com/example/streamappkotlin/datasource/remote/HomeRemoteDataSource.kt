@@ -1,29 +1,37 @@
 package com.example.streamappkotlin.datasource.remote
 
 import com.example.streamappkotlin.ApiService
-import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.model.Store
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.Observable
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class HomeRemoteDataSource(private var apiService: ApiService) {
+//    fun getStore(dataSourceListener: DataSourceListener<Store>) {
+//        apiService.getStore().enqueue(object : Callback<Store> {
+//            override fun onResponse(call: Call<Store>, response: Response<Store>) {
+//                if (response.isSuccessful) {
+//                    if (response.body() != null) {
+//                        dataSourceListener.onResponse(response.body()!!)
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<Store>, t: Throwable) {
+//                dataSourceListener.onFailure(t)
+//            }
+//
+//
+//        })
+//    }
 
-    fun getStore(dataSourceListener: DataSourceListener<Store>) {
-        apiService.getStore().enqueue(object : Callback<Store> {
-            override fun onResponse(call: Call<Store>, response: Response<Store>) {
-                if (response.isSuccessful) {
-                    if (response.body() != null) {
-                        dataSourceListener.onResponse(response.body()!!)
-                    }
-                }
-            }
+    fun getStoreRx(observer: Observer<Store>) {
+        val getStoreObservable :Observable<Store> = apiService.rxGetStore()
 
-            override fun onFailure(call: Call<Store>, t: Throwable) {
-                dataSourceListener.onFailure(t)
-            }
+        getStoreObservable.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(observer)
 
-
-        })
     }
 }

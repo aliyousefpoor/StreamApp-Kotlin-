@@ -9,6 +9,8 @@ import com.example.streamappkotlin.model.LoginStepOneRequest
 import com.example.streamappkotlin.model.LoginStepOneResponse
 import com.example.streamappkotlin.model.LoginStepTwoRequest
 import com.example.streamappkotlin.model.LoginStepTwoResponse
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
 
 class LoginRepository(
     private var loginStepOneRemoteDataSource: LoginStepOneRemoteDataSource,
@@ -16,37 +18,70 @@ class LoginRepository(
     private var userLocaleDataSourceImp: UserLocaleDataSourceImp
 ) {
 
-    fun loginStepOne(
+//    fun loginStepOne(
+//        loginStepOneRequest: LoginStepOneRequest,
+//        dataSourceListener: DataSourceListener<LoginStepOneResponse>
+//    ) {
+//        loginStepOneRemoteDataSource.loginStepOne(loginStepOneRequest, dataSourceListener)
+//    }
+
+    fun rxLoginStepOne(
         loginStepOneRequest: LoginStepOneRequest,
-        dataSourceListener: DataSourceListener<LoginStepOneResponse>
+        observer: Observer<LoginStepOneResponse>
     ) {
-        loginStepOneRemoteDataSource.loginStepOne(loginStepOneRequest, dataSourceListener)
+        loginStepOneRemoteDataSource.rxLoginStepOne(loginStepOneRequest, observer)
     }
 
-    fun loginStepTwo(
+//    fun loginStepTwo(
+//        loginStepTwoRequest: LoginStepTwoRequest,
+//        dataSourceListener: DataSourceListener<LoginStepTwoResponse>
+//    ) {
+//        loginStepTwoRemoteDataSource.loginStepTwo(loginStepTwoRequest,
+//            object : DataSourceListener<LoginStepTwoResponse> {
+//                override fun onResponse(response: LoginStepTwoResponse) {
+//                    dataSourceListener.onResponse(response)
+//                    loginUser(response)
+//                }
+//
+//                override fun onFailure(throwable: Throwable?) {
+//                    dataSourceListener.onFailure(throwable)
+//                }
+//
+//            })
+//
+//    }
+
+    fun rxLoginStepTwo(
         loginStepTwoRequest: LoginStepTwoRequest,
-        dataSourceListener: DataSourceListener<LoginStepTwoResponse>
+        observer: Observer<LoginStepTwoResponse>
     ) {
-        loginStepTwoRemoteDataSource.loginStepTwo(loginStepTwoRequest,
-            object : DataSourceListener<LoginStepTwoResponse> {
-                override fun onResponse(response: LoginStepTwoResponse) {
-                    dataSourceListener.onResponse(response)
-                    loginUser(response)
+        loginStepTwoRemoteDataSource.rxLoginStepTwo(loginStepTwoRequest,
+            object : Observer<LoginStepTwoResponse> {
+                override fun onComplete() {
+
                 }
 
-                override fun onFailure(throwable: Throwable?) {
-                    dataSourceListener.onFailure(throwable)
+                override fun onSubscribe(d: Disposable) {
                 }
+
+                override fun onNext(t: LoginStepTwoResponse) {
+
+                    loginUser(t)
+                }
+
+                override fun onError(e: Throwable) {
+
+                }
+
 
             })
-
     }
 
     fun loginUser(loginStepTwoResponse: LoginStepTwoResponse) {
         userLocaleDataSourceImp.loginUser(loginStepTwoResponse)
     }
 
-    fun isLogin(isLoginListener: IsLoginListener){
+    fun isLogin(isLoginListener: IsLoginListener) {
         userLocaleDataSourceImp.isLogin(isLoginListener)
     }
 }

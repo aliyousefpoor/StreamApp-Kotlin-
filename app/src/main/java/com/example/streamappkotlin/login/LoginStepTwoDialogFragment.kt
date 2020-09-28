@@ -81,7 +81,7 @@ class LoginStepTwoDialogFragment(private var loginStepTwoListener: LoginStepTwoL
             deviceOs = shareViewModel.loginStepOneRequestBody.device_os
 
             val loginStepOneRequest = LoginStepOneRequest(number, androidId, deviceModel, deviceOs)
-            shareViewModel.loginStepOne(loginStepOneRequest)
+            shareViewModel.rxLoginStepOne(loginStepOneRequest)
         }
     }
 
