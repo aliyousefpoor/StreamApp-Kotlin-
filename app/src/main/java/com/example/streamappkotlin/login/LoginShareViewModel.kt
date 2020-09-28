@@ -16,7 +16,7 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
 class LoginShareViewModel(private var loginRepository: LoginRepository) : ViewModel() {
-    private  val TAG = "LoginShareViewModel"
+    private val TAG = "LoginShareViewModel"
     lateinit var loginStepOneRequestBody: LoginStepOneRequest
 
     private var _loginStepOneLiveData: MutableLiveData<LoginStepOneResponse> = MutableLiveData()
@@ -43,37 +43,60 @@ class LoginShareViewModel(private var loginRepository: LoginRepository) : ViewMo
 //            })
 //    }
 
-    fun rxLoginStepOne(loginStepOneRequest: LoginStepOneRequest){
+    fun rxLoginStepOne(loginStepOneRequest: LoginStepOneRequest) {
         loginStepOneRequestBody = loginStepOneRequest
-        loginRepository.rxLoginStepOne(loginStepOneRequest,object :Observer<LoginStepOneResponse>{
-            override fun onComplete() {
-                Log.d(TAG, "onComplete: ")
-            }
+        loginRepository.rxLoginStepOne(loginStepOneRequest,
+            object : Observer<LoginStepOneResponse> {
+                override fun onComplete() {
+                    Log.d(TAG, "stepOne onComplete: ")
+                }
 
-            override fun onSubscribe(d: Disposable) {
-                Log.d(TAG, "onSubscribe: ")
-            }
+                override fun onSubscribe(d: Disposable) {
+                    Log.d(TAG, "stepOne onSubscribe: ")
+                }
 
-            override fun onNext(t: LoginStepOneResponse) {
-_loginStepOneLiveData.value=t            }
+                override fun onNext(t: LoginStepOneResponse) {
+                    _loginStepOneLiveData.postValue(t)
+                }
 
-            override fun onError(e: Throwable) {
-                Log.d(TAG, "onError: $e")
-            }
+                override fun onError(e: Throwable) {
+                    Log.d(TAG, "stepOne onError: $e")
+                }
 
-        })
+            })
     }
 
-    fun loginStepTwo(loginStepTwoRequest: LoginStepTwoRequest) {
-        loginRepository.loginStepTwo(loginStepTwoRequest,
-            object : DataSourceListener<LoginStepTwoResponse> {
-                override fun onResponse(response: LoginStepTwoResponse) {
-                    _loginStepTwoLiveData.value = response
+//    fun loginStepTwo(loginStepTwoRequest: LoginStepTwoRequest) {
+//        loginRepository.loginStepTwo(loginStepTwoRequest,
+//            object : DataSourceListener<LoginStepTwoResponse> {
+//                override fun onResponse(response: LoginStepTwoResponse) {
+//                    _loginStepTwoLiveData.value = response
+//                }
+//
+//                override fun onFailure(throwable: Throwable?) {
+//                    _loginStepTwoLiveData.value = null
+//                }
+//
+//            })
+//    }
+
+    fun rxLoginStepTwo(loginStepTwoRequest: LoginStepTwoRequest) {
+        loginRepository.rxLoginStepTwo(loginStepTwoRequest,
+            object : Observer<LoginStepTwoResponse> {
+                override fun onComplete() {
+                    Log.d(TAG, "stepTwo onComplete: ")
                 }
 
-                override fun onFailure(throwable: Throwable?) {
-                    _loginStepTwoLiveData.value = null
+                override fun onSubscribe(d: Disposable) {
+                    Log.d(TAG, "stepTwo onSubscribe: ")
                 }
+
+                override fun onNext(t: LoginStepTwoResponse) {
+                    _loginStepTwoLiveData.value = t
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.d(TAG, "stepTwo onError: $e")                }
 
             })
     }

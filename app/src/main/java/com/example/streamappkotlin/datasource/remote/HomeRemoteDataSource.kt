@@ -1,5 +1,6 @@
 package com.example.streamappkotlin.datasource.remote
 
+import android.annotation.SuppressLint
 import com.example.streamappkotlin.ApiService
 import com.example.streamappkotlin.model.Store
 import io.reactivex.Observable

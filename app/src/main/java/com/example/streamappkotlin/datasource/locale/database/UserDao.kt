@@ -2,6 +2,11 @@ package com.example.streamappkotlin.datasource.locale.database
 
 import androidx.room.*
 import com.example.streamappkotlin.datasource.locale.model.UserEntity
+import com.example.streamappkotlin.model.LoginStepTwoResponse
+import io.reactivex.Completable
+import io.reactivex.Flowable
+import io.reactivex.Single
+
 @Dao
 interface UserDao {
     @Query("SELECT * FROM user ORDER BY userId")
@@ -11,7 +16,7 @@ interface UserDao {
     fun getUser(): UserEntity
 
     @Insert
-    fun insertUser(userEntity: UserEntity)
+    fun insertUser(userEntity: UserEntity):Completable
 
     @Update
     fun updateUser(userEntity: UserEntity)

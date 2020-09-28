@@ -52,8 +52,8 @@ class LoginRepository(
 //    }
 
     fun rxLoginStepTwo(
-        loginStepTwoRequest: LoginStepTwoRequest,
-        observer: Observer<LoginStepTwoResponse>
+        loginStepTwoRequest: LoginStepTwoRequest, observer: Observer<LoginStepTwoResponse>
+
     ) {
         loginStepTwoRemoteDataSource.rxLoginStepTwo(loginStepTwoRequest,
             object : Observer<LoginStepTwoResponse> {
@@ -65,12 +65,12 @@ class LoginRepository(
                 }
 
                 override fun onNext(t: LoginStepTwoResponse) {
-
+                    observer.onNext(t)
                     loginUser(t)
                 }
 
                 override fun onError(e: Throwable) {
-
+                    observer.onError(e)
                 }
 
 

@@ -63,7 +63,7 @@ class LoginStepTwoDialogFragment(private var loginStepTwoListener: LoginStepTwoL
             androidId = shareViewModel.loginStepOneRequestBody.device_id
             val loginStepTwoRequest = LoginStepTwoRequest(number, androidId, code.text.toString())
 
-            shareViewModel.loginStepTwo(loginStepTwoRequest)
+            shareViewModel.rxLoginStepTwo(loginStepTwoRequest)
 
             dialog = ProgressDialog(context);
             dialog.setTitle(R.string.progressDialogTitle);
