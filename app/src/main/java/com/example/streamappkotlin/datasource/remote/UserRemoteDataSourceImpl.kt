@@ -21,25 +21,6 @@ import java.io.File
 
 class UserRemoteDataSourceImpl(private var apiService: ApiService) {
 
-//    fun updateProfile(user: User, dataSourceListener: DataSourceListener<UpdateResponse>) {
-//        val updateProfile = UpdateProfile(user.name, user.date, user.gender)
-//
-//        apiService.update(updateProfile)
-//            .enqueue(object : Callback<UpdateResponse> {
-//                override fun onResponse(
-//                    call: Call<UpdateResponse>,
-//                    response: Response<UpdateResponse>
-//
-//                ) {
-//                    dataSourceListener.onResponse(response.body()!!)
-//                }
-//
-//                override fun onFailure(call: Call<UpdateResponse>, t: Throwable) {
-//                    dataSourceListener.onFailure(t)
-//                }
-//            })
-//    }
-
     fun rxUpdateProfile(user: User, observer: Observer<UpdateResponse>) {
         val updateProfile = UpdateProfile(user.name, user.date, user.gender)
         val updateProfileObservable = apiService.rxUpdate(updateProfile)
@@ -49,27 +30,6 @@ class UserRemoteDataSourceImpl(private var apiService: ApiService) {
     }
 
     fun rxGetProfile(token: String, observer: Observer<User>) {
-//        apiService.getUser().enqueue(object : Callback<ProfileResponse> {
-//
-//            override fun onResponse(
-//                call: Call<ProfileResponse>,
-//                response: Response<ProfileResponse>
-//            ) {
-//                val user =
-//                    User(
-//                        response.body()!!.id,
-//                        token,
-//                        response.body()!!.nickname,
-//                        response.body()!!.date_of_birth,
-//                        response.body()!!.gender,
-//                        response.body()!!.avatar
-//                    )
-//                dataSourceListener.onResponse(user)
-//            }
-//            override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
-//                dataSourceListener.onFailure(t)
-//            }
-//        })
         val rxGetUserObservable = apiService.rxGetUser()
         rxGetUserObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<ProfileResponse> {
@@ -103,18 +63,5 @@ class UserRemoteDataSourceImpl(private var apiService: ApiService) {
         val updateImageObservable = apiService.rxUpdateImage(requestImage)
         updateImageObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
             .subscribe(observer)
-//        apiService.updateImage(requestImage).enqueue(object : Callback<UpdateResponse> {
-//            override fun onResponse(
-//                call: Call<UpdateResponse>,
-//                response: Response<UpdateResponse>
-//            ) {
-//                dataSourceListener.onResponse(response.body()!!)
-//            }
-//
-//            override fun onFailure(call: Call<UpdateResponse>, t: Throwable) {
-//                dataSourceListener.onFailure(t)
-//            }
-//
-//        })
     }
 }

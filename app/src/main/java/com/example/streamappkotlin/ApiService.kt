@@ -80,8 +80,14 @@ interface ApiService {
     @GET("product/{productId}?device_os=ios")
     fun getProductDetail(@Path("productId") productId: Int): Call<Product>
 
+    @GET("product/{productId}?device_os=ios")
+fun rxGetProductDetail(@Path("productId") productId:Int):Observable<Product>
+
     @GET("comment/{productId}")
     fun getComment(@Path("productId") productId: Int): Call<List<Comment>>
+
+    @GET("comment/{productId}")
+    fun rxGetComment(@Path("productId")productId: Int):Observable<List<Comment>>
 
     @POST("comment/{productId}")
     @FormUrlEncoded

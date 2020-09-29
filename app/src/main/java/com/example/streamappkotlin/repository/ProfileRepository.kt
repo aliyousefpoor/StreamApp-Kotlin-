@@ -29,22 +29,6 @@ class ProfileRepository(
     }
 
     fun updateProfile(user: User, observer: Observer<UpdateResponse>) {
-//        userRemoteDataSourceImpl.updateProfile(user, object : DataSourceListener<UpdateResponse> {
-//            override fun onResponse(response: UpdateResponse) {
-//
-//                user.name = response.data.nickname
-//                user.date = response.data.date_of_birth
-//                user.gender = response.data.gender
-//                user.avatar = response.data.avatar
-//                userLocaleDataSourceImp.saveUser(user)
-//                dataSourceListener.onResponse(response)
-//            }
-//
-//            override fun onFailure(throwable: Throwable?) {
-//                dataSourceListener.onFailure(throwable)
-//            }
-//
-//        })
         userRemoteDataSourceImpl.rxUpdateProfile(user, object : Observer<UpdateResponse> {
             override fun onComplete() {
                 observer.onComplete()
@@ -95,22 +79,6 @@ class ProfileRepository(
             override fun onError(e: Throwable) {
                 observer.onError(e)
             }
-//            override fun onResponse(response: User) {
-//                val user = User()
-//                user.id = response.id
-//                user.token = token
-//                user.name = response.name
-//                user.date = response.date
-//                user.gender = response.gender
-//                user.avatar = response.avatar
-//                userLocaleDataSourceImp.saveUser(user)
-//                dataSourceListener.onResponse(response)
-//            }
-//
-//            override fun onFailure(throwable: Throwable?) {
-//                dataSourceListener.onFailure(throwable)
-//            }
-
         })
     }
 
