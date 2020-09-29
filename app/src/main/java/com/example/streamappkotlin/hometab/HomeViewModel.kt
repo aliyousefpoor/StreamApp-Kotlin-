@@ -22,23 +22,6 @@ class HomeViewModel(private var homeRemoteDataSource: HomeRemoteDataSource) : Vi
     private var _errorLiveData: MutableLiveData<Boolean> = MutableLiveData()
     var errorLiveData = _errorLiveData
 
-    //    fun getStore() {
-//        homeRemoteDataSource.getStore(object : DataSourceListener<Store> {
-//            override fun onResponse(response: Store) {
-//                _storeListLiveData.value = response
-//                _errorLiveData.value = false
-//                _loadingLiveData.value = false
-//            }
-//
-//            override fun onFailure(throwable: Throwable?) {
-//                _errorLiveData.value = true
-//                _loadingLiveData.value = false
-//            }
-//
-//        })
-//    }
-
-
     fun rxGetStore() {
 
         homeRemoteDataSource.getStoreRx(object : Observer<Store> {
@@ -64,7 +47,6 @@ class HomeViewModel(private var homeRemoteDataSource: HomeRemoteDataSource) : Vi
     }
 
     init {
-//        getStore()
         rxGetStore()
     }
 }

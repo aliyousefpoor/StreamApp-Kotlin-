@@ -5,10 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.streamappkotlin.SingleLiveEvent
-import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.model.UpdateResponse
 import com.example.streamappkotlin.model.User
 import com.example.streamappkotlin.repository.ProfileRepository
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
 import java.io.File
 
 class ProfileViewModel(private var profileRepository: ProfileRepository) : ViewModel() {
@@ -21,12 +22,20 @@ class ProfileViewModel(private var profileRepository: ProfileRepository) : ViewM
     var getUser: LiveData<User> = _getUser
 
     fun updateProfile(user: User) {
-        profileRepository.updateProfile(user, object : DataSourceListener<UpdateResponse> {
-            override fun onResponse(response: UpdateResponse) {
-                _updateProfile.postValue(response)
+        profileRepository.updateProfile(user, object : Observer<UpdateResponse> {
+            override fun onComplete() {
+                Log.d(TAG, "onComplete: ")
             }
 
-            override fun onFailure(throwable: Throwable?) {
+            override fun onSubscribe(d: Disposable) {
+                Log.d(TAG, "onSubscribe: ")
+            }
+
+            override fun onNext(t: UpdateResponse) {
+                _updateProfile.postValue(t)
+            }
+
+            override fun onError(e: Throwable) {
                 _updateProfile.postValue(null)
             }
 
@@ -34,26 +43,42 @@ class ProfileViewModel(private var profileRepository: ProfileRepository) : ViewM
     }
 
     fun getProfile() {
-        profileRepository.getProfile(object : DataSourceListener<User> {
-            override fun onResponse(response: User) {
-                _getUser.postValue(response)
+        profileRepository.getProfile(object : Observer<User> {
+            override fun onComplete() {
+                Log.d(TAG, "onComplete: ")
             }
 
-            override fun onFailure(throwable: Throwable?) {
+            override fun onSubscribe(d: Disposable) {
+                Log.d(TAG, "onSubscribe: ")
+            }
+
+            override fun onNext(t: User) {
+                _getUser.postValue(t)
+            }
+
+            override fun onError(e: Throwable) {
                 _getUser.postValue(null)
             }
-
         })
     }
 
-    fun updateImage( file: File) {
-        profileRepository.updateImage( file, object : DataSourceListener<UpdateResponse> {
-            override fun onResponse(response: UpdateResponse) {
-                Log.d(TAG, "onResponse: $response")
+    fun updateImage(file: File) {
+        profileRepository.updateImage(file, object : Observer<UpdateResponse> {
+
+            override fun onComplete() {
+                Log.d(TAG, "onComplete: ")
             }
 
-            override fun onFailure(throwable: Throwable?) {
-                Log.d(TAG, "onFailure: $throwable")
+            override fun onSubscribe(d: Disposable) {
+                Log.d(TAG, "onSubscribe: $d")
+            }
+
+            override fun onNext(t: UpdateResponse) {
+                Log.d(TAG, "onNext: ")
+            }
+
+            override fun onError(e: Throwable) {
+                Log.d(TAG, "onError: $e")
             }
 
         })

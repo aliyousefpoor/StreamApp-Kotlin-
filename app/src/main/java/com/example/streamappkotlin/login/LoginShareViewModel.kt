@@ -28,21 +28,6 @@ class LoginShareViewModel(private var loginRepository: LoginRepository) : ViewMo
     private var _isLogin: SingleLiveEvent<Boolean> = SingleLiveEvent()
     var isLogin: SingleLiveEvent<Boolean> = _isLogin
 
-//    fun loginStepOne(loginStepOneRequest: LoginStepOneRequest) {
-//        loginStepOneRequestBody = loginStepOneRequest
-//        loginRepository.loginStepOne(loginStepOneRequest,
-//            object : DataSourceListener<LoginStepOneResponse> {
-//                override fun onResponse(response: LoginStepOneResponse) {
-//                    _loginStepOneLiveData.value = response
-//                }
-//
-//                override fun onFailure(throwable: Throwable?) {
-//                    _loginStepOneLiveData.value = null
-//                }
-//
-//            })
-//    }
-
     fun rxLoginStepOne(loginStepOneRequest: LoginStepOneRequest) {
         loginStepOneRequestBody = loginStepOneRequest
         loginRepository.rxLoginStepOne(loginStepOneRequest,
@@ -65,20 +50,6 @@ class LoginShareViewModel(private var loginRepository: LoginRepository) : ViewMo
 
             })
     }
-
-//    fun loginStepTwo(loginStepTwoRequest: LoginStepTwoRequest) {
-//        loginRepository.loginStepTwo(loginStepTwoRequest,
-//            object : DataSourceListener<LoginStepTwoResponse> {
-//                override fun onResponse(response: LoginStepTwoResponse) {
-//                    _loginStepTwoLiveData.value = response
-//                }
-//
-//                override fun onFailure(throwable: Throwable?) {
-//                    _loginStepTwoLiveData.value = null
-//                }
-//
-//            })
-//    }
 
     fun rxLoginStepTwo(loginStepTwoRequest: LoginStepTwoRequest) {
         loginRepository.rxLoginStepTwo(loginStepTwoRequest,

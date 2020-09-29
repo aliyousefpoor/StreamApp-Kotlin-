@@ -1,22 +1,16 @@
 package com.example.streamappkotlin.datasource.locale
 
-import android.annotation.SuppressLint
 import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.datasource.locale.database.*
 import com.example.streamappkotlin.datasource.locale.model.UserEntity
 import com.example.streamappkotlin.model.LoginStepTwoResponse
 import com.example.streamappkotlin.model.User
-import io.reactivex.Observable
-import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class UserLocaleDataSourceImp(private var userDao: UserDao) {
 
     fun saveUser(user: User) {
-//        val updateUserAsyncTask = UpdateUserAsyncTask(user, userDao)
-//        updateUserAsyncTask.execute()
         val userEntity =
             UserEntity(user.id, user.token, user.name, user.date, user.gender, user.avatar)
         userDao.updateUser(userEntity).subscribeOn(Schedulers.io())
@@ -24,8 +18,6 @@ class UserLocaleDataSourceImp(private var userDao: UserDao) {
     }
 
     fun loginUser(loginStepTwoResponse: LoginStepTwoResponse) {
-//        val loginAsyncTask = LoginAsyncTask(loginStepTwoResponse, userDao)
-//        loginAsyncTask.execute()
         val userEntity =
             UserEntity(loginStepTwoResponse.user_id, loginStepTwoResponse.token, "", "", "")
         userDao.insertUser(userEntity).subscribeOn(Schedulers.io())
