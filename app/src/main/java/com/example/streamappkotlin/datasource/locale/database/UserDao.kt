@@ -5,6 +5,7 @@ import com.example.streamappkotlin.datasource.locale.model.UserEntity
 import com.example.streamappkotlin.model.LoginStepTwoResponse
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 import io.reactivex.Single
 
 @Dao
@@ -19,7 +20,7 @@ interface UserDao {
     fun insertUser(userEntity: UserEntity):Completable
 
     @Update
-    fun updateUser(userEntity: UserEntity)
+    fun updateUser(userEntity: UserEntity):Completable
 
     @Query("UPDATE user SET name=:nickName,date=:date,gender=:gender WHERE token=:token")
     fun updateProfile(nickName: String, token: String, date: String, gender: String)

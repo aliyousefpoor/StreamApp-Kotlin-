@@ -15,8 +15,12 @@ import io.reactivex.schedulers.Schedulers
 class UserLocaleDataSourceImp(private var userDao: UserDao) {
 
     fun saveUser(user: User) {
-        val updateUserAsyncTask = UpdateUserAsyncTask(user, userDao)
-        updateUserAsyncTask.execute()
+//        val updateUserAsyncTask = UpdateUserAsyncTask(user, userDao)
+//        updateUserAsyncTask.execute()
+        val userEntity =
+            UserEntity(user.id, user.token, user.name, user.date, user.gender, user.avatar)
+        userDao.updateUser(userEntity).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe()
     }
 
     fun loginUser(loginStepTwoResponse: LoginStepTwoResponse) {
