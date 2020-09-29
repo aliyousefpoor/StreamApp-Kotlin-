@@ -71,6 +71,12 @@ interface ApiService {
         @Query("offset") offset: Int
     ): Call<List<Product>>
 
+    @GET("listproducts/{categoryId}")
+    fun rxGetProductList(
+        @Path("categoryId") categoryId: Int,
+        @Query("limit") limit: Int,
+        @Query("offset") offset: Int):Observable<List<Product>>
+
     @GET("product/{productId}?device_os=ios")
     fun getProductDetail(@Path("productId") productId: Int): Call<Product>
 

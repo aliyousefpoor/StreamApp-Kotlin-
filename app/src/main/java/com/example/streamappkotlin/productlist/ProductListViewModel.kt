@@ -1,16 +1,18 @@
 package com.example.streamappkotlin.productlist
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.datasource.remote.ProductListRemoteDataSource
 import com.example.streamappkotlin.model.Product
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
 import java.util.ArrayList
 
 class ProductListViewModel(private var productListRemoteDataSource: ProductListRemoteDataSource) :
     ViewModel() {
-
+    private val TAG = "ProductListViewModel"
     var offset: Int = 0
     var categoryId: Int = 0
     var productLists = ArrayList<Product>()
@@ -26,24 +28,32 @@ class ProductListViewModel(private var productListRemoteDataSource: ProductListR
 
     fun loadData() {
         _loadingLiveData.value = true
-            productListRemoteDataSource.getProductList(
-                categoryId,
-                offset,
-                object : DataSourceListener<List<Product>> {
-                    override fun onResponse(response: List<Product>) {
-                        _loadingLiveData.value = false
-                        _errorLiveData.value = false
-                        productLists.addAll(response)
-                        _productListLiveData.value = productLists
-                        offset = offset + response.size
-                    }
+        productListRemoteDataSource.getProductList(
+            categoryId,
+            offset,
+            object : Observer<List<Product>> {
 
-                    override fun onFailure(throwable: Throwable?) {
-                        _loadingLiveData.value = false
-                        _errorLiveData.value = true
-                        _productListLiveData.value = null
-                    }
-                })
+                override fun onComplete() {
+                    Log.d(TAG, "onComplete: ")
+                }
+
+                override fun onSubscribe(d: Disposable) {
+                    Log.d(TAG, "onSubscribe: ")
+                }
+
+                override fun onNext(t: List<Product>) {
+                    _loadingLiveData.value = false
+                    _errorLiveData.value = false
+                    productLists.addAll(t)
+                    _productListLiveData.value = productLists
+                    offset += t.size
+                }
+
+                override fun onError(e: Throwable) {
+                    _loadingLiveData.value = false
+                    _errorLiveData.value = true
+                    _productListLiveData.value = null                }
+            })
 
     }
 
