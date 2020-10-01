@@ -4,6 +4,9 @@ import com.example.streamappkotlin.ApiService
 import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.model.CommentPostResponse
 import com.example.streamappkotlin.model.SendComment
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,22 +14,15 @@ import retrofit2.Response
 class SendCommentRemoteDataSource(private var apiService: ApiService) {
 
 
-    fun sendComment(sendComment: SendComment, dataSourceListener: DataSourceListener<CommentPostResponse>) {
-        apiService.sendComment(sendComment.title,
+    fun sendComment(sendComment: SendComment, observer: Observer<CommentPostResponse>) {
+        val sendCommentObservable = apiService.rxSendComment(
+            sendComment.title,
             sendComment.score,
             sendComment.commentText,
-            sendComment.productId).enqueue(object : Callback<CommentPostResponse> {
-            override fun onResponse(
-                call: Call<CommentPostResponse>,
-                response: Response<CommentPostResponse>
-            ) {
-                dataSourceListener.onResponse(response.body()!!)
-            }
+            sendComment.productId
+        )
+        sendCommentObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+            .subscribe(observer)
 
-            override fun onFailure(call: Call<CommentPostResponse>, t: Throwable) {
-                dataSourceListener.onFailure(t)
-            }
-
-        })
     }
 }

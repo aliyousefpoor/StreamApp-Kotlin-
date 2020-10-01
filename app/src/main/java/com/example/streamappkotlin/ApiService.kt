@@ -97,4 +97,14 @@ fun rxGetProductDetail(@Path("productId") productId:Int):Observable<Product>
         @Field("comment_text") commentText: String,
         @Path("productId") productId: Int
     ): Call<CommentPostResponse>
+
+    @POST("comment/{productId}")
+    @FormUrlEncoded
+    fun rxSendComment(
+        @Field("title") title: String,
+        @Field("score") score: Int,
+        @Field("comment_text") commentText: String,
+        @Path("productId") productId: Int
+    ): Observable<CommentPostResponse>
+
 }

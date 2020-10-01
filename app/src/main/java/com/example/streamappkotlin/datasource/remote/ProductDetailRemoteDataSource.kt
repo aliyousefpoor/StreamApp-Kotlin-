@@ -17,33 +17,15 @@ class ProductDetailRemoteDataSource(private var apiService: ApiService) {
         val productDetailsObservable = apiService.rxGetProductDetail(id)
         productDetailsObservable.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe(observer)
-
-//        apiService.getProductDetail(id).enqueue(object : Callback<Product> {
-//
-//            override fun onResponse(call: Call<Product>, response: Response<Product>) {
-//                dataSourceListener.onResponse(response.body()!!)
-//            }
-//
-//            override fun onFailure(call: Call<Product>, t: Throwable) {
-//                dataSourceListener.onFailure(t)
-//            }
-//
-//        })
     }
 
-    fun getComment(id: Int, observer: Observer<List<Comment>>) {
+    fun getComment(
+        id: Int,
+        observer: Observer<List<Comment>>
+    ) {
         val getCommentObservable = apiService.rxGetComment(id)
-        getCommentObservable.observeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer)
+        getCommentObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+            .subscribe(observer)
 
-//        apiService.getComment(id).enqueue(object : Callback<List<Comment>> {
-//            override fun onResponse(call: Call<List<Comment>>, response: Response<List<Comment>>) {
-//                dataSourceListener.onResponse(response.body()!!)
-//            }
-//
-//            override fun onFailure(call: Call<List<Comment>>, t: Throwable) {
-//                dataSourceListener.onFailure(t)
-//            }
-//
-//        })
     }
 }
