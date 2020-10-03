@@ -2,7 +2,6 @@ package com.example.streamappkotlin.datasource.locale
 
 
 import android.util.Log
-import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.datasource.locale.database.*
 import com.example.streamappkotlin.datasource.locale.model.UserEntity
 import com.example.streamappkotlin.model.LoginStepTwoResponse
@@ -11,7 +10,6 @@ import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.lang.Exception
 
 class UserLocaleDataSourceImp(private var userDao: UserDao) {
     private val TAG = "UserLocaleDataSourceImp"
@@ -29,12 +27,12 @@ class UserLocaleDataSourceImp(private var userDao: UserDao) {
             .observeOn(AndroidSchedulers.mainThread()).subscribe()
     }
 
-    fun getUser(dataSourceListener: DataSourceListener<User>) {
+    fun getUser(observer: SingleObserver<User>) {
         userDao.getUser().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : SingleObserver<UserEntity> {
                 override fun onSuccess(t: UserEntity) {
                     val user = User(t.userId, t.token, t.name, t.date, t.gender, t.avatar)
-                    dataSourceListener.onResponse(user)
+                    observer.onSuccess(user)
                 }
 
                 override fun onSubscribe(d: Disposable) {
@@ -42,19 +40,23 @@ class UserLocaleDataSourceImp(private var userDao: UserDao) {
                 }
 
                 override fun onError(e: Throwable) {
-                    dataSourceListener.onFailure(e)
+                    observer.onError(e)
                 }
 
             })
     }
 
     fun isLogin(isLoginListener: IsLoginListener) {
-        getUser(object : DataSourceListener<User> {
-            override fun onResponse(response: User) {
+        getUser(object : SingleObserver<User> {
+            override fun onSuccess(t: User) {
                 isLoginListener.isLogin(true)
             }
 
-            override fun onFailure(throwable: Throwable?) {
+            override fun onSubscribe(d: Disposable) {
+                Log.d(TAG, "onSubscribe: ")
+            }
+
+            override fun onError(e: Throwable) {
                 isLoginListener.isLogin(false)
             }
 

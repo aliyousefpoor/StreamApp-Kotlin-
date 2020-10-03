@@ -1,11 +1,13 @@
 package com.example.streamappkotlin.repository
 
+import android.util.Log
 import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.datasource.locale.UserLocaleDataSourceImp
 import com.example.streamappkotlin.datasource.remote.UserRemoteDataSourceImpl
 import com.example.streamappkotlin.model.UpdateResponse
 import com.example.streamappkotlin.model.User
 import io.reactivex.Observer
+import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import java.io.File
 
@@ -13,18 +15,20 @@ class ProfileRepository(
     private var userRemoteDataSourceImpl: UserRemoteDataSourceImpl,
     private var userLocaleDataSourceImp: UserLocaleDataSourceImp
 ) {
-
+    private  val TAG = "ProfileRepository"
     fun getProfile(observer: Observer<User>) {
-        userLocaleDataSourceImp.getUser(object : DataSourceListener<User> {
-            override fun onResponse(response: User) {
-                observer.onNext(response)
-                getProfile(response.token, observer)
+        userLocaleDataSourceImp.getUser(object : SingleObserver<User> {
+            override fun onSuccess(t: User) {
+                observer.onNext(t)
+                getProfile(t.token, observer)
             }
 
-            override fun onFailure(throwable: Throwable?) {
-                observer.onError(throwable!!)
-            }
+            override fun onSubscribe(d: Disposable) {
+                Log.d(TAG, "onSubscribe: ")            }
 
+            override fun onError(e: Throwable) {
+                observer.onError(e)
+            }
         })
     }
 
