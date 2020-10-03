@@ -84,6 +84,8 @@ android {
         kapt 'android.arch.persistence.room:compiler:1.1.1'
         implementation "androidx.room:room-ktx:2.2.5"
         testImplementation "androidx.room:room-testing:2.2.5"
+        implementation "androidx.room:room-rxjava2:2.2.5"
+
 
         //exoplayer
         implementation 'com.google.android.exoplayer:exoplayer:2.11.7'

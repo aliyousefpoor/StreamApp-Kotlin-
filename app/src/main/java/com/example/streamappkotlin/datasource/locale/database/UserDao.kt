@@ -2,11 +2,7 @@ package com.example.streamappkotlin.datasource.locale.database
 
 import androidx.room.*
 import com.example.streamappkotlin.datasource.locale.model.UserEntity
-import com.example.streamappkotlin.model.LoginStepTwoResponse
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Maybe
-import io.reactivex.Single
+import io.reactivex.*
 
 @Dao
 interface UserDao {
@@ -14,7 +10,7 @@ interface UserDao {
     fun getAll(): UserEntity
 
     @Query("SELECT * FROM user WHERE EXISTS (SELECT userId FROM user)")
-    fun getUser(): UserEntity
+    fun getUser(): Single<UserEntity>
 
     @Insert
     fun insertUser(userEntity: UserEntity):Completable

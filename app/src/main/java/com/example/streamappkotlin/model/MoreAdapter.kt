@@ -9,7 +9,9 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.streamappkotlin.R
 import com.example.streamappkotlin.moretab.MoreItemListener
-import java.util.ArrayList
+import io.reactivex.Observable
+import io.reactivex.Observer
+import java.util.*
 
 class MoreAdapter(
     private var context: Context,
@@ -30,7 +32,7 @@ class MoreAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val moreViewHolder: MoreViewHolder = holder as MoreViewHolder
 
-        moreViewHolder.onBind(context, moreList[position], moreItemListener)
+        moreViewHolder.onBind(moreList[position], moreItemListener)
 
     }
 
@@ -38,11 +40,10 @@ class MoreAdapter(
         var cardView: CardView = itemView.findViewById(R.id.moreCardView)
         var title: TextView = itemView.findViewById(R.id.moreTitle)
 
-        fun onBind(context: Context, moreModel: MoreModel, moreItemListener: MoreItemListener) {
+        fun onBind(moreModel: MoreModel, moreItemListener: MoreItemListener) {
             title.text = moreModel.title
             cardView.setOnClickListener {
                 moreItemListener.onClick(moreModel)
-
             }
         }
     }

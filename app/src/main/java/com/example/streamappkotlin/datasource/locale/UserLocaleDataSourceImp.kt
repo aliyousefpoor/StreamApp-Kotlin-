@@ -1,15 +1,20 @@
 package com.example.streamappkotlin.datasource.locale
 
+
+import android.util.Log
 import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.datasource.locale.database.*
 import com.example.streamappkotlin.datasource.locale.model.UserEntity
 import com.example.streamappkotlin.model.LoginStepTwoResponse
 import com.example.streamappkotlin.model.User
+import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.lang.Exception
 
 class UserLocaleDataSourceImp(private var userDao: UserDao) {
-
+    private val TAG = "UserLocaleDataSourceImp"
     fun saveUser(user: User) {
         val userEntity =
             UserEntity(user.id, user.token, user.name, user.date, user.gender, user.avatar)
@@ -25,8 +30,22 @@ class UserLocaleDataSourceImp(private var userDao: UserDao) {
     }
 
     fun getUser(dataSourceListener: DataSourceListener<User>) {
-        val getUserAsyncTask = GetUserAsyncTask(userDao, dataSourceListener)
-        getUserAsyncTask.execute()
+        userDao.getUser().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : SingleObserver<UserEntity> {
+                override fun onSuccess(t: UserEntity) {
+                    val user = User(t.userId, t.token, t.name, t.date, t.gender, t.avatar)
+                    dataSourceListener.onResponse(user)
+                }
+
+                override fun onSubscribe(d: Disposable) {
+                    Log.d(TAG, "onSubscribe: ")
+                }
+
+                override fun onError(e: Throwable) {
+                    dataSourceListener.onFailure(e)
+                }
+
+            })
     }
 
     fun isLogin(isLoginListener: IsLoginListener) {
@@ -44,10 +63,10 @@ class UserLocaleDataSourceImp(private var userDao: UserDao) {
     }
 
     fun getTokenBlocking(): String? {
-        if (userDao.getUser() != null) {
-            return userDao.getUser().token
+        return if (userDao.getAll() != null) {
+            userDao.getAll().token
         } else {
-            return null
+            null
         }
     }
 
