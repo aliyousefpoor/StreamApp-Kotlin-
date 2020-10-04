@@ -1,6 +1,5 @@
 package com.example.streamappkotlin.repository
 
-import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.datasource.locale.UserLocaleDataSourceImp
 import com.example.streamappkotlin.datasource.locale.database.IsLoginListener
 import com.example.streamappkotlin.datasource.remote.LoginStepOneRemoteDataSource
@@ -18,44 +17,18 @@ class LoginRepository(
     private var userLocaleDataSourceImp: UserLocaleDataSourceImp
 ) {
 
-//    fun loginStepOne(
-//        loginStepOneRequest: LoginStepOneRequest,
-//        dataSourceListener: DataSourceListener<LoginStepOneResponse>
-//    ) {
-//        loginStepOneRemoteDataSource.loginStepOne(loginStepOneRequest, dataSourceListener)
-//    }
-
-    fun rxLoginStepOne(
+    fun loginStepOne(
         loginStepOneRequest: LoginStepOneRequest,
         observer: Observer<LoginStepOneResponse>
     ) {
-        loginStepOneRemoteDataSource.rxLoginStepOne(loginStepOneRequest, observer)
+        loginStepOneRemoteDataSource.loginStepOne(loginStepOneRequest, observer)
     }
 
-//    fun loginStepTwo(
-//        loginStepTwoRequest: LoginStepTwoRequest,
-//        dataSourceListener: DataSourceListener<LoginStepTwoResponse>
-//    ) {
-//        loginStepTwoRemoteDataSource.loginStepTwo(loginStepTwoRequest,
-//            object : DataSourceListener<LoginStepTwoResponse> {
-//                override fun onResponse(response: LoginStepTwoResponse) {
-//                    dataSourceListener.onResponse(response)
-//                    loginUser(response)
-//                }
-//
-//                override fun onFailure(throwable: Throwable?) {
-//                    dataSourceListener.onFailure(throwable)
-//                }
-//
-//            })
-//
-//    }
-
-    fun rxLoginStepTwo(
+    fun loginStepTwo(
         loginStepTwoRequest: LoginStepTwoRequest, observer: Observer<LoginStepTwoResponse>
 
     ) {
-        loginStepTwoRemoteDataSource.rxLoginStepTwo(loginStepTwoRequest,
+        loginStepTwoRemoteDataSource.loginStepTwo(loginStepTwoRequest,
             object : Observer<LoginStepTwoResponse> {
                 override fun onComplete() {
 

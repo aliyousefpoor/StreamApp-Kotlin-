@@ -9,8 +9,8 @@ import io.reactivex.schedulers.Schedulers
 
 class HomeRemoteDataSource(private var apiService: ApiService) {
 
-    fun getStoreRx(observer: Observer<Store>) {
-        val getStoreObservable :Observable<Store> = apiService.rxGetStore()
+    fun getStore(observer: Observer<Store>) {
+        val getStoreObservable :Observable<Store> = apiService.getStore()
 
         getStoreObservable.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

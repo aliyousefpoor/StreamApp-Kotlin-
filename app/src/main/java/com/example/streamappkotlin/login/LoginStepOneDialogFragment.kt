@@ -58,7 +58,7 @@ class LoginStepOneDialogFragment(private var loginStepTwoListener: LoginStepTwoL
         submit.setOnClickListener {
             val loginStepOneRequest =
                 LoginStepOneRequest(number.text.toString(), androidId, deviceModel, deviceOs)
-            shareViewModel.rxLoginStepOne(loginStepOneRequest)
+            shareViewModel.loginStepOne(loginStepOneRequest)
 
             dialog = ProgressDialog(context)
             dialog.setTitle(R.string.progressDialogTitle);

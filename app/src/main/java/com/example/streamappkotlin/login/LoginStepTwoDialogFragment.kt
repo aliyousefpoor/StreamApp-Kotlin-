@@ -63,7 +63,7 @@ class LoginStepTwoDialogFragment(private var loginStepTwoListener: LoginStepTwoL
             androidId = shareViewModel.loginStepOneRequestBody.device_id
             val loginStepTwoRequest = LoginStepTwoRequest(number, androidId, code.text.toString())
 
-            shareViewModel.rxLoginStepTwo(loginStepTwoRequest)
+            shareViewModel.loginStepTwo(loginStepTwoRequest)
 
             dialog = ProgressDialog(context);
             dialog.setTitle(R.string.progressDialogTitle);
@@ -81,7 +81,7 @@ class LoginStepTwoDialogFragment(private var loginStepTwoListener: LoginStepTwoL
             deviceOs = shareViewModel.loginStepOneRequestBody.device_os
 
             val loginStepOneRequest = LoginStepOneRequest(number, androidId, deviceModel, deviceOs)
-            shareViewModel.rxLoginStepOne(loginStepOneRequest)
+            shareViewModel.loginStepOne(loginStepOneRequest)
         }
     }
 

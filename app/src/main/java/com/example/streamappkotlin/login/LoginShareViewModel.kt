@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.streamappkotlin.SingleLiveEvent
-import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.datasource.locale.database.IsLoginListener
 import com.example.streamappkotlin.model.LoginStepOneRequest
 import com.example.streamappkotlin.model.LoginStepOneResponse
@@ -28,9 +27,9 @@ class LoginShareViewModel(private var loginRepository: LoginRepository) : ViewMo
     private var _isLogin: SingleLiveEvent<Boolean> = SingleLiveEvent()
     var isLogin: SingleLiveEvent<Boolean> = _isLogin
 
-    fun rxLoginStepOne(loginStepOneRequest: LoginStepOneRequest) {
+    fun loginStepOne(loginStepOneRequest: LoginStepOneRequest) {
         loginStepOneRequestBody = loginStepOneRequest
-        loginRepository.rxLoginStepOne(loginStepOneRequest,
+        loginRepository.loginStepOne(loginStepOneRequest,
             object : Observer<LoginStepOneResponse> {
                 override fun onComplete() {
                     Log.d(TAG, "stepOne onComplete: ")
@@ -51,8 +50,8 @@ class LoginShareViewModel(private var loginRepository: LoginRepository) : ViewMo
             })
     }
 
-    fun rxLoginStepTwo(loginStepTwoRequest: LoginStepTwoRequest) {
-        loginRepository.rxLoginStepTwo(loginStepTwoRequest,
+    fun loginStepTwo(loginStepTwoRequest: LoginStepTwoRequest) {
+        loginRepository.loginStepTwo(loginStepTwoRequest,
             object : Observer<LoginStepTwoResponse> {
                 override fun onComplete() {
                     Log.d(TAG, "stepTwo onComplete: ")

@@ -3,10 +3,8 @@ package com.example.streamappkotlin.hometab
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.datasource.remote.HomeRemoteDataSource
 import com.example.streamappkotlin.model.Store
-import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
@@ -22,9 +20,9 @@ class HomeViewModel(private var homeRemoteDataSource: HomeRemoteDataSource) : Vi
     private var _errorLiveData: MutableLiveData<Boolean> = MutableLiveData()
     var errorLiveData = _errorLiveData
 
-    fun rxGetStore() {
+    fun getStore() {
 
-        homeRemoteDataSource.getStoreRx(object : Observer<Store> {
+        homeRemoteDataSource.getStore(object : Observer<Store> {
             override fun onComplete() {
                 Log.d(TAG, "onComplete: ")
             }
@@ -47,6 +45,6 @@ class HomeViewModel(private var homeRemoteDataSource: HomeRemoteDataSource) : Vi
     }
 
     init {
-        rxGetStore()
+        getStore()
     }
 }

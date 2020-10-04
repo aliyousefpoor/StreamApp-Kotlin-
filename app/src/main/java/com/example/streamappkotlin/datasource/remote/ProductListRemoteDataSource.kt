@@ -13,7 +13,7 @@ class ProductListRemoteDataSource(private var apiService: ApiService) {
         offset: Int,
         observer: Observer<List<Product>>
     ) {
-        val productListObservable = apiService.rxGetProductList(id, 20, offset)
+        val productListObservable = apiService.getProductList(id, 20, offset)
         productListObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
             .subscribe(observer)
     }

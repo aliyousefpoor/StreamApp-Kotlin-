@@ -1,7 +1,6 @@
 package com.example.streamappkotlin.repository
 
 import android.util.Log
-import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.datasource.locale.UserLocaleDataSourceImp
 import com.example.streamappkotlin.datasource.remote.UserRemoteDataSourceImpl
 import com.example.streamappkotlin.model.UpdateResponse
@@ -33,7 +32,7 @@ class ProfileRepository(
     }
 
     fun updateProfile(user: User, observer: Observer<UpdateResponse>) {
-        userRemoteDataSourceImpl.rxUpdateProfile(user, object : Observer<UpdateResponse> {
+        userRemoteDataSourceImpl.updateProfile(user, object : Observer<UpdateResponse> {
             override fun onComplete() {
                 observer.onComplete()
             }
@@ -59,7 +58,7 @@ class ProfileRepository(
     }
 
     private fun getProfile(token: String, observer: Observer<User>) {
-        userRemoteDataSourceImpl.rxGetProfile(token, object : Observer<User> {
+        userRemoteDataSourceImpl.getProfile(token, object : Observer<User> {
             override fun onComplete() {
                 observer.onComplete()
             }

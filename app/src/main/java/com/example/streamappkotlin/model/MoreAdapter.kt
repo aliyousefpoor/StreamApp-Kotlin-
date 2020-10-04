@@ -9,8 +9,6 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.streamappkotlin.R
 import com.example.streamappkotlin.moretab.MoreItemListener
-import io.reactivex.Observable
-import io.reactivex.Observer
 import java.util.*
 
 class MoreAdapter(
