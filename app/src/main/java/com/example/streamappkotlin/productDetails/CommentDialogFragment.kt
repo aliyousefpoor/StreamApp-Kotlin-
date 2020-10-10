@@ -49,13 +49,18 @@ class CommentDialogFragment(private var productId: Int, private var title: Strin
         val ratingBar: RatingBar = view.findViewById(R.id.ratingPost)
 
         submit.setOnClickListener {
-            val score: Int = ratingBar.rating.toInt()
-            val sendComment =
-                SendComment(title, score, comment.text.toString(), productId)
+            if (comment.text.isEmpty()) {
+                Toast.makeText(requireContext(), "Comment Can't be Empty", Toast.LENGTH_SHORT).show()
 
-            commentViewModel.sendComment(sendComment)
+            } else {
+                val score: Int = ratingBar.rating.toInt()
+                val sendComment =
+                    SendComment(title, score, comment.text.toString(), productId)
 
-            Toast.makeText(requireContext(),"Comment Sent", Toast.LENGTH_SHORT).show()
+                commentViewModel.sendComment(sendComment)
+
+                Toast.makeText(requireContext(), "Comment Sent", Toast.LENGTH_SHORT).show()
+            }
 
         }
 

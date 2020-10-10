@@ -15,6 +15,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.ethanhua.skeleton.Skeleton
+import com.ethanhua.skeleton.SkeletonScreen
 import com.example.streamappkotlin.CustomApp
 import com.example.streamappkotlin.CategoryListener
 import com.example.streamappkotlin.R

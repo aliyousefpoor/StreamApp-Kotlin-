@@ -56,15 +56,23 @@ class LoginStepOneDialogFragment(private var loginStepTwoListener: LoginStepTwoL
         loginStepOneResponse()
 
         submit.setOnClickListener {
-            val loginStepOneRequest =
-                LoginStepOneRequest(number.text.toString(), androidId, deviceModel, deviceOs)
-            shareViewModel.loginStepOne(loginStepOneRequest)
+            if (number.text.isEmpty()) {
+                Toast.makeText(
+                    requireContext(),
+                    "Please Enter Your Mobile Number",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                val loginStepOneRequest =
+                    LoginStepOneRequest(number.text.toString(), androidId, deviceModel, deviceOs)
+                shareViewModel.loginStepOne(loginStepOneRequest)
 
-            dialog = ProgressDialog(context)
-            dialog.setTitle(R.string.progressDialogTitle);
-            dialog.setMessage(getString(R.string.loadingProgress));
-            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.show();
+                dialog = ProgressDialog(context)
+                dialog.setTitle(R.string.progressDialogTitle);
+                dialog.setMessage(getString(R.string.loadingProgress));
+                dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                dialog.show()
+            }
         }
     }
 
