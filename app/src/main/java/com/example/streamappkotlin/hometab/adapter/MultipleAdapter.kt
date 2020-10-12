@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
+import com.ethanhua.skeleton.Skeleton
 import com.example.streamappkotlin.R
 import com.example.streamappkotlin.hometab.ProductListener
 import com.example.streamappkotlin.model.HomeItem
@@ -15,11 +16,13 @@ import com.example.streamappkotlin.model.Product
 import java.lang.IllegalArgumentException
 
 class MultipleAdapter(
-    private val context: Context, private var homeList: List<HomeItem>, private var headerList: List<Product>,var productListener: ProductListener)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val context: Context,
+    private var homeList: List<HomeItem>,
+    private var headerList: List<Product>,
+    var productListener: ProductListener
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var viewPagerType: Int = 1
     private var horizontalListType: Int = 2
-
 
     override fun getItemViewType(position: Int): Int {
         return if (position == 0) {
@@ -61,7 +64,7 @@ class MultipleAdapter(
             }
             horizontalListType -> {
                 val listHolder: ListViewHolder = holder as ListViewHolder
-                listHolder.onBind(homeList[position - 1], context,productListener)
+                listHolder.onBind(homeList[position - 1], context, productListener)
             }
         }
     }
@@ -81,18 +84,24 @@ class MultipleAdapter(
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var productRecyclerView: RecyclerView = itemView.findViewById(R.id.product_rv)
         var title: TextView = itemView.findViewById(R.id.title)
-
         fun onBind(
             homeList: HomeItem,
             context: Context,
             productListener: ProductListener
         ) {
             title.text = homeList.title
-            val adapter = ProductAdapter(homeList.products, context ,productListener)
+            val adapter = ProductAdapter(homeList.products, context, productListener)
             productRecyclerView.adapter = adapter
-            val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            val linearLayoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             productRecyclerView.layoutManager = linearLayoutManager
+//            val skeletonScreen =
+//                Skeleton.bind(productRecyclerView).adapter(adapter).shimmer(false).frozen(true)
+//                    .angle(20)
+//                    .load(R.layout.home_skeleton).show()
+//            productRecyclerView.postDelayed({ skeletonScreen.hide() }, 2000)
             productRecyclerView.setHasFixedSize(true)
+
         }
     }
 }

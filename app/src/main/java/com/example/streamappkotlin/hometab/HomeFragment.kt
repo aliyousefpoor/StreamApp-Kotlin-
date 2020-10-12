@@ -15,6 +15,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.ethanhua.skeleton.Skeleton
 import com.example.streamappkotlin.CustomApp
 import com.example.streamappkotlin.R
 import com.example.streamappkotlin.di.ApiBuilderModule
@@ -103,7 +104,10 @@ class HomeFragment : Fragment() {
                     override fun onClick(id: Int) {
                         val bundle = Bundle()
                         bundle.putInt("productId", id)
-                        navController.navigate(R.id.action_homeFragment_to_productDetailFragment,bundle)
+                        navController.navigate(
+                            R.id.action_homeFragment_to_productDetailFragment,
+                            bundle
+                        )
                     }
                 })
         recyclerView.adapter = adapter

@@ -2,6 +2,7 @@ package com.example.streamappkotlin.productDetails
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ethanhua.skeleton.Skeleton
 import com.example.streamappkotlin.CustomApp
 import com.example.streamappkotlin.PlayerActivity
 import com.example.streamappkotlin.R
@@ -51,6 +53,7 @@ class ProductDetailFragment : Fragment() {
         LoginModule.provideLoginShareViewModelFactory(loginRepository)
     private lateinit var fileUri: String
     private lateinit var title: String
+    private lateinit var adapter: ProductCommentAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -141,10 +144,18 @@ class ProductDetailFragment : Fragment() {
     }
 
     private fun showComment(commentList: List<Comment>) {
-        val adapter = ProductCommentAdapter(requireContext(), commentList)
-        recyclerView.adapter = adapter
+        adapter = ProductCommentAdapter(requireContext(), commentList)
+//        recyclerView.adapter = adapter
         val linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = linearLayoutManager
+        skeletonLoading()
+    }
+
+    private fun skeletonLoading() {
+        val skeletonScreen =
+            Skeleton.bind(recyclerView).adapter(adapter).shimmer(true).angle(20).frozen(false)
+                .duration(900).count(10).load(R.layout.comment_skeleton).show()
+        recyclerView.postDelayed({ skeletonScreen.hide() }, 2000)
     }
 
 }

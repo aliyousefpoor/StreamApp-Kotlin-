@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.ethanhua.skeleton.Skeleton
 import com.example.streamappkotlin.CustomApp
 import com.example.streamappkotlin.R
 import com.example.streamappkotlin.di.ApiBuilderModule
@@ -81,11 +82,7 @@ class ProductListFragment : Fragment() {
 
         productListViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
             if (it) {
-                pullDown.visibility = View.GONE
-                arrow.visibility = View.GONE
-                recyclerView.visibility = View.VISIBLE
-                progressBar.visibility = View.VISIBLE
-                swipeRefreshLayout.isRefreshing = true
+//            skeletonLoading()
             }
         })
 
@@ -127,6 +124,7 @@ class ProductListFragment : Fragment() {
         recyclerView.adapter = adapter
         val layoutManager = GridLayoutManager(requireContext(), 2)
         recyclerView.layoutManager = layoutManager
+//       skeletonLoading()
         recyclerView.addOnScrollListener(recyclerViewOnScrollListener)
     }
 
@@ -145,6 +143,13 @@ class ProductListFragment : Fragment() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
         }
+    }
+
+    private fun skeletonLoading(){
+        val skeletonScreen =
+            Skeleton.bind(recyclerView).adapter(adapter).shimmer(true).angle(20).frozen(false)
+                .duration(900).count(10).load(R.layout.product_list_skeleton).show()
+        recyclerView.postDelayed({ skeletonScreen.hide() },2000)
     }
 
 }

@@ -41,9 +41,7 @@ class ProductAdapter(
         var imageView: ImageView = itemView.findViewById(R.id.cv_image)
         var textView: TextView = itemView.findViewById(R.id.description)
 
-        fun onBind(
-            product: Product, context: Context, productListener: ProductListener
-        ) {
+        fun onBind(product: Product, context: Context, productListener: ProductListener) {
             textView.text = product.name
             Glide.with(context).load(AppConstants.baseUrl + product.avatar.xhdpi).into(imageView)
             cardView.setOnClickListener {

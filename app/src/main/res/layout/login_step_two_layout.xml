@@ -7,7 +7,7 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="170dp"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="50dp"
@@ -18,67 +18,72 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/textInputVerification"
-    android:layout_width="170dp"
-    android:layout_height="50dp"
-    app:layout_constraintEnd_toEndOf="@id/title"
-    app:layout_constraintStart_toStartOf="@id/title"
-    app:layout_constraintTop_toBottomOf="@id/title"
-    app:boxStrokeColor="@color/gray"
-    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-    >
-    <EditText
-        android:id="@+id/verificationCode"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:hint="@string/second_dialog_hint"
-        android:textSize="15sp"
-        android:inputType="number"
-         />
-</com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputVerification"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:boxStrokeColor="@color/blue"
+        app:layout_constraintEnd_toEndOf="@id/title"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/title">
+
+        <EditText
+            android:id="@+id/verificationCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/second_dialog_hint"
+            android:inputType="number"
+            android:textSize="12sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/resendCode"
         android:layout_width="170dp"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
         android:text="@string/second_dialog_text"
-        android:textSize="15sp"
         android:textColor="@color/blue"
-        android:layout_marginTop="10dp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="@id/title"
         app:layout_constraintStart_toStartOf="@id/title"
         app:layout_constraintTop_toBottomOf="@id/textInputVerification" />
 
     <Button
         android:id="@+id/secondDialogSubmit"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
         android:layout_marginBottom="25dp"
-        android:background="@color/colorPrimary"
         android:text="@string/submit"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/title"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/resendCode"
-        style="?attr/materialButtonOutlinedStyle"
-        />
+        app:layout_constraintVertical_bias="0.482" />
 
     <Button
         android:id="@+id/changeNumber"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:background="@color/colorPrimary"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="10dp"
         android:text="@string/change_number"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/secondDialogSubmit"
         app:layout_constraintEnd_toStartOf="@id/secondDialogSubmit"
-        app:layout_constraintStart_toStartOf="@id/title"
-        app:layout_constraintTop_toTopOf="@id/secondDialogSubmit"
-        style="?attr/materialButtonOutlinedStyle"
+        app:layout_constraintHorizontal_bias="0.72"
+        app:layout_constraintStart_toStartOf="parent"
 
-        />
+        app:layout_constraintTop_toTopOf="@id/secondDialogSubmit"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,10 @@ import com.example.streamappkotlin.model.Product
 import com.example.streamappkotlin.utils.AppConstants
 import java.util.ArrayList
 
-class ProductListAdapter(private var context: Context,private var productListener: ProductListener) :
+class ProductListAdapter(
+    private var context: Context,
+    private var productListener: ProductListener
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var products = ArrayList<Product>()
 
@@ -31,13 +34,13 @@ class ProductListAdapter(private var context: Context,private var productListene
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val productListViewHolder = holder as ProductListViewHolder
-        productListViewHolder.onBind(products[position], context,productListener)
+        productListViewHolder.onBind(products[position], context, productListener)
     }
 
     class ProductListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var avatar: ImageView = itemView.findViewById(R.id.productAvatar)
         var title: TextView = itemView.findViewById(R.id.productTitle)
-        var cardView: CardView = itemView.findViewById(R.id.productListCardView)
+        private var cardView: CardView = itemView.findViewById(R.id.productListCardView)
 
         fun onBind(
             product: Product,
@@ -45,7 +48,7 @@ class ProductListAdapter(private var context: Context,private var productListene
             productListener: ProductListener
         ) {
             title.text = product.name
-            Glide.with(context).load(AppConstants.baseUrl+product.avatar.mdpi).into(avatar)
+            Glide.with(context).load(AppConstants.baseUrl + product.avatar.mdpi).into(avatar)
 
             cardView.setOnClickListener {
                 productListener.onClick(product.id)
