@@ -23,6 +23,7 @@ import com.example.streamappkotlin.R
 import com.example.streamappkotlin.categorytab.di.CategoryTabModule
 import com.example.streamappkotlin.di.ApiBuilderModule
 import com.example.streamappkotlin.model.Category
+import org.koin.android.ext.android.inject
 
 class CategoryFragment : Fragment() {
     private lateinit var arrow: ImageView
@@ -31,12 +32,12 @@ class CategoryFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CategoryAdapter
     private lateinit var navController: NavController
-    private lateinit var categoryViewModel: CategoryViewModel
-    private var retrofit = CustomApp.instance.appModule.provideRetrofit()
-    private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
-    private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
-    private var categoryViewModelFactory =
-        CategoryTabModule.provideCategoryViewModelFactory(apiService)
+    private  val categoryViewModel: CategoryViewModel by inject()
+//    private var retrofit = CustomApp.instance.appModule.provideRetrofit()
+//    private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
+//    private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
+//    private var categoryViewModelFactory =
+//        CategoryTabModule.provideCategoryViewModelFactory(apiService)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,8 +49,8 @@ class CategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        categoryViewModel =
-            ViewModelProviders.of(this, categoryViewModelFactory).get(CategoryViewModel::class.java)
+//        categoryViewModel =
+//            ViewModelProviders.of(this, categoryViewModelFactory).get(CategoryViewModel::class.java)
         arrow = view.findViewById(R.id.cat_arrow)
         pullDown = view.findViewById(R.id.pullDown)
         swipeRefreshLayout = view.findViewById(R.id.refreshing)

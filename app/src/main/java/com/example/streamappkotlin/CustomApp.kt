@@ -2,6 +2,7 @@ package com.example.streamappkotlin
 
 import android.app.Application
 import android.content.Context
+import com.example.streamappkotlin.categorytab.di.categoryModules
 import com.example.streamappkotlin.di.AppModule
 import com.example.streamappkotlin.hometab.di.homeModules
 import org.koin.android.ext.koin.androidContext
@@ -18,7 +19,7 @@ class CustomApp : Application() {
         startKoin {
             androidLogger()
             androidContext(this@CustomApp)
-            modules(listOf(networkModule, homeModules))
+            modules(listOf(networkModule, homeModules, categoryModules))
         }
 
     }
