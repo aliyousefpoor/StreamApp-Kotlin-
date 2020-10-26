@@ -2,7 +2,9 @@ package com.example.streamappkotlin
 
 import android.net.Uri
 import android.os.Bundle
+import android.view.TextureView
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
@@ -19,6 +21,8 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var simpleExoPlayer: SimpleExoPlayer
     private lateinit var progressBar: View
     private lateinit var uri: String
+    private lateinit var title :String
+    private lateinit var videoTitle: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +30,12 @@ class PlayerActivity : AppCompatActivity() {
 
         val bundle: Bundle? = intent.extras
         uri = bundle!!.getString("fileUri").toString()
+        title = bundle!!.getString("title").toString()
         playerView = findViewById(R.id.videoPlayer)
         progressBar = findViewById(R.id.videoProgressBar)
+        videoTitle =findViewById(R.id.videoTitle)
+
+        videoTitle.text=title
         initializePlayer()
     }
 

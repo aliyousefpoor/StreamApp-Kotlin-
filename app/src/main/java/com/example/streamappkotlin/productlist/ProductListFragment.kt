@@ -82,8 +82,11 @@ class ProductListFragment : Fragment() {
 
         productListViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
             if (it) {
-//            skeletonLoading()
-            }
+                pullDown.visibility = View.GONE
+                arrow.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+                progressBar.visibility = View.VISIBLE
+                swipeRefreshLayout.isRefreshing = false            }
         })
 
         productListViewModel.errorLiveData.observe(viewLifecycleOwner, Observer {

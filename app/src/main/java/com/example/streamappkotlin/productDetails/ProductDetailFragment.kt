@@ -86,6 +86,7 @@ class ProductDetailFragment : Fragment() {
         playIcon.setOnClickListener {
             val intent = Intent(activity, PlayerActivity::class.java)
             intent.putExtra("fileUri", fileUri)
+            intent.putExtra("title",title)
             startActivity(intent)
         }
 
