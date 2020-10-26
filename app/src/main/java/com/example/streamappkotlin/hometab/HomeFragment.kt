@@ -24,6 +24,7 @@ import com.example.streamappkotlin.hometab.di.HomeTabModule
 import com.example.streamappkotlin.model.HomeItem
 import com.example.streamappkotlin.model.Product
 import com.example.streamappkotlin.model.Store
+import org.koin.android.ext.android.inject
 
 class HomeFragment : Fragment() {
     private lateinit var arrow: ImageView
@@ -31,11 +32,11 @@ class HomeFragment : Fragment() {
     private lateinit var pullDown: TextView
     private lateinit var swipeRefreshing: SwipeRefreshLayout
     private lateinit var navController: NavController
-    private lateinit var homeViewModel: HomeViewModel
-    private var retrofit = CustomApp.instance.appModule.provideRetrofit()
-    private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
-    private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
-    private var homeViewModelFactory = HomeTabModule.provideHomeViewModelFactory(apiService)
+    private val homeViewModel: HomeViewModel by inject()
+//    private var retrofit = CustomApp.instance.appModule.provideRetrofit()
+//    private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
+//    private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
+//    private var homeViewModelFactory = HomeTabModule.provideHomeViewModelFactory(apiService)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,8 +48,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeViewModel =
-            ViewModelProviders.of(this, homeViewModelFactory).get(HomeViewModel::class.java)
+//        homeViewModel =
+//            ViewModelProviders.of(this, homeViewModelFactory).get(HomeViewModel::class.java)
 
         arrow = view.findViewById(R.id.arrow)
         pullDown = view.findViewById(R.id.pullDown)
