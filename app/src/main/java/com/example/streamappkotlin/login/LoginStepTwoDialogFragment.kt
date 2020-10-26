@@ -11,13 +11,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import com.example.streamappkotlin.CustomApp
 import com.example.streamappkotlin.R
-import com.example.streamappkotlin.di.ApiBuilderModule
-import com.example.streamappkotlin.login.di.LoginModule
 import com.example.streamappkotlin.model.LoginStepOneRequest
 import com.example.streamappkotlin.model.LoginStepTwoRequest
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+
 
 class LoginStepTwoDialogFragment(private var loginStepTwoListener: LoginStepTwoListener) :
     DialogFragment() {
@@ -29,14 +27,7 @@ class LoginStepTwoDialogFragment(private var loginStepTwoListener: LoginStepTwoL
     private lateinit var androidId: String
     private lateinit var deviceModel: String
     private lateinit var deviceOs: String
-    private lateinit var shareViewModel: LoginShareViewModel
-    private var retrofit = CustomApp.instance.appModule.provideRetrofit()
-    private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
-    private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
-    private var database = LoginModule.provideUserDatabase()
-    private var loginRepository = LoginModule.provideLoginRepository(apiService, database.userDao())
-    private var shareViewModelFactory =
-        LoginModule.provideLoginShareViewModelFactory(loginRepository)
+    private val shareViewModel: LoginShareViewModel by sharedViewModel()
     private lateinit var dialog: ProgressDialog
 
 
@@ -50,8 +41,6 @@ class LoginStepTwoDialogFragment(private var loginStepTwoListener: LoginStepTwoL
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        shareViewModel = ViewModelProviders.of(requireActivity(), shareViewModelFactory)
-            .get(LoginShareViewModel::class.java)
 
         submit = view.findViewById(R.id.secondDialogSubmit)
         changeNumber = view.findViewById(R.id.changeNumber)

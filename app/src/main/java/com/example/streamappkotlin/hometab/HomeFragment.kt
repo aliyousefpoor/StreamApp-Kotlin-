@@ -9,18 +9,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.ethanhua.skeleton.Skeleton
-import com.example.streamappkotlin.CustomApp
 import com.example.streamappkotlin.R
-import com.example.streamappkotlin.di.ApiBuilderModule
 import com.example.streamappkotlin.hometab.adapter.MultipleAdapter
-import com.example.streamappkotlin.hometab.di.HomeTabModule
 import com.example.streamappkotlin.model.HomeItem
 import com.example.streamappkotlin.model.Product
 import com.example.streamappkotlin.model.Store
@@ -33,10 +28,6 @@ class HomeFragment : Fragment() {
     private lateinit var swipeRefreshing: SwipeRefreshLayout
     private lateinit var navController: NavController
     private val homeViewModel: HomeViewModel by inject()
-//    private var retrofit = CustomApp.instance.appModule.provideRetrofit()
-//    private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
-//    private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
-//    private var homeViewModelFactory = HomeTabModule.provideHomeViewModelFactory(apiService)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,8 +39,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        homeViewModel =
-//            ViewModelProviders.of(this, homeViewModelFactory).get(HomeViewModel::class.java)
 
         arrow = view.findViewById(R.id.arrow)
         pullDown = view.findViewById(R.id.pullDown)

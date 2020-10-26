@@ -18,16 +18,13 @@ import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
-import com.example.streamappkotlin.CustomApp
 import com.example.streamappkotlin.R
-import com.example.streamappkotlin.di.ApiBuilderModule
-import com.example.streamappkotlin.login.di.LoginModule
 import com.example.streamappkotlin.model.User
 import com.example.streamappkotlin.utils.AppConstants
 import com.example.streamappkotlin.utils.CalendarUtils
 import com.example.streamappkotlin.utils.FileUtils
+import org.koin.android.ext.android.inject
 import java.io.File
 
 class ProfileFragment : Fragment() {
@@ -50,13 +47,7 @@ class ProfileFragment : Fragment() {
     private lateinit var avatar: ImageView
     private lateinit var progressBar: View
     private lateinit var user: User
-    private lateinit var profileViewModel: ProfileViewModel
-    private var database = LoginModule.provideUserDatabase()
-    private var retrofit = CustomApp.instance.appModule.provideRetrofit()
-    private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
-    private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
-    private var profileViewModelFactory =
-        LoginModule.provideProfileViewModelFactory(apiService, database.userDao())
+    private  val profileViewModel: ProfileViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,9 +59,6 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        profileViewModel =
-            ViewModelProviders.of(this, profileViewModelFactory).get(ProfileViewModel::class.java)
 
         progressBar = view.findViewById(R.id.progressBarLayout)
         radioGroup = view.findViewById(R.id.radio_group)

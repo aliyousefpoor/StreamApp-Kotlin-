@@ -11,24 +11,16 @@ import android.widget.RatingBar
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import com.example.streamappkotlin.CustomApp
 import com.example.streamappkotlin.R
-import com.example.streamappkotlin.di.ApiBuilderModule
 import com.example.streamappkotlin.model.SendComment
-import com.example.streamappkotlin.productlist.di.ProductModule
+import org.koin.android.ext.android.inject
 
 class CommentDialogFragment(private var productId: Int, private var title: String) :
     DialogFragment() {
     private lateinit var comment: EditText
     private lateinit var submit: Button
     private lateinit var dialog: ProgressDialog
-    private lateinit var commentViewModel: SendCommentViewModel
-    private var retrofit = CustomApp.instance.appModule.provideRetrofit()
-    private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
-    private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
-    private var commentViewModelFactory =
-        ProductModule.provideSendCommentViewModelFactory(apiService)
+    private val commentViewModel: SendCommentViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,8 +33,6 @@ class CommentDialogFragment(private var productId: Int, private var title: Strin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        commentViewModel = ViewModelProviders.of(this, commentViewModelFactory)
-            .get(SendCommentViewModel::class.java)
 
         comment = view.findViewById(R.id.commentEditText)
         submit = view.findViewById(R.id.submitComment)

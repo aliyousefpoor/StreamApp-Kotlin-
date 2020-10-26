@@ -9,7 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,11 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ethanhua.skeleton.Skeleton
-import com.example.streamappkotlin.CustomApp
 import com.example.streamappkotlin.R
-import com.example.streamappkotlin.di.ApiBuilderModule
-import com.example.streamappkotlin.productlist.di.ProductModule
 import com.google.android.material.appbar.MaterialToolbar
+import org.koin.android.ext.android.inject
 
 class ProductListFragment : Fragment() {
     private lateinit var pullDown: TextView
@@ -30,12 +27,7 @@ class ProductListFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
     private lateinit var progressBar: View
-    private lateinit var productListViewModel: ProductListViewModel
-    private var retrofit = CustomApp.instance.appModule.provideRetrofit()
-    private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
-    private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
-    private var productListViewModelFactory =
-        ProductModule.provideProductListViewModelFactory(apiService)
+    private val productListViewModel: ProductListViewModel by inject()
     private lateinit var adapter: ProductListAdapter
 
     override fun onCreateView(
@@ -49,8 +41,6 @@ class ProductListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        productListViewModel = ViewModelProviders.of(this, productListViewModelFactory)
-            .get(ProductListViewModel::class.java)
 
         val productListId: Int = requireArguments().getInt("productListId")
         val productListTitle = requireArguments().getString("productListTitle")

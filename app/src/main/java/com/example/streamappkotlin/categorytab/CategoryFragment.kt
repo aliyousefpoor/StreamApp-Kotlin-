@@ -9,19 +9,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ethanhua.skeleton.Skeleton
-import com.ethanhua.skeleton.SkeletonScreen
-import com.example.streamappkotlin.CustomApp
 import com.example.streamappkotlin.CategoryListener
 import com.example.streamappkotlin.R
-import com.example.streamappkotlin.categorytab.di.CategoryTabModule
-import com.example.streamappkotlin.di.ApiBuilderModule
 import com.example.streamappkotlin.model.Category
 import org.koin.android.ext.android.inject
 
@@ -33,11 +28,6 @@ class CategoryFragment : Fragment() {
     private lateinit var adapter: CategoryAdapter
     private lateinit var navController: NavController
     private  val categoryViewModel: CategoryViewModel by inject()
-//    private var retrofit = CustomApp.instance.appModule.provideRetrofit()
-//    private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
-//    private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
-//    private var categoryViewModelFactory =
-//        CategoryTabModule.provideCategoryViewModelFactory(apiService)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,8 +39,7 @@ class CategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        categoryViewModel =
-//            ViewModelProviders.of(this, categoryViewModelFactory).get(CategoryViewModel::class.java)
+
         arrow = view.findViewById(R.id.cat_arrow)
         pullDown = view.findViewById(R.id.pullDown)
         swipeRefreshLayout = view.findViewById(R.id.refreshing)
@@ -67,7 +56,6 @@ class CategoryFragment : Fragment() {
     private fun observeViewModel() {
         pullDown.visibility = View.GONE
         arrow.visibility = View.GONE
-//        swipeRefreshLayout.isRefreshing = true
 
         categoryViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
             if (it == true) {

@@ -2,7 +2,6 @@ package com.example.streamappkotlin.productDetails
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,24 +11,21 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ethanhua.skeleton.Skeleton
-import com.example.streamappkotlin.CustomApp
 import com.example.streamappkotlin.PlayerActivity
 import com.example.streamappkotlin.R
-import com.example.streamappkotlin.di.ApiBuilderModule
 import com.example.streamappkotlin.login.LoginShareViewModel
 import com.example.streamappkotlin.login.LoginStepOneDialogFragment
 import com.example.streamappkotlin.login.LoginStepTwoListener
-import com.example.streamappkotlin.login.di.LoginModule
 import com.example.streamappkotlin.model.Comment
-import com.example.streamappkotlin.productlist.di.ProductModule
 import com.example.streamappkotlin.utils.AppConstants
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ProductDetailFragment : Fragment() {
 
@@ -40,17 +36,9 @@ class ProductDetailFragment : Fragment() {
     private lateinit var playIcon: ImageView
     private lateinit var commentButton: Button
     private lateinit var progressBar: View
-    private lateinit var shareViewModel: LoginShareViewModel
-    private lateinit var productDetailViewModel: ProductDetailViewModel
-    private var database = LoginModule.provideUserDatabase()
-    private var retrofit = CustomApp.instance.appModule.provideRetrofit()
-    private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
-    private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
-    private var productDetailViewModelFactory =
-        ProductModule.provideProductDetailViewModelFactory(apiService)
-    private var loginRepository = LoginModule.provideLoginRepository(apiService, database.userDao())
-    private var shareViewModelFactory =
-        LoginModule.provideLoginShareViewModelFactory(loginRepository)
+    private val shareViewModel: LoginShareViewModel by sharedViewModel()
+    private  val productDetailViewModel: ProductDetailViewModel by inject()
+
     private lateinit var fileUri: String
     private lateinit var title: String
     private lateinit var adapter: ProductCommentAdapter
@@ -64,10 +52,6 @@ class ProductDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        productDetailViewModel = ViewModelProviders.of(this, productDetailViewModelFactory)
-            .get(ProductDetailViewModel::class.java)
-        shareViewModel = ViewModelProviders.of(requireActivity(), shareViewModelFactory)
-            .get(LoginShareViewModel::class.java)
 
         val productId: Int = requireArguments().getInt("productId")
 

@@ -6,35 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.streamappkotlin.CustomApp
 import com.example.streamappkotlin.R
-import com.example.streamappkotlin.di.ApiBuilderModule
 import com.example.streamappkotlin.login.LoginShareViewModel
 import com.example.streamappkotlin.login.LoginStepOneDialogFragment
 import com.example.streamappkotlin.login.LoginStepTwoListener
-import com.example.streamappkotlin.login.di.LoginModule
 import com.example.streamappkotlin.model.MoreAdapter
 import com.example.streamappkotlin.model.MoreModel
 import com.example.streamappkotlin.model.Type
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.ArrayList
 
 class MoreFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var navController: NavController
-    private lateinit var shareViewModel: LoginShareViewModel
-    private var database = LoginModule.provideUserDatabase()
-    private var retrofit = CustomApp.instance.appModule.provideRetrofit()
-    private var apiBuilder = ApiBuilderModule.provideApiBuilder(retrofit)
-    private var apiService = ApiBuilderModule.provideApiService(apiBuilder)
-    private var loginRepository = LoginModule.provideLoginRepository(apiService, database.userDao())
-    private var shareViewModelFactory =
-        LoginModule.provideLoginShareViewModelFactory(loginRepository)
+    private val shareViewModel: LoginShareViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,9 +37,6 @@ class MoreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        shareViewModel = ViewModelProviders.of(requireActivity(), shareViewModelFactory)
-            .get(LoginShareViewModel::class.java)
 
         recyclerView = view.findViewById(R.id.moreRecyclerView)
         navController = Navigation.findNavController(view)
