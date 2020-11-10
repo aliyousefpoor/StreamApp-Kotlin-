@@ -27,7 +27,7 @@ class CategoryFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CategoryAdapter
     private lateinit var navController: NavController
-    private  val categoryViewModel: CategoryViewModel by inject()
+    private val categoryViewModel: CategoryViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,7 +59,11 @@ class CategoryFragment : Fragment() {
 
         categoryViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
             if (it == true) {
-                skeletonLoading()
+//                skeletonLoading()
+                pullDown.visibility = View.GONE
+                arrow.visibility = View.GONE
+                recyclerView.visibility = View.GONE
+                swipeRefreshLayout.isRefreshing = true
             }
         })
         categoryViewModel.errorLiveData.observe(viewLifecycleOwner, Observer {
@@ -79,7 +83,7 @@ class CategoryFragment : Fragment() {
 
     private fun showCategoryList(response: List<Category>) {
         val categoryList: List<Category> = response
-         adapter = CategoryAdapter(categoryList, requireContext(), object : CategoryListener {
+        adapter = CategoryAdapter(categoryList, requireContext(), object : CategoryListener {
             override fun onClick(id: Int?, title: String?) {
                 val bundle = Bundle()
                 bundle.putInt("productListId", id!!)
@@ -88,17 +92,17 @@ class CategoryFragment : Fragment() {
             }
 
         })
-
+        recyclerView.adapter = adapter
         val linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = linearLayoutManager
-        skeletonLoading()
+//        skeletonLoading()
 
     }
 
-    private fun skeletonLoading(){
+    private fun skeletonLoading() {
         val skeletonScreen =
             Skeleton.bind(recyclerView).adapter(adapter).shimmer(true).angle(20).frozen(false)
                 .duration(1000).count(10).load(R.layout.category_skeleton).show()
-        recyclerView.postDelayed({ skeletonScreen.hide() },2000)
+        recyclerView.postDelayed({ skeletonScreen.hide() }, 1000)
     }
 }

@@ -139,8 +139,8 @@ class ProductDetailFragment : Fragment() {
     private fun skeletonLoading() {
         val skeletonScreen =
             Skeleton.bind(recyclerView).adapter(adapter).shimmer(true).angle(20).frozen(false)
-                .duration(900).count(10).load(R.layout.comment_skeleton).show()
-        recyclerView.postDelayed({ skeletonScreen.hide() }, 2000)
+                .duration(900).count(3).load(R.layout.comment_skeleton).show()
+        recyclerView.postDelayed({ skeletonScreen.hide() }, 1000)
     }
 
 }

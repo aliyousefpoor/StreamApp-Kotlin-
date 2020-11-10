@@ -4,8 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.streamappkotlin.SingleLiveEvent
-import com.example.streamappkotlin.datasource.DataSourceListener
 import com.example.streamappkotlin.datasource.remote.ProductDetailRemoteDataSource
 import com.example.streamappkotlin.model.Comment
 import com.example.streamappkotlin.model.Product

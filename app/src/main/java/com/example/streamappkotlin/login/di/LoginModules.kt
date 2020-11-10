@@ -14,9 +14,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val loginModule = module {
-    factory {
-        val userDao: UserDao
-    }
+
     factory {
         LoginStepOneRemoteDataSource(get())
     }
@@ -24,10 +22,10 @@ val loginModule = module {
         LoginStepTwoRemoteDataSource(get())
     }
     factory {
-        provideDataBase()
+        provideDataBase().userDao()
     }
     factory {
-        UserLocaleDataSourceImp(provideDataBase().userDao())
+        UserLocaleDataSourceImp(get())
     }
     factory {
         LoginRepository(get(), get(), get())
@@ -36,7 +34,7 @@ val loginModule = module {
         UserRemoteDataSourceImpl(get())
     }
     factory {
-        ProfileRepository(get(),get())
+        ProfileRepository(get(), get())
     }
     viewModel {
         LoginShareViewModel(get())

@@ -21,30 +21,31 @@ class CategoryViewModel(private var categoryRemoteDataSource: CategoryRemoteData
     var errorLiveData = _errorLiveData
 
     fun getCategory() {
-    categoryRemoteDataSource.getCategory(object : Observer<List<Category>>{
-        override fun onComplete() {
-            Log.d(TAG, "onComplete: ")        }
+        categoryRemoteDataSource.getCategory(object : Observer<List<Category>> {
+            override fun onComplete() {
+                Log.d(TAG, "onComplete: ")
+            }
 
-        override fun onSubscribe(d: Disposable) {
-            Log.d(TAG, "onSubscribe: ")        }
+            override fun onSubscribe(d: Disposable) {
+                Log.d(TAG, "onSubscribe: ")
+            }
 
-        override fun onNext(t: List<Category>) {
-_categoryList.value=t
-        _loadingLiveData.value=false
-            _errorLiveData.value=false
-        }
+            override fun onNext(t: List<Category>) {
+                _categoryList.value = t
+                _loadingLiveData.value = false
+                _errorLiveData.value = false
+            }
 
-        override fun onError(e: Throwable) {
+            override fun onError(e: Throwable) {
 
-            _loadingLiveData.value=false
-            _errorLiveData.value=true
-        }
+                _loadingLiveData.value = false
+                _errorLiveData.value = true
+            }
 
-    })
+        })
     }
 
     init {
         getCategory()
     }
-
 }

@@ -33,9 +33,9 @@ class PlayerActivity : AppCompatActivity() {
         title = bundle!!.getString("title").toString()
         playerView = findViewById(R.id.videoPlayer)
         progressBar = findViewById(R.id.videoProgressBar)
-        videoTitle =findViewById(R.id.videoTitle)
+//        videoTitle =findViewById(R.id.videoTitle)
 
-        videoTitle.text=title
+//        videoTitle.text=title
         initializePlayer()
     }
 
