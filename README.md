@@ -4,7 +4,8 @@
 
 ## In this application, we can register and comment 
 
-## Splash
+### Splash
+
 
 
 
@@ -12,7 +13,9 @@
 
 
 
-## Home Tab
+
+### Home Tab
+
 
 
 
@@ -20,59 +23,81 @@
 
 
 
-## Category Tab
+
+### Category Tab
+
 
 
 ![Category](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/categorytab.jpeg)
 
 
-## More Tab
+
+### More Tab
+
 
 
 ![More](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/moretab.jpeg)
 
 
-## Home Product Details
+
+### Home Product Details
+
 
 
 ![Product Detail](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/productdetail.jpeg)
 
 
-## Category ProductList
+
+### Category ProductList
+
 
 
 ![Product Detail](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/categoryproduct.jpeg)
 
 
-## Home Product Details
+
+### Home Product Details
+
 
 
 ![Product Detail](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/productdetail.jpeg)
 
-## VideoPlayer
+
+
+### VideoPlayer
+
 
 
 ![Video Player](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/videoplayer.jpeg)
 
-## Login Step One
+
+
+### Login Step One
+
 
 
 ![Login1](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/loginstepone.png)
 
 
-## Login Step Two
+
+### Login Step Two
+
 
 
 ![Login2](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/loginsteptwo.png)
 
 
-## Profile
+
+### Profile
+
 
 
 ![Profile](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/profile.jpeg)
  
  
-## Comment for Products
+ 
+### Comment for Products
+
 
 
 ![Product Comment](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/comment.jpeg)
