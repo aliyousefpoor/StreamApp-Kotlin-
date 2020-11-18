@@ -1,102 +1,103 @@
 # StreamApp-Kotlin
 
-## This is a video player application that has three main tabs.Home,Category,More
+### This is a video player application that has three main tabs.Home,Category,More
 
-## In this application, we can register and comment 
+### In this application, we can register and comment \
 
-### Splash
 
+#### Splash\
 
 
 
-![Splash](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/splash.png)
 
+![Splash](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/splash.png)\
 
 
 
-### Home Tab
 
+#### Home Tab\
 
 
 
-![Home](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/hometab.jpeg)
 
+![Home](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/hometab.jpeg)\
 
 
 
-### Category Tab
 
+#### Category Tab\
 
 
-![Category](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/categorytab.jpeg)
 
+![Category](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/categorytab.jpeg)\
 
 
-### More Tab
 
+#### More Tab\
 
 
-![More](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/moretab.jpeg)
 
+![More](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/moretab.jpeg)\
 
 
-### Home Product Details
 
+#### Home Product Details\
 
 
-![Product Detail](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/productdetail.jpeg)
 
+![Product Detail](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/productdetail.jpeg)\
 
 
-### Category ProductList
 
+#### Category ProductList\
 
 
-![Product Detail](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/categoryproduct.jpeg)
 
+![Product Detail](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/categoryproduct.jpeg)\
 
 
-### Home Product Details
 
+#### Home Product Details\
 
 
-![Product Detail](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/productdetail.jpeg)
 
+![Product Detail](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/productdetail.jpeg)\
 
 
-### VideoPlayer
 
+#### VideoPlayer\
 
 
-![Video Player](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/videoplayer.jpeg)
 
+![Video Player](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/videoplayer.jpeg)\
 
 
-### Login Step One
 
+#### Login Step One\
 
 
-![Login1](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/loginstepone.png)
 
+![Login1](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/loginstepone.png)\
 
 
-### Login Step Two
 
+#### Login Step Two\
 
 
-![Login2](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/loginsteptwo.png)
 
+![Login2](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/loginsteptwo.png)\
 
 
-### Profile
 
+#### Profile\
 
 
-![Profile](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/profile.jpeg)
+
+![Profile](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/profile.jpeg)\
  
  
  
-### Comment for Products
+#### Comment for Products\
 
 
 
