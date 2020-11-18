@@ -10,7 +10,7 @@
 
 
 
-![Splash](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/splash.png)
+![Splash](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/splash.png){: width="300px" align="left"}
 
 
 
@@ -57,12 +57,6 @@
 
 
 
-#### Home Product Details
-
-
-
-![Product Detail](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/productdetail.jpeg)
-
 
 
 #### VideoPlayer
@@ -77,7 +71,7 @@
 
 
 
-![Login1](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/loginstepone.png)
+![Login1](https://github.com/aliyousefpoor/StreamApp-Kotlin-/blob/koin/app/src/main/res/drawable/loginstepone.png){:  width="300px" align="left"}
 
 
 
