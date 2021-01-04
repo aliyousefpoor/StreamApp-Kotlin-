@@ -32,6 +32,17 @@ class CalendarUtils(private var context: Context, private var dateListener: Date
                 override fun onDateSelected(persianCalendar: PersianCalendar) {
                     val persianDate: String =
                         persianCalendar.persianShortDate.replace("/".toRegex(), "-")
+//                            .replace("0".toRegex(), "۰")
+//                            .replace("1".toRegex(), "۱")
+//                            .replace("2".toRegex(), "۲")
+//                            .replace("3".toRegex(), "۳")
+//                            .replace("4".toRegex(), "۴")
+//                            .replace("5".toRegex(), "۵")
+//                            .replace("6".toRegex(), "۶")
+//                            .replace("7".toRegex(), "۷")
+//                            .replace("8".toRegex(), "۸")
+//                            .replace("9".toRegex(), "۹")
+
                     dateListener.onDateChange(persianDate)
                 }
 
